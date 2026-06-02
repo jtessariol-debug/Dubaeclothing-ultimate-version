@@ -26,6 +26,7 @@ export type ProductRecord = {
   image_urls?: string[];
   image_gallery?: ProductImageSlot[];
   category: string | null;
+  product_type?: string | null;
   created_at: string;
 };
 
@@ -36,6 +37,7 @@ export type ProductFormValues = {
   stock: string;
   sizes: ProductSizeRecord[];
   category: string;
+  productType: string;
   imageFiles: Array<File | null>;
   imageUrl: string;
   imageUrls: string[];
@@ -68,6 +70,9 @@ export type ReviewRecord = {
   rating: number;
   review: string;
   status: string;
-  approved: boolean;
+  approved?: boolean;
   created_at: string | null;
+  products?: {
+    name: string | null;
+  } | null;
 };

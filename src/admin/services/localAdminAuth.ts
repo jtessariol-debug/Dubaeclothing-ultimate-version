@@ -1,47 +1,84 @@
-const ADMIN_SESSION_KEY = 'dubae_admin_session';
+import type { Session } from '@supabase/supabase-js';
+import { supabase } from './supabaseClient';
 
 function normalizeEmail(value: string) {
   return value.trim().toLowerCase();
 }
 
-export function hasConfiguredLocalAdmin() {
-  return Boolean(import.meta.env.VITE_ADMIN_EMAIL && import.meta.env.VITE_ADMIN_PASSWORD);
+function getConfiguredAdminEmail() {
+  return normalizeEmail(import.meta.env.VITE_ADMIN_EMAIL ?? '');
 }
 
-export function signInWithLocalAdmin(email: string, password: string) {
-  const configuredEmail = normalizeEmail(import.meta.env.VITE_ADMIN_EMAIL ?? '');
-  const configuredPassword = import.meta.env.VITE_ADMIN_PASSWORD ?? '';
+export function hasConfiguredLocalAdmin() {
+  return Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+}
 
-  if (!configuredEmail || !configuredPassword) {
+export async function signInWithLocalAdmin(email: string, password: string) {
+  const configuredEmail = getConfiguredAdminEmail();
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email.trim(),
+    password,
+  });
+
+  if (error) {
     return {
       ok: false,
-      error: 'Faltan VITE_ADMIN_EMAIL o VITE_ADMIN_PASSWORD en .env.local.',
+      error: error.message,
     };
   }
 
-  if (normalizeEmail(email) !== configuredEmail || password !== configuredPassword) {
+  const session = data.session;
+  console.log('Admin session:', session);
+  console.log('Admin email:', session?.user?.email);
+
+  if (!session?.user?.email) {
     return {
       ok: false,
-      error: 'Credenciales invalidas.',
+      error: 'No admin session was created.',
     };
   }
 
-  localStorage.setItem(
-    ADMIN_SESSION_KEY,
-    JSON.stringify({
-      email: configuredEmail,
-      signedInAt: new Date().toISOString(),
-    }),
-  );
+  if (configuredEmail && normalizeEmail(session.user.email) !== configuredEmail) {
+    await supabase.auth.signOut();
+    return {
+      ok: false,
+      error: 'This account is not allowed to access the admin panel.',
+    };
+  }
 
   return { ok: true, error: null };
 }
 
-export function isLocalAdminAuthenticated() {
-  const session = localStorage.getItem(ADMIN_SESSION_KEY);
-  return Boolean(session);
+export async function getAdminSession() {
+  const { data, error } = await supabase.auth.getSession();
+
+  if (error) {
+    console.error('Admin session error:', error);
+    return null;
+  }
+
+  const session = data.session;
+  console.log('Admin session:', session);
+  console.log('Admin email:', session?.user?.email);
+  return session;
 }
 
-export function clearLocalAdminSession() {
-  localStorage.removeItem(ADMIN_SESSION_KEY);
+export function isSupabaseAdminSession(session: Session | null) {
+  const configuredEmail = getConfiguredAdminEmail();
+  const sessionEmail = normalizeEmail(session?.user?.email ?? '');
+
+  if (!sessionEmail) {
+    return false;
+  }
+
+  if (configuredEmail) {
+    return sessionEmail === configuredEmail;
+  }
+
+  return true;
+}
+
+export async function clearLocalAdminSession() {
+  await supabase.auth.signOut();
 }

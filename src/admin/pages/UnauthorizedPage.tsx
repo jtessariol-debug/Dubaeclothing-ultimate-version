@@ -13,7 +13,7 @@ export function UnauthorizedPage() {
     setSubmitting(true);
     setErrorMessage(null);
 
-    const result = signInWithLocalAdmin(email, password);
+    const result = await signInWithLocalAdmin(email, password);
     setSubmitting(false);
 
     if (!result.ok) {
@@ -30,7 +30,7 @@ export function UnauthorizedPage() {
         <p className="text-center text-xs uppercase tracking-[0.35em] text-sky-400">Admin</p>
         <h1 className="mt-4 text-center text-3xl font-semibold text-white">Admin access only</h1>
         <p className="mt-4 text-center text-sm text-slate-400">
-          Inicia sesion con el correo y la contrasena autorizados en la configuracion local del proyecto.
+          Inicia sesion con tu cuenta admin real de Supabase para acceder al panel.
         </p>
 
         <form className="mt-8 space-y-4" onSubmit={handleSignIn}>
@@ -66,7 +66,7 @@ export function UnauthorizedPage() {
 
           {!hasConfiguredLocalAdmin() ? (
             <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
-              Configura `VITE_ADMIN_EMAIL` y `VITE_ADMIN_PASSWORD` en `.env.local`.
+              Configura `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en `.env.local`.
             </div>
           ) : null}
 

@@ -61,15 +61,18 @@
         ::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 4px; }
         html.dark ::-webkit-scrollbar-thumb { background: #333; }
         button, select, input, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-        .product-img { mix-blend-mode: multiply; filter: contrast(1.03); transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .product-img { mix-blend-mode: multiply; filter: contrast(1.02); transition: transform 0.35s ease, opacity 0.16s ease; object-fit: contain; object-position: center; display: block; }
         html.dark .product-img { mix-blend-mode: normal; filter: brightness(0.9) contrast(1.1); }
         .product-card { transition: transform 0.28s ease, opacity 0.28s ease; }
         .product-card:hover { transform: translateY(-8px); }
-        .product-card:hover .product-img { transform: scale(1.1); }
-        .product-media { background: linear-gradient(180deg, #f7f7f8 0%, #ececef 100%); border: 1px solid rgba(15, 23, 42, 0.06); box-shadow: 0 24px 55px rgba(15, 23, 42, 0.07); }
+        .product-card:hover .product-img { transform: scale(1.035); }
+        .product-media { background: linear-gradient(180deg, #fafafa 0%, #f0f1f3 100%); border: 1px solid rgba(15, 23, 42, 0.06); box-shadow: 0 24px 55px rgba(15, 23, 42, 0.07); }
         html.dark .product-media { background: linear-gradient(180deg, #111111 0%, #090909 100%); border-color: rgba(255,255,255,0.06); box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4); }
         .product-meta { letter-spacing: 0.24em; }
         .quickview-btn { backdrop-filter: blur(10px); }
+        .product-slider-arrow { backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12); }
+        .product-slider-dot { transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease; }
+        .product-slider-dot-active { transform: scale(1.08); }
         .size-btn { min-width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; font-size: 0.85rem; border: 1px solid #d8dadd; color: #0a0a0a; background: white; border-radius: 999px; }
         html.dark .size-btn { background: #0a0a0a; border-color: #333; color: #fff; }
         .size-btn:hover:not(.disabled) { border-color: #0a0a0a; transform: translateY(-1px); }
@@ -91,6 +94,28 @@
         .filter-group { background: rgba(255,255,255,0.74); border: 1px solid rgba(15, 23, 42, 0.07); border-radius: 1.5rem; padding: 1.25rem 1.2rem; box-shadow: 0 24px 45px rgba(15, 23, 42, 0.04); backdrop-filter: blur(14px); }
         html.dark .filter-group { background: rgba(17,17,17,0.92); border-color: rgba(255,255,255,0.06); box-shadow: 0 20px 45px rgba(0,0,0,0.28); }
         .hero-panel { box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28); }
+        #catalog-view > section:first-of-type { background: radial-gradient(circle at center top, rgba(198, 168, 124, 0.18), transparent 38%), #111; }
+        #catalog-view > section:first-of-type > div:nth-child(3) { background: linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.52) 45%, rgba(0, 0, 0, 0.82) 100%); }
+        #catalog-view > section:first-of-type > div:nth-child(5) { max-width: 72rem; padding-top: 1rem; padding-bottom: 1rem; }
+        #catalog-view > section:first-of-type > div:nth-child(5) > p[data-i18n="hero_subtitle"] { margin-bottom: 1rem; font-size: 0.72rem; letter-spacing: 0.62em; color: rgba(255,255,255,0.76); text-shadow: 0 8px 24px rgba(0,0,0,0.32); }
+        #catalog-view > section:first-of-type > div:nth-child(5) > h1[data-i18n="hero_title"] { margin-bottom: 1.5rem; max-width: 5.5em; font-size: clamp(3.4rem, 8vw, 6.9rem); line-height: 0.9; letter-spacing: -0.04em; text-wrap: balance; text-shadow: 0 20px 40px rgba(0,0,0,0.34); }
+        #catalog-view > section:first-of-type > div:nth-child(5) > div:nth-child(3) { margin-bottom: 2rem; gap: 0.9rem; border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.08); padding: 0.9rem 1.2rem; box-shadow: 0 18px 38px rgba(0,0,0,0.18); }
+        #catalog-view > section:first-of-type > div:nth-child(5) > div:nth-child(3) > span { border-radius: 999px; padding: 0.55rem 0.9rem; border: 1px solid transparent; transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease; }
+        #catalog-view > section:first-of-type > div:nth-child(5) > div:nth-child(3) > span:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.08); }
+        #catalog-view > section:first-of-type > div:nth-child(5) > div:nth-child(3) > span:first-child { background: #C6A87C; color: #050505; border-color: #C6A87C; box-shadow: 0 12px 28px rgba(198,168,124,0.32); }
+        #catalog-view > section:first-of-type > div:nth-child(5) > div.hero-panel { max-width: 40rem; margin-top: 0.35rem; background: rgba(7, 7, 7, 0.2); border-color: rgba(255,255,255,0.08); backdrop-filter: blur(18px); padding: 1.35rem 1.6rem; }
+        #catalog-view > section:first-of-type > div:nth-child(5) > div.hero-panel > h2[data-i18n="about_title"] { margin-bottom: 0.1rem; font-size: 0.95rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.66; transform: scale(0.96); }
+        #catalog-view > section:first-of-type > div:nth-child(5) > div.hero-panel > p[data-i18n="about_p1"] { font-size: 0.98rem; line-height: 1.75; color: rgba(255,255,255,0.88); }
+        #catalog-view > section:first-of-type > div:nth-child(5) > div.hero-panel > p[data-i18n="about_p2"],
+        #catalog-view > section:first-of-type > div:nth-child(5) > div.hero-panel > p[data-i18n="about_p3"] { opacity: 0.7; }
+        @media (max-width: 768px) {
+            #catalog-view > section:first-of-type { min-height: 74vh; padding-top: 6rem; padding-bottom: 5rem; }
+            #catalog-view > section:first-of-type > div:nth-child(5) > h1[data-i18n="hero_title"] { margin-bottom: 1.15rem; font-size: clamp(2.85rem, 13vw, 4.2rem); }
+            #catalog-view > section:first-of-type > div:nth-child(5) > div:nth-child(3) { margin-bottom: 1.5rem; gap: 0.55rem; padding: 0.72rem 0.85rem; }
+            #catalog-view > section:first-of-type > div:nth-child(5) > div.hero-panel { padding: 1.15rem 1.15rem; }
+            #catalog-view > section:first-of-type > div:nth-child(5) > div.hero-panel > h2[data-i18n="about_title"] { font-size: 0.82rem; }
+            #catalog-view > section:first-of-type > div:nth-child(5) > div.hero-panel > p[data-i18n="about_p1"] { font-size: 0.92rem; line-height: 1.65; }
+        }
         .nav-shell { box-shadow: 0 16px 45px rgba(15, 23, 42, 0.06); }
         /* Admin Button Pulse */
         @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(198, 168, 124, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(198, 168, 124, 0); } 100% { box-shadow: 0 0 0 0 rgba(198, 168, 124, 0); } }
@@ -109,10 +134,6 @@
     "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
-</script>
-<script type="module">
-    import { supabase } from '/src/admin/services/supabaseClient.ts';
-    window.dubaeSupabase = supabase;
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
@@ -201,7 +222,7 @@
                 <div class="absolute inset-0 z-0 opacity-80 bg-[url('https://i.postimg.cc/s2XH3TvG/dubae-clothing-portada.jpg')] bg-cover bg-center bg-fixed transition-transform duration-[20s] hover:scale-105"></div>
                 <video
                     class="absolute inset-0 z-[1] h-full w-full object-cover"
-                    src="./VIDEODUBAE.MOV"
+                    src="./IMG_0494.mp4"
                     autoplay
                     muted
                     loop
@@ -210,110 +231,25 @@
                     poster="https://i.postimg.cc/s2XH3TvG/dubae-clothing-portada.jpg"
                 ></video>
                 <div class="absolute inset-0 z-[2] bg-gradient-to-t from-black via-black/55 to-black/15"></div>
-                <div class="absolute inset-x-0 bottom-4 z-[3] flex justify-center px-4 text-center text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
-                    <span class="rounded-full bg-black/35 px-4 py-2 backdrop-blur-sm">If the video does not play, convert VIDEODUBAE.MOV to MP4 for full browser support.</span>
-                </div>
                 <div class="relative z-10 text-center text-white p-6 max-w-5xl mx-auto flex flex-col items-center">
-                    <p class="text-[11px] font-bold uppercase tracking-[0.55em] mb-5 text-white/80 animate-slide-up" style="animation-delay: 0.1s;" data-i18n="hero_subtitle">New Season 2025</p>
-                    <h1 class="max-w-4xl text-5xl md:text-7xl lg:text-8xl font-serif italic mb-8 animate-slide-up leading-[0.95]" style="animation-delay: 0.2s;" data-i18n="hero_title">Redefining Urban Luxury</h1>
+                    <p class="text-[11px] font-bold uppercase tracking-[0.55em] mb-5 text-white/80 animate-slide-up" style="animation-delay: 0.1s;" data-i18n="hero_subtitle">Premium sneakers & streetwear ready to ship.</p>
+                    <h1 class="max-w-4xl text-5xl md:text-7xl lg:text-8xl font-serif italic mb-8 animate-slide-up leading-[0.95]" style="animation-delay: 0.2s;" data-i18n="hero_title">Another Concept of Fashion</h1>
                     <div class="flex justify-center gap-4 md:gap-6 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.28em] animate-slide-up mb-12 backdrop-blur-md" style="animation-delay: 0.3s;">
-                        <span class="border-b border-transparent hover:border-white transition-colors cursor-default pb-1">Sneakers</span>
-                        <span class="border-b border-transparent hover:border-white transition-colors cursor-default pb-1">Streetwear</span>
-                        <span class="border-b border-transparent hover:border-white transition-colors cursor-default pb-1">Lifestyle</span>
-                    </div>
-
-                    <!-- ADDED: Hero Copy (About Us) -->
-                    <div class="hero-panel max-w-2xl mx-auto text-sm md:text-base text-gray-200/90 leading-relaxed text-center space-y-4 animate-slide-up backdrop-blur-md bg-black/28 p-6 md:p-8 rounded-3xl border border-white/10" style="animation-delay: 0.4s;">
-                        <h2 class="text-xl font-serif italic mb-2 text-dubae-gold" data-i18n="about_title">About Dubae Clothing</h2>
-                        <p data-i18n="about_p1">Dubae Clothing is a fashion store dedicated to offering clothing and footwear that combine quality, trend, and affordability. We focus on people who enjoy dressing with style and originality, keeping up with trends without needing a high budget.</p>
-                        <p data-i18n="about_p2" class="hidden md:block">We take care of every detail to provide a close, trustworthy, and comfortable shopping experience. We guide our customers throughout the selection process, especially when choosing the right size for shipped orders, ensuring every purchase feels right and satisfying.</p>
-                        <p data-i18n="about_p3" class="hidden md:block">At Dubae Clothing, we believe looking good should be accessible. More than selling products, our goal is for every customer to feel confident in their style, well guided, and excited to come back.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Trust Bar -->
-            <section class="bg-white/80 dark:bg-[#0f0f0f] border-b border-gray-100 dark:border-gray-800 py-6 backdrop-blur-sm">
-                <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center md:justify-between items-center gap-6 text-center md:text-left">
-                     <div class="flex items-center gap-3">
-                        <div class="flex text-dubae-gold">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        </div>
-                        <span class="text-xs font-semibold text-gray-700 dark:text-gray-300" data-i18n="trust_rating">4.9/5 from 300+ Verified Orders</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Product Area -->
-            <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 flex gap-8 xl:gap-12">
-                <!-- Sidebar -->
-                <aside class="hidden lg:block w-72 flex-shrink-0 sticky top-28 h-fit space-y-5">
-                     <div class="filter-group">
-                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_sort">Sort Collection</h3>
-                        <select onchange="applySort(this.value)" id="sort-select" class="w-full rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-black px-4 py-3 text-sm cursor-pointer font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">
-                            <option value="newest" class="dark:bg-black" data-i18n="sort_new">New Arrivals</option>
-                            <option value="price-asc" class="dark:bg-black" data-i18n="sort_low_high">Price: Low to High</option>
-                            <option value="price-desc" class="dark:bg-black" data-i18n="sort_high_low">Price: High to Low</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_brands">Brands</h3>
-                        <div class="space-y-3" id="desktop-brand-filters"></div>
-                    </div>
-                    <div class="filter-group">
-                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_sizes">Sizes (EU)</h3>
-                        <div class="grid grid-cols-4 gap-2" id="desktop-size-filters"></div>
-                    </div>
-                </aside>
-
-                <!-- Grid -->
-                <div class="flex-1 min-h-screen">
-                     <div class="lg:hidden flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-800 sticky top-20 bg-white/95 dark:bg-black/95 backdrop-blur z-30 pt-4">
-                        <button onclick="toggleMobileFilters()" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                            <span data-i18n="filter_btn">Filters</span>
-                        </button>
-                    </div>
-                    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
-                    <div id="no-results" class="hidden py-32 text-center">
-                        <p class="text-gray-400 text-xl font-serif italic mb-4" data-i18n="no_results">No pieces found.</p>
-                        <button onclick="resetFilters()" class="text-xs font-bold uppercase tracking-widest underline text-black dark:text-white hover:text-dubae-gold" data-i18n="clear_filters">Clear Filters</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reviews Section -->
-            <section id="reviews-section" class="border-t border-gray-100 bg-white py-16 dark:border-gray-800 dark:bg-[#080808]">
-                <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-                        <div>
-                            <span class="text-xs font-bold uppercase tracking-[0.25em] text-gray-400" data-i18n="reviews_tag">Community</span>
-                            <h2 class="mt-3 font-serif text-3xl italic text-black dark:text-white md:text-5xl" data-i18n="reviews_section_title">Customer Reviews</h2>
-                            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-gray-500 dark:text-gray-400" data-i18n="reviews_section_copy">Share your experience with a product and read what other customers are saying before ordering.</p>
-                        </div>
-                        <div id="reviews-summary" class="rounded-full border border-gray-200 px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-gray-500 dark:border-gray-700 dark:text-gray-300">
-                            0 Reviews
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 gap-8 xl:grid-cols-[1.05fr_1.4fr]">
-                        <div id="home-review-form" class="rounded-sm border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-[#111]"></div>
-                        <div id="recent-reviews-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
+                        <a href="#tshirts" class="border-b border-transparent hover:border-white transition-colors pb-1">T-Shirts</a>
+                        <a href="#sneakers" class="border-b border-transparent hover:border-white transition-colors pb-1">Sneakers</a>
+                        <a href="#pants" class="border-b border-transparent hover:border-white transition-colors pb-1">Pantalones</a>
                     </div>
                 </div>
             </section>
 
             <!-- About & Location Section (RESTAURADO) -->
-            <section id="about-location" class="bg-gray-50 dark:bg-[#0c0c0c] py-16 md:py-24 border-t border-gray-100 dark:border-gray-800">
+            <section id="about-location" class="bg-gray-50 dark:bg-[#0c0c0c] py-14 md:py-18 border-t border-gray-100 dark:border-gray-800">
                 <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
                     
                     <!-- About Text -->
                     <div class="space-y-6">
                         <span class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400" data-i18n="about_tag">Our Story</span>
-                        <h2 class="text-3xl md:text-5xl font-serif italic text-black dark:text-white leading-tight" data-i18n="about_title">About Dubae Clothing</h2>
+                        <h2 class="text-2xl md:text-4xl font-serif italic text-black dark:text-white leading-tight" data-i18n="about_title">About Dubae Clothing</h2>
                         <div class="text-sm md:text-base text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed text-justify">
                             <p data-i18n="about_p1">Dubae Clothing is a fashion store dedicated to offering clothing and footwear that combine quality, trend, and affordability. We focus on people who enjoy dressing with style and originality, keeping up with trends without needing a high budget.</p>
                             <p data-i18n="about_p2">We take care of every detail to provide a close, trustworthy, and comfortable shopping experience. We guide our customers throughout the selection process, especially when choosing the right size for shipped orders, ensuring every purchase feels right and satisfying.</p>
@@ -344,6 +280,114 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Trust Bar -->
+            <section class="bg-white/80 dark:bg-[#0f0f0f] border-b border-gray-100 dark:border-gray-800 py-6 backdrop-blur-sm">
+                <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center md:justify-between items-center gap-6 text-center md:text-left">
+                     <div class="flex items-center gap-3">
+                        <div class="flex text-dubae-gold">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                        <span class="text-xs font-semibold text-gray-700 dark:text-gray-300" data-i18n="trust_rating">4.9/5 from 300+ Verified Orders</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Area -->
+            <div id="sneakers" class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 flex gap-8 xl:gap-12">
+                <!-- Sidebar -->
+                <aside class="hidden lg:block w-72 flex-shrink-0 sticky top-28 h-fit space-y-5">
+                     <div class="filter-group">
+                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_sort">Sort Collection</h3>
+                        <select onchange="applySort(this.value)" id="sort-select" class="w-full rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-black px-4 py-3 text-sm cursor-pointer font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">
+                            <option value="newest" class="dark:bg-black" data-i18n="sort_new">New Arrivals</option>
+                            <option value="price-asc" class="dark:bg-black" data-i18n="sort_low_high">Price: Low to High</option>
+                            <option value="price-desc" class="dark:bg-black" data-i18n="sort_high_low">Price: High to Low</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_brands">Brands</h3>
+                        <div class="space-y-3" id="desktop-brand-filters"></div>
+                    </div>
+                    <div class="filter-group">
+                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_sizes">Sizes (EU)</h3>
+                        <div class="grid grid-cols-4 gap-2" id="desktop-size-filters"></div>
+                    </div>
+                </aside>
+
+                <!-- Grid -->
+                <div class="flex-1 min-h-screen">
+                    <div class="mb-8 flex flex-col gap-3 md:mb-10">
+                        <span class="text-[11px] font-bold uppercase tracking-[0.32em] text-gray-400">Sneakers</span>
+                        <div>
+                            <h2 class="font-serif text-3xl italic text-black dark:text-white md:text-4xl">Sneakers</h2>
+                            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 md:text-base">Pares premium para elevar tu flow.</p>
+                        </div>
+                    </div>
+                     <div class="lg:hidden flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-800 sticky top-20 bg-white/95 dark:bg-black/95 backdrop-blur z-30 pt-4">
+                        <button onclick="toggleMobileFilters()" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            <span data-i18n="filter_btn">Filters</span>
+                        </button>
+                    </div>
+                    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
+                    <div id="no-results" class="hidden py-32 text-center">
+                        <p class="text-gray-400 text-xl font-serif italic mb-4" data-i18n="no_results">No pieces found.</p>
+                        <button onclick="resetFilters()" class="text-xs font-bold uppercase tracking-widest underline text-black dark:text-white hover:text-dubae-gold" data-i18n="clear_filters">Clear Filters</button>
+                    </div>
+                    <section id="tshirts" class="mt-16 border-t border-gray-100 pt-12 dark:border-gray-800 md:mt-20 md:pt-14">
+                        <div class="mb-8 flex flex-col gap-3 md:mb-10">
+                            <span class="text-[11px] font-bold uppercase tracking-[0.32em] text-gray-400">T-Shirts</span>
+                            <div>
+                                <h2 class="font-serif text-3xl italic text-black dark:text-white md:text-4xl">T-Shirts</h2>
+                                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 md:text-base">Piezas frescas para completar tu flow.</p>
+                            </div>
+                        </div>
+                        <div id="tshirts-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
+                        <div id="tshirts-empty" class="hidden py-12 text-center">
+                            <p class="text-gray-400 text-lg font-serif italic">Próximamente nuevas piezas.</p>
+                        </div>
+                    </section>
+                    <section id="pants" class="mt-16 border-t border-gray-100 pt-12 dark:border-gray-800 md:mt-20 md:pt-14">
+                        <div class="mb-8 flex flex-col gap-3 md:mb-10">
+                            <span class="text-[11px] font-bold uppercase tracking-[0.32em] text-gray-400">Pantalones</span>
+                            <div>
+                                <h2 class="font-serif text-3xl italic text-black dark:text-white md:text-4xl">Pantalones</h2>
+                                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 md:text-base">El fit que completa la vuelta.</p>
+                            </div>
+                        </div>
+                        <div id="pants-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
+                        <div id="pants-empty" class="hidden py-12 text-center">
+                            <p class="text-gray-400 text-lg font-serif italic">Próximamente nuevas piezas.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Reviews Section -->
+            <section id="reviews-section" class="border-t border-gray-100 bg-white py-16 dark:border-gray-800 dark:bg-[#080808] md:py-20">
+                <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="mb-10 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between">
+                        <div>
+                            <span class="text-[11px] font-bold uppercase tracking-[0.32em] text-gray-400" data-i18n="reviews_tag">Comunidad Dubae</span>
+                            <h2 class="mt-3 max-w-3xl font-serif text-4xl italic leading-[0.95] text-black dark:text-white md:text-6xl" data-i18n="reviews_section_title">La calle opina</h2>
+                            <p class="mt-4 max-w-2xl text-sm leading-relaxed text-gray-500 dark:text-gray-400 md:text-base" data-i18n="reviews_section_copy">Comparte tu experiencia con Dubae y ayuda a otros a elegir su próximo flow.</p>
+                        </div>
+                        <div id="reviews-summary" class="rounded-full border border-gray-200 bg-white px-5 py-3 text-xs font-bold uppercase tracking-[0.24em] text-gray-500 shadow-sm dark:border-gray-700 dark:bg-[#111] dark:text-gray-300">
+                            Aún no hay reviews
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-8 xl:grid-cols-[1.05fr_1.4fr]">
+                        <div id="home-review-form" class="rounded-[1.75rem] border border-gray-200 bg-gray-50 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.06)] dark:border-gray-800 dark:bg-[#111] md:p-8"></div>
+                        <div id="recent-reviews-grid" class="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"></div>
+                    </div>
+                </div>
+            </section>
+
         </div>
 
         <!-- Detail Full View Overlay -->
@@ -514,7 +558,7 @@
                 window.isAdmin = false;
             }
 
-            renderHomeReviewsSection(latestApprovedReviews);
+            window.renderHomeReviewsSection?.(window.latestApprovedReviews || []);
             
             // Re-render detail view if open to update review form state
             const detailView = document.getElementById('detail-view');
@@ -524,7 +568,7 @@
             }
         });
 
-        // --- SUPABASE REVIEW SERVICE ---
+        /* Public reviews logic moved to /src/publicReviews.ts
         function normalizeReviewRecord(review) {
             const reviewStatus = String(review?.status ?? '').trim().toLowerCase();
             return {
@@ -538,11 +582,12 @@
                 comment: review.review,
                 review: review.review,
                 status: reviewStatus || 'pending',
-                approved: reviewStatus === 'approved' || reviewStatus === 'published',
+                approved: reviewStatus === 'approved' || reviewStatus === 'published' || Boolean(review.approved),
                 createdAt: review.created_at,
                 created_at: review.created_at,
             };
         }
+        let publicReviewsState = [];
 
         function getSharedSupabaseClient() {
             return window.dubaeSupabase ?? null;
@@ -556,6 +601,8 @@
             }
 
             const { data, error } = await queryBuilder(supabase);
+            console.log('PUBLIC REVIEWS DATA:', data);
+            console.error('PUBLIC REVIEWS ERROR:', error);
             if (error) {
                 console.error('Public reviews error:', error);
                 return [];
@@ -575,7 +622,7 @@
                             'Prefer': 'return=minimal',
                         },
                         body: JSON.stringify({
-                            product_id: reviewData.product_id || null,
+                            product_id: reviewData.product_id,
                             full_name: reviewData.full_name,
                             email: reviewData.email,
                             rating: reviewData.rating,
@@ -583,11 +630,15 @@
                             status: 'pending',
                         }),
                     });
-                    if (!response.ok) throw new Error(await response.text());
+                    if (!response.ok) {
+                        const error = await response.text();
+                        console.error('Review insert error:', error);
+                        throw new Error(error);
+                    }
                     return { success: true };
                 } catch (e) {
-                    console.error(e);
-                    return { success: false, message: e.message };
+                    console.error('Review insert error:', e);
+                    return { success: false };
                 }
             },
             subscribeToApprovedReviews: function(productId, callback) {
@@ -614,9 +665,13 @@
                         .in('status', ['approved', 'published'])
                         .order('created_at', { ascending: false })
                 )
-                    .then(callback)
+                    .then((reviews) => {
+                        publicReviewsState = Array.isArray(reviews) ? reviews : [];
+                        callback(publicReviewsState);
+                    })
                     .catch((error) => {
                         console.error(error);
+                        publicReviewsState = [];
                         callback([]);
                     });
                 return () => {};
@@ -661,22 +716,10 @@
                 if (!response.ok) throw new Error(await response.text());
                 return response.json();
             },
-            deleteReview: async function(reviewId) {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews?id=eq.${encodeURIComponent(String(reviewId))}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': SUPABASE_ANON_KEY,
-                    },
-                });
-                if (!response.ok) throw new Error(await response.text());
-                return true;
-            },
         };
 
         function getProductById(productId) {
-            const normalized = String(productId);
-            return PRODUCTS.find(product => String(product.dbId ?? product.id) === normalized || String(product.id) === normalized) || null;
+            return getStorefrontProductById(productId);
         }
         function isValidUuid(value) {
             return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || '').trim());
@@ -685,42 +728,85 @@
             const candidate = String(product?.dbId ?? product?.id ?? '').trim();
             return isValidUuid(candidate) ? candidate : '';
         }
+        let reviewProducts = [];
+        let reviewProductsLoadMessage = '';
+        let storefrontProductsSource = 'fallback';
+
+        async function refreshReviewProductsForDropdown() {
+            const supabase = getSharedSupabaseClient();
+            if (!supabase) {
+                reviewProducts = [];
+                reviewProductsLoadMessage = 'No pudimos cargar los productos.';
+                console.error('PUBLIC PRODUCTS ERROR:', 'Shared Supabase client not ready');
+                return;
+            }
+
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('id, name, price, stock, image_url')
+                    .order('name', { ascending: true });
+
+                console.log('PUBLIC PRODUCTS DATA:', data);
+                console.error('PUBLIC PRODUCTS ERROR:', error);
+
+                if (error) {
+                    throw error;
+                }
+
+                reviewProducts = Array.isArray(data)
+                    ? data
+                        .map((product) => ({
+                            id: String(product?.id ?? '').trim(),
+                            name: String(product?.name ?? '').trim(),
+                        }))
+                        .filter((product) => product.id && product.name)
+                    : [];
+                reviewProductsLoadMessage = reviewProducts.length ? '' : 'No hay productos disponibles para review.';
+            } catch (error) {
+                console.error('Products load error:', error);
+                reviewProducts = [];
+                reviewProductsLoadMessage = 'No pudimos cargar los productos.';
+            }
+        }
 
         function renderHomeReviewsSection(reviews) {
             latestApprovedReviews = Array.isArray(reviews) ? reviews : [];
-
             const summary = document.getElementById('reviews-summary');
             const form = document.getElementById('home-review-form');
             const grid = document.getElementById('recent-reviews-grid');
             if (!summary || !form || !grid) return;
+
             const publishedCount = latestApprovedReviews.length;
             summary.textContent = publishedCount
                 ? `${publishedCount} ${window.i18n.reviews_summary_count[currentLang]}`
                 : window.i18n.reviews_summary_zero[currentLang];
 
             form.innerHTML = `
-                <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-dubae-gold">${window.i18n.reviews_form_title[currentLang]}</p>
-                <h3 class="mt-3 font-serif text-2xl italic text-black dark:text-white">${window.i18n.reviews_form_copy[currentLang]}</h3>
+                <p class="text-[10px] font-bold uppercase tracking-[0.34em] text-dubae-gold">${window.i18n.reviews_form_title[currentLang]}</p>
+                <h3 class="mt-3 max-w-xl font-serif text-2xl italic leading-tight text-black dark:text-white">${window.i18n.reviews_form_copy[currentLang]}</h3>
                 <div class="mt-6 space-y-4">
-                    <select id="home-review-product" class="w-full border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white">
-                        <option value="">${window.i18n.reviews_select_product_optional ? window.i18n.reviews_select_product_optional[currentLang] : window.i18n.reviews_select_product[currentLang]}</option>
-                        ${PRODUCTS.filter(product => getProductReviewId(product)).map(product => `<option value="${getProductReviewId(product)}">${product.name}</option>`).join('')}
+                    <select id="home-review-product" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white" ${reviewProducts.length ? '' : 'disabled'}>
+                        ${reviewProducts.length
+                            ? `<option value="">${window.i18n.reviews_select_product_optional[currentLang]}</option>${reviewProducts.map(product => `<option value="${product.id}">${product.name}</option>`).join('')}`
+                            : `<option value="">${reviewProductsLoadMessage || 'No hay productos disponibles para review.'}</option>`
+                        }
                     </select>
-                    <input id="home-review-name" type="text" placeholder="Full name" class="w-full border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white">
-                    <input id="home-review-email" type="email" placeholder="Email" class="w-full border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white">
+                    <input id="home-review-name" type="text" placeholder="${window.i18n.reviews_home_name_placeholder[currentLang]}" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white">
+                    <input id="home-review-email" type="email" placeholder="${window.i18n.reviews_home_email_placeholder[currentLang]}" class="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3.5 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white">
                     <div class="flex gap-2 text-2xl">
                         ${[1,2,3,4,5].map(i => `<button type="button" id="home-star-${i}" class="star-input ${i <= 5 ? 'active text-dubae-gold' : ''}" onclick="window.setHomeReviewRating(${i})">★</button>`).join('')}
                     </div>
-                    <textarea id="home-review-comment" rows="4" placeholder="${window.i18n.review_placeholder[currentLang]}" class="w-full border border-gray-200 bg-white p-4 text-sm outline-none transition focus:border-dubae-gold resize-none dark:border-gray-700 dark:bg-black dark:text-white"></textarea>
-                    <button onclick="window.submitHomeReview()" class="w-full bg-black py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-dubae-gold dark:bg-white dark:text-black dark:hover:bg-dubae-gold">
-                        ${window.i18n.review_submit[currentLang]}
+                    <textarea id="home-review-comment" rows="4" placeholder="${window.i18n.reviews_home_comment_placeholder[currentLang]}" class="w-full rounded-[1.5rem] border border-gray-200 bg-white p-4 text-sm outline-none transition focus:border-dubae-gold resize-none dark:border-gray-700 dark:bg-black dark:text-white"></textarea>
+                    <button onclick="window.submitHomeReview()" class="w-full rounded-full bg-black px-5 py-3.5 text-[10px] font-bold uppercase tracking-[0.24em] text-white shadow-[0_16px_40px_rgba(0,0,0,0.16)] transition duration-300 hover:-translate-y-0.5 hover:bg-dubae-gold hover:text-black hover:shadow-[0_22px_48px_rgba(212,175,55,0.22)] dark:bg-white dark:text-black dark:hover:bg-dubae-gold">
+                        ${window.i18n.reviews_home_submit[currentLang]}
                     </button>
                 </div>
             `;
 
             if (latestApprovedReviews.length === 0) {
                 grid.innerHTML = `
-                    <div class="md:col-span-2 xl:col-span-3 rounded-sm border border-dashed border-gray-200 px-6 py-12 text-center text-sm text-gray-400 dark:border-gray-800">
+                    <div class="md:col-span-2 xl:col-span-3 rounded-[1.75rem] border border-dashed border-gray-200 bg-gray-50/80 px-6 py-12 text-center text-sm leading-relaxed text-gray-500 dark:border-gray-800 dark:bg-[#0f0f0f] dark:text-gray-400">
                         ${window.i18n.reviews_empty[currentLang]}
                     </div>
                 `;
@@ -733,11 +819,11 @@
                         : window.i18n.lbl_just_now[currentLang];
 
                     return `
-                        <article class="h-full rounded-sm border border-gray-200 bg-white p-5 transition hover:border-dubae-gold dark:border-gray-800 dark:bg-[#111]">
+                        <article class="h-full rounded-[1.75rem] border border-gray-200 bg-white p-5 shadow-[0_16px_45px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:border-dubae-gold hover:shadow-[0_22px_55px_rgba(15,23,42,0.1)] dark:border-gray-800 dark:bg-[#111]">
                             <div class="flex items-start justify-between gap-3">
                                 <div>
-                                    <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">${product ? (product.brand || product.category || 'Dubae') : 'Review general'}</p>
-                                    <h4 class="mt-2 text-sm font-semibold text-black dark:text-white">${productLabel}</h4>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.24em] text-gray-400">${product ? product.brand : 'Review general'}</p>
+                                    <h4 class="mt-2 text-sm font-semibold leading-snug text-black dark:text-white">${productLabel}</h4>
                                 </div>
                                 <span class="text-[10px] text-gray-400">${createdLabel}</span>
                             </div>
@@ -745,7 +831,7 @@
                             <p class="mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300">"${review.review}"</p>
                             <div class="mt-5 flex items-center justify-between gap-3">
                                 <div class="flex items-center gap-2">
-                                    <div class="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-[10px] font-bold uppercase text-black dark:border-gray-700 dark:text-white">${(review.full_name || '?').slice(0, 1)}</div>
+                                    <div class="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-[10px] font-bold uppercase text-black dark:border-gray-700 dark:bg-black dark:text-white">${(review.full_name || '?').slice(0, 1)}</div>
                                     <span class="text-xs font-bold text-black dark:text-white">${review.full_name}</span>
                                 </div>
                                 ${product ? `<button onclick="window.openDetail(${product.id})" class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 transition hover:text-dubae-gold dark:text-gray-300">${window.i18n.reviews_view_product[currentLang]}</button>` : ''}
@@ -758,12 +844,27 @@
             window.setHomeReviewRating(window.currentHomeReviewRating || 5);
         }
 
-        function subscribeToHomepageReviews() {
+        function loadPublicApprovedReviews() {
             window.ReviewService.subscribeToRecentApprovedReviews((reviews) => {
-                renderHomeReviewsSection(reviews);
+                latestApprovedReviews = Array.isArray(reviews) ? reviews : [];
+                renderHomeReviewsSection(latestApprovedReviews);
             });
         }
 
+        function subscribeToHomepageReviews() {
+            loadPublicApprovedReviews();
+        }
+        */
+        function getProductById(productId) {
+            return getStorefrontProductById(productId);
+        }
+        function isValidUuid(value) {
+            return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || '').trim());
+        }
+        function getProductReviewId(product) {
+            const candidate = String(product?.dbId ?? product?.id ?? '').trim();
+            return isValidUuid(candidate) ? candidate : '';
+        }
         // --- ADMIN PANEL LOGIC ---
         window.toggleAdminPanel = async () => {
             const panel = document.getElementById('admin-panel');
@@ -783,8 +884,9 @@
                             <div class="flex justify-between items-start">
                                 <div>
                                     <p class="font-bold text-xs uppercase text-black dark:text-white">${r.fullName}</p>
-                                    <p class="text-[10px] text-gray-500">ID: ${r.productId}</p>
+                                    <p class="text-[10px] text-gray-500">${r.productId ? `Producto: ${getProductById(r.productId)?.name || r.productId}` : 'Review general'}</p>
                                     <p class="text-[10px] text-gray-500">${r.email}</p>
+                                    <p class="text-[10px] text-gray-500 uppercase">Estado: ${r.status || 'pending'}</p>
                                 </div>
                                 <div class="text-dubae-gold text-xs">${'★'.repeat(r.rating)}</div>
                             </div>
@@ -818,6 +920,7 @@
             }
         };
 
+        /* Public review form globals moved to /src/publicReviews.ts
         // Make functions available globally for HTML onclicks
         window.submitReview = async (productId) => {
              const selectedProductId = String(productId || '').trim();
@@ -830,7 +933,7 @@
              if(!fullName.trim()) { showToast("Please enter your full name"); return; }
              if(!email.trim()) { showToast("Please enter your email"); return; }
              if(!comment.trim()) { showToast("Please write a comment"); return; }
-             if(rating === 0) { showToast("Please select a star rating"); return; }
+             if(!Number.isFinite(Number(rating)) || Number(rating) < 1 || Number(rating) > 5) { showToast("Please select a star rating"); return; }
              
              const submitBtn = document.querySelector('#review-form button');
              const originalText = submitBtn.innerText;
@@ -851,13 +954,13 @@
                  formContainer.innerHTML = `
                     <div class="text-center py-6 animate-fade-in">
                         <svg class="w-12 h-12 text-dubae-gold mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <p class="text-sm font-bold text-black dark:text-white uppercase tracking-widest">Review Submitted</p>
-                        <p class="text-xs text-gray-500 mt-2">Pending moderation approval.</p>
+                        <p class="text-sm font-bold text-black dark:text-white uppercase tracking-widest">Review enviada</p>
+                        <p class="text-xs text-gray-500 mt-2">La publicaremos después de revisarla.</p>
                     </div>
                  `;
-                 showToast(window.i18n.toast_review_sent[currentLang]);
+                 showToast("Tu review fue enviada. La publicaremos después de revisarla.");
              } else {
-                 showToast("Error: " + result.message);
+                 showToast("No pudimos enviar tu review ahora. Inténtalo de nuevo en unos minutos.");
                  submitBtn.innerText = originalText;
                  submitBtn.disabled = false;
              }
@@ -894,11 +997,7 @@
             const email = document.getElementById('home-review-email')?.value || '';
             const comment = document.getElementById('home-review-comment')?.value || '';
             const rating = window.currentHomeReviewRating || 0;
-
-            if (selectedProductId && !isValidUuid(selectedProductId)) {
-                showToast("Invalid product selected for review");
-                return;
-            }
+            const normalizedProductId = isValidUuid(selectedProductId) ? selectedProductId : null;
 
             if (!fullName.trim()) {
                 showToast("Please enter your full name");
@@ -915,7 +1014,7 @@
                 return;
             }
 
-            if (rating === 0) {
+            if (!Number.isFinite(Number(rating)) || Number(rating) < 1 || Number(rating) > 5) {
                 showToast("Please select a star rating");
                 return;
             }
@@ -928,7 +1027,7 @@
             }
 
             const result = await window.ReviewService.addReview({
-                product_id: selectedProductId,
+                product_id: normalizedProductId,
                 full_name: fullName.trim(),
                 email: email.trim(),
                 rating: rating,
@@ -937,9 +1036,9 @@
 
             if (result.success) {
                 renderHomeReviewsSection(latestApprovedReviews);
-                showToast(window.i18n.toast_review_sent[currentLang]);
+                showToast("Tu review fue enviada. La publicaremos después de revisarla.");
             } else {
-                showToast("Error: " + result.message);
+                showToast("No pudimos enviar tu review ahora. Inténtalo de nuevo en unos minutos.");
                 if (submitBtn) {
                     submitBtn.innerText = originalText;
                     submitBtn.disabled = false;
@@ -947,10 +1046,11 @@
             }
         };
         
+        */
         // --- QUICK VIEW FUNCTIONS ---
         window.openQuickView = (e, id) => {
             e.stopPropagation();
-            const p = PRODUCTS.find(x => x.id === id);
+            const p = getStorefrontProductById(id);
             if(!p) return;
             
             const overlay = document.getElementById('quick-view-overlay');
@@ -1032,19 +1132,21 @@
         const PAYPAL_CLIENT_ID = "%VITE_PAYPAL_CLIENT_ID%";
         const SUPABASE_URL = "%VITE_SUPABASE_URL%";
         const SUPABASE_ANON_KEY = "%VITE_SUPABASE_ANON_KEY%";
+        const STOREFRONT_BUILD_VERSION = new Date().toISOString();
         const ORDERS_TABLE = "orders";
+        console.log("STOREFRONT BUILD VERSION:", STOREFRONT_BUILD_VERSION);
         // Language State
         let currentLang = localStorage.getItem('dubae_lang') || 'en'; // Default English
-        let reviewsUnsubscribe = null; // Global unsubscribe handler
+        window.reviewsUnsubscribe = null; // Global unsubscribe handler
         let activePaymentContext = null;
-        let latestApprovedReviews = [];
+        window.latestApprovedReviews = [];
 
         // --- TRANSLATION DICTIONARY ---
         window.i18n = {
             search_placeholder: { en: "Search products...", es: "Buscar productos..." },
             trust_rating: { en: "4.9/5 from 300+ Verified Orders", es: "4.9/5 de +300 Órdenes Verificadas" },
-            hero_subtitle: { en: "New Season 2025", es: "Nueva Temporada 2025" },
-            hero_title: { en: "Redefining Urban Luxury", es: "Redefiniendo el Lujo Urbano" },
+            hero_subtitle: { en: "Premium sneakers & streetwear ready to ship.", es: "Sneakers y streetwear premium listos para enviar." },
+            hero_title: { en: "Another Concept of Fashion", es: "Otro concepto de moda" },
             filter_sort: { en: "Sort Collection", es: "Ordenar Colección" },
             sort_new: { en: "New Arrivals", es: "Nuevos Lanzamientos" },
             sort_low_high: { en: "Price: Low to High", es: "Precio: Menor a Mayor" },
@@ -1088,16 +1190,22 @@
             payment_customer: { en: "Customer", es: "Cliente" },
             payment_total: { en: "Total", es: "Total" },
             payment_items: { en: "Items", es: "Articulos" },
-            reviews_tag: { en: "Community", es: "Comunidad" },
-            reviews_section_title: { en: "Customer Reviews", es: "Reseñas de Clientes" },
-            reviews_section_copy: { en: "Share your experience with a product and read what other customers are saying before ordering.", es: "Comparte tu experiencia con un producto y mira lo que otros clientes opinan antes de ordenar." },
-            reviews_summary_zero: { en: "No reviews yet", es: "Aún no hay reseñas" },
-            reviews_summary_count: { en: "reviews published", es: "reseñas publicadas" },
-            reviews_form_title: { en: "Leave a review", es: "Deja una reseña" },
-            reviews_form_copy: { en: "Pick the product you bought and send your opinion for approval.", es: "Elige el producto que compraste y envía tu opinión para aprobación." },
+            reviews_tag: { en: "Dubae Community", es: "Comunidad Dubae" },
+            reviews_section_title: { en: "The Street Speaks", es: "La calle opina" },
+            reviews_section_copy: { en: "Share your Dubae experience and help others choose their next flow.", es: "Comparte tu experiencia con Dubae y ayuda a otros a elegir su próximo flow." },
+            reviews_summary_zero: { en: "No reviews yet", es: "Aún no hay reviews" },
+            reviews_summary_count: { en: "reviews published", es: "reviews publicadas" },
+            reviews_form_title: { en: "Drop your review", es: "DEJA TU REVIEW" },
+            reviews_form_copy: { en: "Pick your product, drop your take, and tell us if the piece arrived strong.", es: "Elige tu producto, tira tu opinión y cuéntanos si la pieza llegó dura." },
             reviews_select_product: { en: "Select a product", es: "Selecciona un producto" },
+            reviews_select_product_optional: { en: "Select a product (optional)", es: "Selecciona un producto (opcional)" },
             reviews_view_product: { en: "View product", es: "Ver producto" },
-            reviews_empty: { en: "There are no published reviews yet.", es: "Todavía no hay reseñas publicadas." },
+            reviews_empty: { en: "No published reviews yet. Be the first to say how the flow landed.", es: "Todavía no hay reviews publicados. Sé el primero en contar cómo te quedó el flow." },
+            reviews_home_name_placeholder: { en: "Your name", es: "Tu nombre" },
+            reviews_home_email_placeholder: { en: "Your email", es: "Tu correo" },
+            reviews_home_comment_placeholder: { en: "Tell us how it fit, what you bought, and how the quality felt...", es: "Cuéntanos cómo te quedó, qué compraste y qué tal la calidad…" },
+            reviews_home_submit: { en: "Drop Review", es: "SOLTAR REVIEW" },
+            reviews_general_label: { en: "Dubae Clothing", es: "Dubae Clothing" },
             reviews_pick_product: { en: "Choose a product first", es: "Elige un producto primero" },
             reviews_signin_cta: { en: "Sign in with Google to publish your review.", es: "Inicia sesión con Google para publicar tu reseña." },
             admin_title: { en: "Review Moderation", es: "Moderación de Reseñas" },
@@ -1240,15 +1348,25 @@
         function getRenderedSizeValues(product) {
             return getProductSizeInventory(product).map((item) => item.size);
         }
+        function setStorefrontNoResultsMessage(message) {
+            const noResultsMessage = document.querySelector('#no-results [data-i18n="no_results"]');
+            if (noResultsMessage) {
+                noResultsMessage.textContent = message;
+            }
+        }
         function buildStorefrontProductsFromAdmin(adminProducts) {
             const defaultSizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
             return adminProducts.map((product, index) => {
                 const sizeSource = buildSizeInventory(product.sizes, defaultSizes.slice(0, Math.max(1, Number(product.stock) || 1)));
+                const productType = product?.product_type === 'tshirts' || product?.product_type === 'pants'
+                    ? product.product_type
+                    : 'sneakers';
                 return ({
                     id: Number(product.id) || index + 1,
                     dbId: product.id ?? null,
                     name: product.name,
                     brand: product.category || 'Dubae',
+                    productType,
                     price: Number(product.price) || 0,
                     image: product.image_url || '',
                     images: Array.isArray(product.image_gallery) && product.image_gallery.length
@@ -1265,24 +1383,98 @@
             });
         }
         let PRODUCTS = [];
+        let ALL_STOREFRONT_PRODUCTS = [];
+        let TSHIRT_PRODUCTS = [];
+        let PANTS_PRODUCTS = [];
+
+        function getStorefrontProductType(product) {
+            return product?.productType === 'tshirts' || product?.productType === 'pants'
+                ? product.productType
+                : 'sneakers';
+        }
+
+        function getStorefrontProductById(productId) {
+            const normalized = String(productId);
+            return ALL_STOREFRONT_PRODUCTS.find((product) => String(product.dbId ?? product.id) === normalized || String(product.id) === normalized) || null;
+        }
+
+        function renderStorefrontProductCards(products) {
+            return products.map((p) => {
+                const seed = p.id * 1664525 + 1013904223;
+                const rating = (4.5 + (seed % 50) / 100).toFixed(1);
+                return `
+                <div class="product-card group cursor-pointer animate-fade-in relative" onclick="openDetail(${p.id})">
+                    <div class="product-media relative aspect-[0.85] w-full overflow-hidden mb-4 rounded-[1.75rem] transition-colors duration-300">
+                        ${p.isNew ? `<span class="absolute top-4 left-4 z-20 rounded-full border border-black/10 bg-white/90 dark:border-white/10 dark:bg-black/85 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] backdrop-blur-sm">${window.i18n.lbl_new[currentLang]}</span>` : ''}
+                        
+                        ${renderProductSlider(p, `grid-slider-${p.id}`, 'product-img w-full h-full object-contain p-7 md:p-8', true)}
+                        
+                        <button onclick="openQuickView(event, ${p.id})" class="quickview-btn absolute bottom-4 inset-x-5 rounded-full bg-black/78 text-white text-[9px] font-bold uppercase tracking-[0.24em] py-2.5 hover:bg-dubae-gold transition-colors z-20">
+                            ${window.i18n.btn_quick_view[currentLang]}
+                        </button>
+                    </div>
+                    <div class="space-y-2 px-1">
+                        <div class="flex justify-between items-start gap-3">
+                            <span class="product-meta text-[10px] uppercase text-gray-400 font-bold">${p.brand}</span>
+                            <div class="flex items-center gap-1 rounded-full border border-gray-200 dark:border-gray-800 px-2.5 py-1 opacity-90"><span class="text-[10px] text-dubae-gold">★</span><span class="text-[10px] text-gray-500">${rating}</span></div>
+                        </div>
+                        <h3 class="text-[15px] font-semibold leading-snug min-h-[2.8rem] line-clamp-2 dark:text-white">${p.name}</h3>
+                        <p class="font-serif italic text-[1.35rem] tracking-tight dark:text-white">${formatUSD(p.price)}</p>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderProductTypeSection(gridId, emptyId, products) {
+            const grid = document.getElementById(gridId);
+            const emptyState = document.getElementById(emptyId);
+            if (!grid || !emptyState) return;
+            if (!products.length) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            emptyState.classList.add('hidden');
+            grid.innerHTML = renderStorefrontProductCards(products);
+        }
+
+        function renderSecondaryProductSections() {
+            renderProductTypeSection('tshirts-grid', 'tshirts-empty', TSHIRT_PRODUCTS);
+            renderProductTypeSection('pants-grid', 'pants-empty', PANTS_PRODUCTS);
+        }
 
         async function refreshStorefrontProductsFromSupabase() {
             if (!SUPABASE_URL || SUPABASE_URL.includes('%VITE_') || !SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.includes('%VITE_')) {
-                console.error('Storefront Supabase credentials are missing or were not injected.');
+                console.error("Storefront Supabase runtime fetch failed:", new Error('Storefront Supabase credentials are missing or were not injected.'));
+                storefrontProductsSource = 'missing-credentials';
                 PRODUCTS = [];
+                ALL_STOREFRONT_PRODUCTS = [];
+                TSHIRT_PRODUCTS = [];
+                PANTS_PRODUCTS = [];
                 console.log("Supabase products raw:", []);
+                console.log("Using Supabase products only:", PRODUCTS);
                 console.log("Final PRODUCTS used for render:", PRODUCTS);
+                setStorefrontNoResultsMessage('Products could not be loaded. Check console.');
                 initFiltersUI();
                 applyFilters();
+                renderSecondaryProductSections();
                 return;
             }
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/products?select=id,name,description,price,stock,image_url,category,image_gallery,sizes,created_at&order=created_at.desc`, {
+                console.log("Storefront Supabase fetch:start", {
+                    url: `${SUPABASE_URL}/rest/v1/products?select=id,name,description,price,stock,image_url,category,product_type,image_gallery,sizes,created_at&order=created_at.desc`,
+                    buildVersion: STOREFRONT_BUILD_VERSION,
+                });
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/products?select=id,name,description,price,stock,image_url,category,product_type,image_gallery,sizes,created_at&order=created_at.desc`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'apikey': SUPABASE_ANON_KEY,
                     },
+                });
+                console.log("Storefront Supabase fetch:response", {
+                    status: response.status,
+                    ok: response.ok,
                 });
 
                 if (!response.ok) {
@@ -1290,27 +1482,53 @@
                 }
 
                 const data = await response.json();
+                console.log("Storefront Supabase fetch:json", data);
                 console.log("Supabase products raw:", data);
                 console.log("Supabase products:", data);
                 if (!Array.isArray(data)) {
                     throw new Error('Invalid storefront products response');
                 }
 
-                PRODUCTS = buildStorefrontProductsFromAdmin(data);
-                console.log("Storefront products from Supabase:", PRODUCTS);
+                ALL_STOREFRONT_PRODUCTS = buildStorefrontProductsFromAdmin(data);
+                PRODUCTS = ALL_STOREFRONT_PRODUCTS.filter((product) => getStorefrontProductType(product) === 'sneakers');
+                TSHIRT_PRODUCTS = ALL_STOREFRONT_PRODUCTS.filter((product) => getStorefrontProductType(product) === 'tshirts');
+                PANTS_PRODUCTS = ALL_STOREFRONT_PRODUCTS.filter((product) => getStorefrontProductType(product) === 'pants');
+                console.log("Storefront Supabase fetch:mapped", ALL_STOREFRONT_PRODUCTS);
+                storefrontProductsSource = 'supabase';
+                console.log("Storefront products from Supabase:", ALL_STOREFRONT_PRODUCTS);
+                console.log("Using Supabase products only:", PRODUCTS);
                 console.log("Final PRODUCTS used for render:", PRODUCTS);
                 console.log("Rendered products:", PRODUCTS);
-                console.log("Review products loaded:", PRODUCTS.filter(product => getProductReviewId(product)).map(product => ({ id: getProductReviewId(product), name: product.name })));
+                console.log("Runtime PRODUCTS assigned:", PRODUCTS.length, PRODUCTS);
+                setStorefrontNoResultsMessage(window.i18n.no_results[currentLang]);
                 initFiltersUI();
+                console.log("Storefront Supabase fetch:before applyFilters", {
+                    productsCount: PRODUCTS.length,
+                    filters: activeFilters,
+                });
                 applyFilters();
-                renderHomeReviewsSection(latestApprovedReviews);
+                renderSecondaryProductSections();
+                if (typeof renderHomeReviewsSection === 'function') {
+                    try {
+                        window.renderHomeReviewsSection?.(window.latestApprovedReviews || []);
+                    } catch (error) {
+                        console.error("Storefront review rendering failed:", error);
+                    }
+                }
             } catch (error) {
-                console.error(error);
-                PRODUCTS = DEFAULT_PRODUCTS;
+                console.error("Storefront Supabase runtime fetch failed:", error);
+                storefrontProductsSource = 'supabase-error';
+                PRODUCTS = [];
+                ALL_STOREFRONT_PRODUCTS = [];
+                TSHIRT_PRODUCTS = [];
+                PANTS_PRODUCTS = [];
                 console.log("Supabase products raw:", []);
+                console.log("Using Supabase products only:", PRODUCTS);
                 console.log("Final PRODUCTS used for render:", PRODUCTS);
+                setStorefrontNoResultsMessage('Products could not be loaded. Check console.');
                 initFiltersUI();
                 applyFilters();
+                renderSecondaryProductSections();
             }
         }
 
@@ -1324,8 +1542,7 @@
             loadCart();
             updateShippingUI();
             void refreshStorefrontProductsFromSupabase();
-            renderHomeReviewsSection([]);
-            subscribeToHomepageReviews();
+            void window.initPublicReviews?.();
             updateContent(); // Apply languages
             if (localStorage.getItem('dubae_theme') === 'dark' || (!('dubae_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
@@ -1348,7 +1565,7 @@
             }
             // Re-apply filters to refresh grid buttons text
             applyFilters();
-            renderHomeReviewsSection(latestApprovedReviews);
+            window.renderHomeReviewsSection?.(window.latestApprovedReviews || []);
         }
 
         function updateContent() {
@@ -1444,7 +1661,7 @@
         function updateQty(i,d){
             const nextQty = (cart[i]?.qty || 0) + d;
             if(nextQty <= 0) { cart.splice(i,1); saveCart(); return; }
-            const product = PRODUCTS.find((item) => item.id === cart[i].id);
+                const product = getStorefrontProductById(cart[i].id);
             if(product && !canUseSizeQuantity(product, cart[i].size, nextQty)) { showToast(getStockErrorMessage()); return; }
             cart[i].qty = nextQty;
             saveCart();
@@ -1555,7 +1772,7 @@
                 });
                 if (!updateResponse.ok) throw new Error(await updateResponse.text());
 
-                const localProduct = PRODUCTS.find((product) => product.id === item.id);
+                const localProduct = getStorefrontProductById(item.id);
                 if (localProduct) {
                     localProduct.sizeInventory = updatedSizes
                         .filter((sizeItem) => sizeItem && sizeItem.size != null)
@@ -1571,7 +1788,7 @@
         function validateItemsStock(items) {
             return items.every((item) => {
                 if (!item?.id || !item?.size) return true;
-                const product = PRODUCTS.find((entry) => entry.id === item.id);
+                const product = getStorefrontProductById(item.id);
                 if (!product) return true;
                 return canUseSizeQuantity(product, item.size, Number(item.qty) || 0);
             });
@@ -1589,9 +1806,50 @@
             if (product.image) return [product.image];
             return [];
         }
+        const PRODUCT_IMAGE_FALLBACK = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'><rect width='600' height='600' fill='%23f5f5f5'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-family='Arial' font-size='28'>Image unavailable</text></svg>";
+        const preloadedProductImages = new Set();
+        function preloadProductImages(images = []) {
+            images.filter(Boolean).forEach((src) => {
+                if (preloadedProductImages.has(src)) return;
+                preloadedProductImages.add(src);
+                const image = new Image();
+                image.decoding = 'async';
+                image.src = src;
+            });
+        }
+        function updateProductSliderUi(sliderId, activeIndex, images) {
+            images.forEach((_, index) => {
+                const dot = document.getElementById(`${sliderId}-dot-${index}`);
+                if (dot) dot.className = `product-slider-dot h-2 w-2 rounded-full ${index === activeIndex ? 'product-slider-dot-active bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}`;
+                const thumb = document.getElementById(`${sliderId}-thumb-${index}`);
+                if (thumb) thumb.className = `overflow-hidden rounded-2xl border ${index === activeIndex ? 'border-black dark:border-white' : 'border-gray-200 dark:border-gray-700'} bg-white dark:bg-[#0a0a0a]`;
+            });
+        }
+        function setProductSliderImage(sliderId, nextIndex) {
+            const root = document.querySelector(`[data-slider-id="${sliderId}"]`);
+            if (!root) return;
+            const productId = Number(String(sliderId).split('-').pop());
+            const product = getStorefrontProductById(productId);
+            if (!product) return;
+            const images = getProductImages(product);
+            const imageEl = document.getElementById(`${sliderId}-image`);
+            if (!imageEl || !images[nextIndex]) return;
+            preloadProductImages(images);
+            root.setAttribute('data-current-index', String(nextIndex));
+            imageEl.style.opacity = '0.88';
+            imageEl.src = images[nextIndex];
+            imageEl.onerror = () => {
+                imageEl.src = PRODUCT_IMAGE_FALLBACK;
+            };
+            imageEl.onload = () => {
+                imageEl.style.opacity = '1';
+            };
+            updateProductSliderUi(sliderId, nextIndex, images);
+        }
         function renderProductSlider(product, sliderId, imageClass, stopPropagation = false, showThumbnails = false) {
             const images = getProductImages(product);
             const safeImages = (images.length ? images : ['']).slice(0, 5);
+            preloadProductImages(safeImages);
             const clickPrefix = stopPropagation ? 'event.stopPropagation(); ' : '';
             return `
                 <div class="relative h-full w-full ${showThumbnails ? 'flex gap-4 lg:gap-6' : ''}" data-slider-id="${sliderId}">
@@ -1604,22 +1862,22 @@
                                     id="${sliderId}-thumb-${index}"
                                     class="overflow-hidden rounded-2xl border ${index === 0 ? 'border-black dark:border-white' : 'border-gray-200 dark:border-gray-700'} bg-white dark:bg-[#0a0a0a]"
                                 >
-                                    <img src="${image}" class="h-16 w-full object-cover">
+                                    <img src="${image}" class="h-16 w-full object-contain object-center p-2" loading="eager" decoding="async" onerror="this.src='${PRODUCT_IMAGE_FALLBACK}'">
                                 </button>
                             `).join('')}
                         </div>
                     ` : ''}
                     <div class="relative h-full w-full">
-                        <img id="${sliderId}-image" src="${safeImages[0]}" class="${imageClass}">
+                        <img id="${sliderId}-image" src="${safeImages[0] || PRODUCT_IMAGE_FALLBACK}" class="${imageClass}" loading="eager" decoding="async" fetchpriority="high" draggable="false" onerror="this.src='${PRODUCT_IMAGE_FALLBACK}'">
                         ${safeImages.length > 1 ? `
-                            <button type="button" aria-label="Previous image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', -1)" class="absolute left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-lg font-bold text-black shadow-lg backdrop-blur-sm transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/85 dark:text-white">
+                            <button type="button" aria-label="Previous image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', -1)" class="product-slider-arrow absolute left-3 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/88 text-base font-bold text-black transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/72 dark:text-white">
                                 <span aria-hidden="true">‹</span>
                             </button>
-                            <button type="button" aria-label="Next image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', 1)" class="absolute right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-lg font-bold text-black shadow-lg backdrop-blur-sm transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/85 dark:text-white">
+                            <button type="button" aria-label="Next image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', 1)" class="product-slider-arrow absolute right-3 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/88 text-base font-bold text-black transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/72 dark:text-white">
                                 <span aria-hidden="true">›</span>
                             </button>
-                            <div class="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
-                                ${safeImages.map((_, index) => `<button type="button" onclick="${clickPrefix}window.goToProductSlide('${sliderId}', ${index})" id="${sliderId}-dot-${index}" class="h-2.5 w-2.5 rounded-full ${index === 0 ? 'bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}"></button>`).join('')}
+                            <div class="absolute bottom-16 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-white/72 px-3 py-2 backdrop-blur-sm dark:bg-black/42">
+                                ${safeImages.map((_, index) => `<button type="button" onclick="${clickPrefix}window.goToProductSlide('${sliderId}', ${index})" id="${sliderId}-dot-${index}" class="product-slider-dot h-2 w-2 rounded-full ${index === 0 ? 'product-slider-dot-active bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}"></button>`).join('')}
                             </div>
                         ` : ''}
                     </div>
@@ -1630,39 +1888,23 @@
             const root = document.querySelector(`[data-slider-id="${sliderId}"]`);
             if (!root) return;
             const productId = Number(String(sliderId).split('-').pop());
-            const product = PRODUCTS.find((item) => item.id === productId);
+            const product = getStorefrontProductById(productId);
             if (!product) return;
             const images = getProductImages(product);
-            const imageEl = document.getElementById(`${sliderId}-image`);
-            if (!imageEl || images.length < 2) return;
+            if (images.length < 2) return;
             const currentIndex = Number(root.getAttribute('data-current-index') || '0');
             const nextIndex = (currentIndex + direction + images.length) % images.length;
-            root.setAttribute('data-current-index', String(nextIndex));
-            imageEl.src = images[nextIndex];
-            images.forEach((_, index) => {
-                const dot = document.getElementById(`${sliderId}-dot-${index}`);
-                if (dot) dot.className = `h-2.5 w-2.5 rounded-full ${index === nextIndex ? 'bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}`;
-                const thumb = document.getElementById(`${sliderId}-thumb-${index}`);
-                if (thumb) thumb.className = `overflow-hidden rounded-2xl border ${index === nextIndex ? 'border-black dark:border-white' : 'border-gray-200 dark:border-gray-700'} bg-white dark:bg-[#0a0a0a]`;
-            });
+            setProductSliderImage(sliderId, nextIndex);
         };
         window.goToProductSlide = (sliderId, index) => {
             const root = document.querySelector(`[data-slider-id="${sliderId}"]`);
             if (!root) return;
             const productId = Number(String(sliderId).split('-').pop());
-            const product = PRODUCTS.find((item) => item.id === productId);
+            const product = getStorefrontProductById(productId);
             if (!product) return;
             const images = getProductImages(product);
-            const imageEl = document.getElementById(`${sliderId}-image`);
-            if (!imageEl || !images[index]) return;
-            root.setAttribute('data-current-index', String(index));
-            imageEl.src = images[index];
-            images.forEach((_, dotIndex) => {
-                const dot = document.getElementById(`${sliderId}-dot-${dotIndex}`);
-                if (dot) dot.className = `h-2.5 w-2.5 rounded-full ${dotIndex === index ? 'bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}`;
-                const thumb = document.getElementById(`${sliderId}-thumb-${dotIndex}`);
-                if (thumb) thumb.className = `overflow-hidden rounded-2xl border ${dotIndex === index ? 'border-black dark:border-white' : 'border-gray-200 dark:border-gray-700'} bg-white dark:bg-[#0a0a0a]`;
-            });
+            if (!images[index]) return;
+            setProductSliderImage(sliderId, index);
         };
         async function finalizeSuccessfulPayment(paypalData, paypalOrderDetails) {
             if(!activePaymentContext) return;
@@ -1761,6 +2003,10 @@
         function toggleMobileFilters(){ const s=document.getElementById('mobile-filter-sidebar'); const o=document.getElementById('mobile-filter-overlay'); if(s.classList.contains('translate-x-0')){ s.classList.remove('translate-x-0'); s.classList.add('-translate-x-full'); o.classList.add('opacity-0','pointer-events-none'); }else{ s.classList.remove('-translate-x-full'); s.classList.add('translate-x-0'); o.classList.remove('opacity-0','pointer-events-none'); } }
 
         function applyFilters() {
+            if (storefrontProductsSource === 'supabase') {
+                console.log("VISIBLE STOREFRONT PRODUCTS SOURCE: Supabase");
+            }
+            console.log("VISIBLE STOREFRONT PRODUCTS:", PRODUCTS);
             console.log("Final PRODUCTS used for render:", PRODUCTS);
             console.log("Rendered products:", PRODUCTS);
             let res = PRODUCTS.filter(p => {
@@ -1789,7 +2035,7 @@
                         ${renderProductSlider(p, `grid-slider-${p.id}`, 'product-img w-full h-full object-contain p-7 md:p-8', true)}
                         
                         <!-- QUICK VIEW BUTTON -->
-                        <button onclick="openQuickView(event, ${p.id})" class="quickview-btn absolute bottom-4 inset-x-4 rounded-full bg-black/88 text-white text-[10px] font-bold uppercase tracking-[0.24em] py-3 hover:bg-dubae-gold transition-colors z-20">
+                        <button onclick="openQuickView(event, ${p.id})" class="quickview-btn absolute bottom-4 inset-x-5 rounded-full bg-black/78 text-white text-[9px] font-bold uppercase tracking-[0.24em] py-2.5 hover:bg-dubae-gold transition-colors z-20">
                             ${window.i18n.btn_quick_view[currentLang]}
                         </button>
                     </div>
@@ -1803,19 +2049,22 @@
                     </div>
                 </div>`;
             }).join(''); }
+            if (res.length !== 0) {
+                g.innerHTML = renderStorefrontProductCards(res);
+            }
         }
 
         // --- DETAIL MODAL (FULL VIEW) ---
         async function openDetail(id) {
-            const p = PRODUCTS.find(x => x.id === id);
+            const p = getStorefrontProductById(id);
             if(!p) return;
             const detailView = document.getElementById('detail-view');
             detailView.setAttribute('data-pid', id);
             
             // Clean up previous real-time listener if exists
-            if (reviewsUnsubscribe) {
-                reviewsUnsubscribe();
-                reviewsUnsubscribe = null;
+            if (window.reviewsUnsubscribe) {
+                window.reviewsUnsubscribe();
+                window.reviewsUnsubscribe = null;
             }
 
             // Function to render the dynamic parts (Reviews & Rating)
@@ -1932,7 +2181,7 @@
             renderContent([]); 
 
             // REAL-TIME LISTENER
-            reviewsUnsubscribe = window.ReviewService.subscribeToApprovedReviews(getProductReviewId(p), (reviews) => {
+            window.reviewsUnsubscribe = window.ReviewService.subscribeToApprovedReviews(getProductReviewId(p), (reviews) => {
                 // Re-render only the reviews part would be more efficient, but for simplicity/robustness we re-render the modal content 
                 // keeping the scroll position would be ideal, but standard replacement is acceptable for this MVP level
                 // To avoid flickering, we could verify if modal is still open for this product
@@ -1951,14 +2200,14 @@
         // --- AUTH & HELPERS ---
         function selectSize(pid, size, btn) {
             const normalizedSize = normalizeSizeValue(size);
-            const product = PRODUCTS.find((item) => item.id === pid);
+            const product = getStorefrontProductById(pid);
             if(product && !isSizeAvailable(product, normalizedSize)) return;
             selectedSizes[pid] = normalizedSize;
             document.querySelectorAll(`.size-btn-${pid}`).forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
         }
         function addToCart(pid) {
-            const p = PRODUCTS.find(x => x.id === pid);
+            const p = getStorefrontProductById(pid);
             if(!p) return;
             const availableSizes = getProductSizeInventory(p);
             const requiresSizeSelection = availableSizes.length > 0;
@@ -1977,7 +2226,7 @@
         }
         
         function orderSingle(id) { 
-            const p = PRODUCTS.find(x => x.id === id); 
+            const p = getStorefrontProductById(id); 
             if(!p) return;
             const availableSizes = getProductSizeInventory(p);
             const requiresSizeSelection = availableSizes.length > 0;
@@ -2006,7 +2255,7 @@
 
         function toggleDarkMode() { if (document.documentElement.classList.contains('dark')) { document.documentElement.classList.remove('dark'); localStorage.setItem('dubae_theme', 'light'); } else { document.documentElement.classList.add('dark'); localStorage.setItem('dubae_theme', 'dark'); } }
     </script>
+<script type="module" src="/src/publicReviews.ts"></script>
 <script type="module" src="/index.tsx"></script>
 </body>
 </html>
-

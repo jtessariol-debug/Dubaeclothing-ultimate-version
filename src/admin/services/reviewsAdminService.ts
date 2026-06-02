@@ -3,28 +3,28 @@ import type { ReviewRecord } from '../types';
 
 function normalizeReviewStatus(status: string | null | undefined) {
   const normalized = String(status ?? '').trim().toLowerCase();
-
   if (normalized === 'approved' || normalized === 'published') {
     return 'approved';
   }
-
   if (normalized === 'declined' || normalized === 'rejected') {
     return 'declined';
   }
-
   return 'pending';
 }
 
-function normalizeReviewRecord(record: ReviewRecord) {
+function normalizeReview(record: ReviewRecord): ReviewRecord {
   const normalizedStatus = normalizeReviewStatus(record.status);
-
   return {
     ...record,
     product_id: record.product_id ?? null,
     status: normalizedStatus,
     approved: normalizedStatus === 'approved',
     created_at: record.created_at ?? null,
-  } as ReviewRecord;
+  };
+}
+
+function sortByCreatedAtDesc(a: ReviewRecord, b: ReviewRecord) {
+  return new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime();
 }
 
 export async function getReviews() {
@@ -36,7 +36,6 @@ export async function getReviews() {
 
   console.log('Pending reviews loaded:', pendingData);
   console.error('Admin reviews load error:', pendingError);
-
   if (pendingError) {
     throw new Error(pendingError.message);
   }
@@ -49,7 +48,6 @@ export async function getReviews() {
 
   console.log('Approved reviews loaded:', approvedData);
   console.error('Admin reviews load error:', approvedError);
-
   if (approvedError) {
     throw new Error(approvedError.message);
   }
@@ -62,14 +60,17 @@ export async function getReviews() {
 
   console.log('Declined reviews loaded:', declinedData);
   console.error('Admin reviews load error:', declinedError);
-
   if (declinedError) {
     throw new Error(declinedError.message);
   }
 
-  return [...(pendingData ?? []), ...(approvedData ?? []), ...(declinedData ?? [])]
-    .map((record) => normalizeReviewRecord(record as ReviewRecord))
-    .sort((a, b) => new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime());
+  return [
+    ...((pendingData ?? []) as ReviewRecord[]),
+    ...((approvedData ?? []) as ReviewRecord[]),
+    ...((declinedData ?? []) as ReviewRecord[]),
+  ]
+    .map(normalizeReview)
+    .sort(sortByCreatedAtDesc);
 }
 
 export async function approveReview(reviewId: string) {
@@ -84,7 +85,7 @@ export async function approveReview(reviewId: string) {
     throw new Error(error?.message ?? 'Unable to approve review.');
   }
 
-  return normalizeReviewRecord(data as ReviewRecord);
+  return normalizeReview(data as ReviewRecord);
 }
 
 export async function declineReview(reviewId: string) {
@@ -99,11 +100,14 @@ export async function declineReview(reviewId: string) {
     throw new Error(error?.message ?? 'Unable to decline review.');
   }
 
-  return normalizeReviewRecord(data as ReviewRecord);
+  return normalizeReview(data as ReviewRecord);
 }
 
 export async function deleteReview(reviewId: string) {
-  const { error } = await supabase.from('reviews').delete().eq('id', reviewId);
+  const { error } = await supabase
+    .from('reviews')
+    .delete()
+    .eq('id', reviewId);
 
   if (error) {
     console.error('Delete review error:', error);

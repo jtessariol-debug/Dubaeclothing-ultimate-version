@@ -18,6 +18,7 @@ function createEmptyValues(): ProductFormValues {
     stock: '',
     sizes: [],
     category: '',
+    productType: 'sneakers',
     imageFiles: [null, null, null, null, null],
     imageUrl: '',
     imageUrls: ['', '', '', '', ''],
@@ -57,6 +58,7 @@ function buildProductFormValues(product: ProductRecord): ProductFormValues {
     stock: String(product.stock),
     sizes: normalizeFormSizes(product.sizes),
     category: product.category ?? '',
+    productType: product.product_type ?? 'sneakers',
     imageFiles: [null, null, null, null, null],
     imageUrl: product.image_url ?? '',
     imageUrls: Array.from({ length: 5 }, (_, index) => product.image_gallery?.[index]?.url ?? product.image_urls?.[index] ?? (index === 0 ? product.image_url ?? '' : '')),
@@ -149,6 +151,18 @@ export function ProductFormModal({ open, product, saving, onClose, onSubmit }: P
                 onChange={(event) => setValues((current) => ({ ...current, category: event.target.value }))}
                 placeholder="Sneakers"
               />
+            </label>
+            <label className="space-y-2">
+              <span className="text-sm text-slate-300">Tipo de producto</span>
+              <select
+                className="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-sky-500"
+                value={values.productType}
+                onChange={(event) => setValues((current) => ({ ...current, productType: event.target.value }))}
+              >
+                <option value="sneakers">Sneakers</option>
+                <option value="tshirts">T-Shirts</option>
+                <option value="pants">Pantalones</option>
+              </select>
             </label>
             <label className="space-y-2">
               <span className="text-sm text-slate-300">Price</span>

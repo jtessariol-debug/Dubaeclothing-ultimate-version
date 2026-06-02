@@ -6,17 +6,15 @@ function getReviewGroup(status: string) {
   if (status === 'approved') {
     return 'approved';
   }
-
   if (status === 'declined') {
     return 'declined';
   }
-
   return 'pending';
 }
 
-function formatReviewStars(rating: number) {
-  const normalized = Math.max(0, Math.min(5, Number(rating) || 0));
-  return `${'★'.repeat(normalized)}${'☆'.repeat(5 - normalized)}`;
+function renderStars(rating: number) {
+  const safeRating = Math.max(0, Math.min(5, Number(rating) || 0));
+  return `${'★'.repeat(safeRating)}${'☆'.repeat(5 - safeRating)}`;
 }
 
 export function ReviewsManager() {
@@ -68,7 +66,9 @@ export function ReviewsManager() {
 
   async function handleDelete(reviewId: string) {
     const confirmed = window.confirm('¿Seguro que quieres borrar este review definitivamente?');
-    if (!confirmed) return;
+    if (!confirmed) {
+      return;
+    }
 
     try {
       await deleteReview(reviewId);
@@ -90,11 +90,11 @@ export function ReviewsManager() {
           </span>
         </div>
 
-        {items.length ? null : (
+        {!items.length ? (
           <div className="rounded-3xl border border-dashed border-slate-700 bg-slate-900/60 p-6 text-center text-slate-400">
             {emptyMessage}
           </div>
-        )}
+        ) : null}
 
         {items.map((review) => (
           <article key={review.id} className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6">
@@ -103,10 +103,12 @@ export function ReviewsManager() {
                 <p className="text-xs uppercase tracking-[0.25em] text-sky-400">{getReviewGroup(review.status)}</p>
                 <h3 className="mt-2 text-xl font-semibold text-white">{review.full_name}</h3>
                 <p className="mt-2 text-sm text-slate-400">{review.email}</p>
-                <p className="mt-2 text-xs text-slate-500">Producto: {review.product_id ?? 'Review general'}</p>
+                <p className="mt-2 text-xs text-slate-500">
+                  Producto: {review.products?.name ?? review.product_id ?? 'Review general'}
+                </p>
               </div>
               <div className="text-left lg:text-right">
-                <p className="text-lg font-semibold text-white">{formatReviewStars(review.rating)}</p>
+                <p className="text-lg font-semibold text-white">{renderStars(review.rating)}</p>
                 <p className="mt-2 text-xs text-slate-500">
                   {review.created_at ? new Date(review.created_at).toLocaleString() : 'Sin fecha'}
                 </p>
@@ -127,7 +129,6 @@ export function ReviewsManager() {
                   Approve
                 </button>
               ) : null}
-
               {getReviewGroup(review.status) !== 'declined' ? (
                 <button
                   type="button"
@@ -137,7 +138,6 @@ export function ReviewsManager() {
                   Decline
                 </button>
               ) : null}
-
               <button
                 type="button"
                 onClick={() => void handleDelete(review.id)}
@@ -193,13 +193,7 @@ export function ReviewsManager() {
         <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 text-slate-300">Loading reviews...</div>
       ) : null}
 
-      {!loading && !reviews.length ? (
-        <div className="rounded-3xl border border-dashed border-slate-700 bg-slate-900/60 p-8 text-center text-slate-400">
-          No reviews found yet.
-        </div>
-      ) : null}
-
-      {!loading && reviews.length ? (
+      {!loading ? (
         <div className="space-y-8">
           {renderReviewSection('Pending', pendingReviews, 'No pending reviews.')}
           {renderReviewSection('Approved', approvedReviews, 'No approved reviews.')}

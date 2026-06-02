@@ -17,10 +17,15 @@ type SupabaseProductRow = {
   sizes?: ProductSizeRecord[] | null;
   image_url: string | null;
   category: string | null;
+  product_type?: string | null;
   created_at: string;
   image_urls?: string[] | null;
   image_gallery?: ProductImageSlot[] | null;
 };
+
+function normalizeProductType(productType: string | null | undefined) {
+  return productType === 'tshirts' || productType === 'pants' ? productType : 'sneakers';
+}
 
 function removeTinyCache() {
   try {
@@ -73,6 +78,7 @@ function normalizeProductRecord(row: SupabaseProductRow): ProductRecord {
     image_urls: gallery.map((slot) => slot.url),
     image_gallery: gallery,
     category: row.category,
+    product_type: normalizeProductType(row.product_type),
     created_at: row.created_at,
   };
 }
@@ -189,6 +195,7 @@ async function buildProductPayload(
     stock: Number(values.stock),
     sizes: sanitizeSizes(values.sizes),
     category: values.category.trim() || null,
+    product_type: normalizeProductType(values.productType),
     image_url: imageUrl,
     image_urls: nextGallery.map((slot) => slot.url),
     image_gallery: nextGallery,
@@ -204,6 +211,7 @@ function toBaseColumns(payload: ProductPayload) {
     sizes: sanitizeSizes(payload.sizes),
     image_url: payload.image_url,
     category: payload.category,
+    product_type: normalizeProductType(payload.product_type),
   };
 }
 
@@ -245,6 +253,7 @@ async function insertProductRow(payload: ProductPayload) {
     sizes: cleanSizes,
     image_url: payload.image_url || '',
     category: payload.category?.trim() || '',
+    product_type: normalizeProductType(payload.product_type),
     image_gallery: imageGallery,
   };
   console.log('Saving product sizes:', cleanSizes);
@@ -304,6 +313,7 @@ async function updateProductRow(productId: string, payload: ProductPayload) {
     sizes: cleanSizes,
     image_url: payload.image_url || '',
     category: payload.category?.trim() || '',
+    product_type: normalizeProductType(payload.product_type),
     image_gallery: imageGallery,
   };
 
@@ -355,6 +365,7 @@ function createSeedProducts(): ProductPayload[] {
     image_urls: product.image_url ? [product.image_url] : [],
     image_gallery: product.image_url ? [{ url: product.image_url, published: true }] : [],
     category: product.category,
+    product_type: 'sneakers',
   }));
 }
 
