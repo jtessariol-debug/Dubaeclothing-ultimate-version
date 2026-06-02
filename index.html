@@ -9,7 +9,17 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=%VITE_PAYPAL_CLIENT_ID%&currency=USD&intent=capture&components=buttons"></script>
+    <script type="module">
+        const paypalClientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
+        window.__PAYPAL_CLIENT_ID__ = paypalClientId || '';
+
+        if (paypalClientId) {
+            const paypalScript = document.createElement('script');
+            paypalScript.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(paypalClientId)}&currency=USD&intent=capture&components=buttons`;
+            paypalScript.async = true;
+            document.head.appendChild(paypalScript);
+        }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1129,7 +1139,7 @@
     <!-- Original Logic Script (Modified to use Firebase) -->
     <script>
         const WHATSAPP_NUMBER = "18297207993";
-        const PAYPAL_CLIENT_ID = "%VITE_PAYPAL_CLIENT_ID%";
+        const PAYPAL_CLIENT_ID = window.__PAYPAL_CLIENT_ID__ || '';
         const SUPABASE_URL = "%VITE_SUPABASE_URL%";
         const SUPABASE_ANON_KEY = "%VITE_SUPABASE_ANON_KEY%";
         const STOREFRONT_BUILD_VERSION = new Date().toISOString();
@@ -1926,7 +1936,7 @@
         }
         function renderPayPalButtons(context, total) {
             document.getElementById('paypal-button-container').innerHTML = '';
-            if(!window.paypal || !PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID.includes('%VITE_')) { setPaymentStatus('PayPal is not configured.', 'error'); return; }
+            if(!window.paypal || !PAYPAL_CLIENT_ID) { setPaymentStatus('PayPal checkout is not available right now.', 'error'); return; }
             window.paypal.Buttons({
                 style: { layout: 'vertical', color: 'gold', shape: 'pill', label: 'paypal' },
                 createOrder: (_data, actions) => actions.order.create({ purchase_units: [{ description: context.mode === 'single' ? context.items[0].name : `Dubae cart (${context.items.length} items)`, amount: { currency_code: 'USD', value: total.toFixed(2) } }] }),
