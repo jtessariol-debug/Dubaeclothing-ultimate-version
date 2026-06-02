@@ -1,0 +1,2012 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dubae Clothing | Premium Urban Footwear</title>
+    <meta name="description" content="Exclusive sneakers and streetwear. Adidas, Nike, New Balance, ASICS. Secure WhatsApp checkout.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=%VITE_PAYPAL_CLIENT_ID%&currency=USD&intent=capture&components=buttons"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        dubae: {
+                            black: '#0a0a0a',
+                            dark: '#050505',
+                            gold: '#C6A87C', 
+                            light: '#F5F5F7',
+                            gray: '#86868b',
+                            success: '#10B981',
+                            danger: '#EF4444'
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'slide-in-right': 'slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'zoom-in': 'zoomIn 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        slideInRight: { '0%': { transform: 'translateX(100%)' }, '100%': { transform: 'translateX(0)' } },
+                        zoomIn: { '0%': { opacity: '0', transform: 'scale(0.95)' }, '100%': { opacity: '1', transform: 'scale(1)' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { -webkit-font-smoothing: antialiased; background-color: #ffffff; color: #0a0a0a; background-image: radial-gradient(circle at top, rgba(198, 168, 124, 0.08), transparent 22%), linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%); transition: background-color 0.3s ease, color 0.3s ease; }
+        html.dark body { background-color: #050505; color: #f5f5f5; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 4px; }
+        html.dark ::-webkit-scrollbar-thumb { background: #333; }
+        button, select, input, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+        .product-img { mix-blend-mode: multiply; filter: contrast(1.03); transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        html.dark .product-img { mix-blend-mode: normal; filter: brightness(0.9) contrast(1.1); }
+        .product-card { transition: transform 0.28s ease, opacity 0.28s ease; }
+        .product-card:hover { transform: translateY(-8px); }
+        .product-card:hover .product-img { transform: scale(1.1); }
+        .product-media { background: linear-gradient(180deg, #f7f7f8 0%, #ececef 100%); border: 1px solid rgba(15, 23, 42, 0.06); box-shadow: 0 24px 55px rgba(15, 23, 42, 0.07); }
+        html.dark .product-media { background: linear-gradient(180deg, #111111 0%, #090909 100%); border-color: rgba(255,255,255,0.06); box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4); }
+        .product-meta { letter-spacing: 0.24em; }
+        .quickview-btn { backdrop-filter: blur(10px); }
+        .size-btn { min-width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; font-size: 0.85rem; border: 1px solid #d8dadd; color: #0a0a0a; background: white; border-radius: 999px; }
+        html.dark .size-btn { background: #0a0a0a; border-color: #333; color: #fff; }
+        .size-btn:hover:not(.disabled) { border-color: #0a0a0a; transform: translateY(-1px); }
+        html.dark .size-btn:hover:not(.disabled) { border-color: #fff; }
+        .size-btn.selected { background-color: #0a0a0a; color: white; border-color: #0a0a0a; }
+        html.dark .size-btn.selected { background-color: #fff; color: #000; border-color: #fff; }
+        .size-btn.disabled { opacity: 0.4; cursor: not-allowed; border-style: dashed; }
+        .custom-checkbox { appearance: none; background-color: white; border: 1px solid #d1d5db; width: 1rem; height: 1rem; display: grid; place-content: center; border-radius: 999px; transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease; }
+        html.dark .custom-checkbox { border-color: #444; }
+        .custom-checkbox::before { content: ""; width: 0.5rem; height: 0.5rem; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em black; }
+        html.dark .custom-checkbox::before { box-shadow: inset 1em 1em white; }
+        .custom-checkbox:checked::before { transform: scale(1); }
+        .custom-checkbox:checked { border-color: #0a0a0a; }
+        .custom-checkbox:hover { transform: scale(1.06); }
+        .snap-x-mandatory { scroll-snap-type: x mandatory; }
+        .snap-center { scroll-snap-align: center; }
+        .star-input { cursor: pointer; color: #d1d5db; transition: color 0.2s; }
+        .star-input:hover, .star-input.active { color: #C6A87C; }
+        .filter-group { background: rgba(255,255,255,0.74); border: 1px solid rgba(15, 23, 42, 0.07); border-radius: 1.5rem; padding: 1.25rem 1.2rem; box-shadow: 0 24px 45px rgba(15, 23, 42, 0.04); backdrop-filter: blur(14px); }
+        html.dark .filter-group { background: rgba(17,17,17,0.92); border-color: rgba(255,255,255,0.06); box-shadow: 0 20px 45px rgba(0,0,0,0.28); }
+        .hero-panel { box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28); }
+        .nav-shell { box-shadow: 0 16px 45px rgba(15, 23, 42, 0.06); }
+        /* Admin Button Pulse */
+        @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(198, 168, 124, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(198, 168, 124, 0); } 100% { box-shadow: 0 0 0 0 rgba(198, 168, 124, 0); } }
+        .admin-btn { animation: pulse-gold 2s infinite; }
+        
+        /* Map Styles */
+        .map-container iframe { width: 100%; height: 100%; border: 0; filter: grayscale(100%); transition: filter 0.3s; }
+        .map-container:hover iframe { filter: grayscale(0%); }
+        html.dark .map-container iframe { filter: invert(90%) hue-rotate(180deg) contrast(0.8); }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+<script type="module">
+    import { supabase } from '/src/admin/services/supabaseClient.ts';
+    window.dubaeSupabase = supabase;
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="overflow-x-hidden flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="nav-shell fixed w-full z-50 bg-white/92 dark:bg-black/82 backdrop-blur-xl border-b border-black/5 dark:border-white/10 transition-colors duration-300" id="navbar">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 h-20">
+            <div class="flex justify-between items-center h-full">
+                <!-- Left -->
+                <div class="flex items-center gap-4 w-1/3">
+                    <button onclick="toggleMobileFilters()" class="lg:hidden p-2 -ml-2 text-black dark:text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+                    <div class="hidden lg:flex items-center gap-3 rounded-full border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 px-4 py-3 transition-all hover:border-gray-300 dark:hover:border-gray-600 w-72">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <input type="text" id="desktop-search" data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="bg-transparent text-sm outline-none w-full placeholder-gray-400 text-black dark:text-white" oninput="handleSearch(this.value)">
+                    </div>
+                </div>
+
+                <!-- Center -->
+                <a href="#" class="flex items-center gap-2 group w-1/3 justify-center" onclick="resetView(); return false;">
+                    <span class="font-serif font-bold text-2xl tracking-tighter uppercase text-black dark:text-white group-hover:text-dubae-gold transition-colors">Dubae</span>
+                </a>
+
+                <!-- Right -->
+                <div class="flex items-center justify-end gap-3 sm:gap-6 w-1/3">
+                    <!-- Language Toggle -->
+                    <button onclick="toggleLanguage()" class="rounded-full border border-black/10 dark:border-white/10 px-3 py-2 text-[11px] font-bold uppercase tracking-[0.25em] hover:text-dubae-gold text-black dark:text-white transition-colors" id="lang-btn">EN</button>
+
+                    <!-- Admin Access -->
+                    <a
+                        href="/admin/"
+                        class="hidden sm:inline-flex items-center rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-black dark:text-white hover:border-dubae-gold hover:text-dubae-gold transition-colors"
+                    >
+                        Admin Panel
+                    </a>
+
+                    <!-- User Auth -->
+                    <div id="auth-container" class="relative group">
+                        <button onclick="handleAuthClick()" id="user-btn" class="flex items-center gap-2 rounded-full border border-transparent p-2 hover:border-black/10 hover:bg-gray-50 dark:hover:border-white/10 dark:hover:bg-white/10 transition-colors">
+                            <svg id="user-icon-default" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <img id="user-avatar" src="" class="w-6 h-6 rounded-full hidden border border-gray-200" alt="User">
+                        </button>
+                    </div>
+
+                    <!-- Dark Mode -->
+                    <button onclick="toggleDarkMode()" class="rounded-full border border-transparent p-2 text-gray-500 hover:border-black/10 hover:text-black dark:hover:border-white/10 dark:hover:text-white transition-colors">
+                        <svg id="icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+
+                    <!-- Cart -->
+                    <button onclick="toggleCart()" class="relative rounded-full border border-transparent p-2 hover:border-black/10 hover:bg-gray-50 dark:hover:border-white/10 dark:hover:bg-white/10 transition-colors group">
+                        <svg class="w-6 h-6 text-black dark:text-white group-hover:text-dubae-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span id="cart-count" class="absolute top-0 right-0 bg-black dark:bg-white text-white dark:text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Floating Button -->
+    <button id="admin-trigger" onclick="toggleAdminPanel()" class="hidden fixed bottom-6 left-6 z-[80] w-12 h-12 bg-dubae-gold text-white rounded-full shadow-xl items-center justify-center admin-btn hover:scale-110 transition-transform">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    </button>
+
+    <!-- Admin Panel Modal -->
+    <div id="admin-panel" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-[#111] w-full max-w-2xl rounded-sm shadow-2xl overflow-hidden max-h-[80vh] flex flex-col">
+            <div class="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-[#1a1a1a]">
+                <h3 class="font-bold text-sm uppercase tracking-widest text-black dark:text-white" data-i18n="admin_title">Review Moderation</h3>
+                <button onclick="toggleAdminPanel()" class="text-gray-400 hover:text-red-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <div id="admin-reviews-list" class="flex-1 overflow-y-auto p-4 space-y-4">
+                <p class="text-center text-gray-400 text-sm py-10" data-i18n="admin_loading">Loading pending reviews...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <main class="flex-grow pt-20 bg-white dark:bg-dubae-dark transition-colors duration-300">
+        
+        <!-- Catalog View -->
+        <div id="catalog-view" class="animate-fade-in">
+            <!-- Hero -->
+            <section class="relative w-full min-h-[68vh] h-auto bg-[#111] overflow-hidden flex items-center justify-center py-24 md:py-28">
+                <div class="absolute inset-0 z-0 opacity-80 bg-[url('https://i.postimg.cc/s2XH3TvG/dubae-clothing-portada.jpg')] bg-cover bg-center bg-fixed transition-transform duration-[20s] hover:scale-105"></div>
+                <video
+                    class="absolute inset-0 z-[1] h-full w-full object-cover"
+                    src="./VIDEODUBAE.MOV"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="auto"
+                    poster="https://i.postimg.cc/s2XH3TvG/dubae-clothing-portada.jpg"
+                ></video>
+                <div class="absolute inset-0 z-[2] bg-gradient-to-t from-black via-black/55 to-black/15"></div>
+                <div class="absolute inset-x-0 bottom-4 z-[3] flex justify-center px-4 text-center text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
+                    <span class="rounded-full bg-black/35 px-4 py-2 backdrop-blur-sm">If the video does not play, convert VIDEODUBAE.MOV to MP4 for full browser support.</span>
+                </div>
+                <div class="relative z-10 text-center text-white p-6 max-w-5xl mx-auto flex flex-col items-center">
+                    <p class="text-[11px] font-bold uppercase tracking-[0.55em] mb-5 text-white/80 animate-slide-up" style="animation-delay: 0.1s;" data-i18n="hero_subtitle">New Season 2025</p>
+                    <h1 class="max-w-4xl text-5xl md:text-7xl lg:text-8xl font-serif italic mb-8 animate-slide-up leading-[0.95]" style="animation-delay: 0.2s;" data-i18n="hero_title">Redefining Urban Luxury</h1>
+                    <div class="flex justify-center gap-4 md:gap-6 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.28em] animate-slide-up mb-12 backdrop-blur-md" style="animation-delay: 0.3s;">
+                        <span class="border-b border-transparent hover:border-white transition-colors cursor-default pb-1">Sneakers</span>
+                        <span class="border-b border-transparent hover:border-white transition-colors cursor-default pb-1">Streetwear</span>
+                        <span class="border-b border-transparent hover:border-white transition-colors cursor-default pb-1">Lifestyle</span>
+                    </div>
+
+                    <!-- ADDED: Hero Copy (About Us) -->
+                    <div class="hero-panel max-w-2xl mx-auto text-sm md:text-base text-gray-200/90 leading-relaxed text-center space-y-4 animate-slide-up backdrop-blur-md bg-black/28 p-6 md:p-8 rounded-3xl border border-white/10" style="animation-delay: 0.4s;">
+                        <h2 class="text-xl font-serif italic mb-2 text-dubae-gold" data-i18n="about_title">About Dubae Clothing</h2>
+                        <p data-i18n="about_p1">Dubae Clothing is a fashion store dedicated to offering clothing and footwear that combine quality, trend, and affordability. We focus on people who enjoy dressing with style and originality, keeping up with trends without needing a high budget.</p>
+                        <p data-i18n="about_p2" class="hidden md:block">We take care of every detail to provide a close, trustworthy, and comfortable shopping experience. We guide our customers throughout the selection process, especially when choosing the right size for shipped orders, ensuring every purchase feels right and satisfying.</p>
+                        <p data-i18n="about_p3" class="hidden md:block">At Dubae Clothing, we believe looking good should be accessible. More than selling products, our goal is for every customer to feel confident in their style, well guided, and excited to come back.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trust Bar -->
+            <section class="bg-white/80 dark:bg-[#0f0f0f] border-b border-gray-100 dark:border-gray-800 py-6 backdrop-blur-sm">
+                <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center md:justify-between items-center gap-6 text-center md:text-left">
+                     <div class="flex items-center gap-3">
+                        <div class="flex text-dubae-gold">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        </div>
+                        <span class="text-xs font-semibold text-gray-700 dark:text-gray-300" data-i18n="trust_rating">4.9/5 from 300+ Verified Orders</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Area -->
+            <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 flex gap-8 xl:gap-12">
+                <!-- Sidebar -->
+                <aside class="hidden lg:block w-72 flex-shrink-0 sticky top-28 h-fit space-y-5">
+                     <div class="filter-group">
+                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_sort">Sort Collection</h3>
+                        <select onchange="applySort(this.value)" id="sort-select" class="w-full rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-black px-4 py-3 text-sm cursor-pointer font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">
+                            <option value="newest" class="dark:bg-black" data-i18n="sort_new">New Arrivals</option>
+                            <option value="price-asc" class="dark:bg-black" data-i18n="sort_low_high">Price: Low to High</option>
+                            <option value="price-desc" class="dark:bg-black" data-i18n="sort_high_low">Price: High to Low</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_brands">Brands</h3>
+                        <div class="space-y-3" id="desktop-brand-filters"></div>
+                    </div>
+                    <div class="filter-group">
+                        <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_sizes">Sizes (EU)</h3>
+                        <div class="grid grid-cols-4 gap-2" id="desktop-size-filters"></div>
+                    </div>
+                </aside>
+
+                <!-- Grid -->
+                <div class="flex-1 min-h-screen">
+                     <div class="lg:hidden flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-800 sticky top-20 bg-white/95 dark:bg-black/95 backdrop-blur z-30 pt-4">
+                        <button onclick="toggleMobileFilters()" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            <span data-i18n="filter_btn">Filters</span>
+                        </button>
+                    </div>
+                    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
+                    <div id="no-results" class="hidden py-32 text-center">
+                        <p class="text-gray-400 text-xl font-serif italic mb-4" data-i18n="no_results">No pieces found.</p>
+                        <button onclick="resetFilters()" class="text-xs font-bold uppercase tracking-widest underline text-black dark:text-white hover:text-dubae-gold" data-i18n="clear_filters">Clear Filters</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Section -->
+            <section id="reviews-section" class="border-t border-gray-100 bg-white py-16 dark:border-gray-800 dark:bg-[#080808]">
+                <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-[0.25em] text-gray-400" data-i18n="reviews_tag">Community</span>
+                            <h2 class="mt-3 font-serif text-3xl italic text-black dark:text-white md:text-5xl" data-i18n="reviews_section_title">Customer Reviews</h2>
+                            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-gray-500 dark:text-gray-400" data-i18n="reviews_section_copy">Share your experience with a product and read what other customers are saying before ordering.</p>
+                        </div>
+                        <div id="reviews-summary" class="rounded-full border border-gray-200 px-5 py-3 text-xs font-bold uppercase tracking-[0.2em] text-gray-500 dark:border-gray-700 dark:text-gray-300">
+                            0 Reviews
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-8 xl:grid-cols-[1.05fr_1.4fr]">
+                        <div id="home-review-form" class="rounded-sm border border-gray-200 bg-gray-50 p-6 dark:border-gray-800 dark:bg-[#111]"></div>
+                        <div id="recent-reviews-grid" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About & Location Section (RESTAURADO) -->
+            <section id="about-location" class="bg-gray-50 dark:bg-[#0c0c0c] py-16 md:py-24 border-t border-gray-100 dark:border-gray-800">
+                <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+                    
+                    <!-- About Text -->
+                    <div class="space-y-6">
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400" data-i18n="about_tag">Our Story</span>
+                        <h2 class="text-3xl md:text-5xl font-serif italic text-black dark:text-white leading-tight" data-i18n="about_title">About Dubae Clothing</h2>
+                        <div class="text-sm md:text-base text-gray-600 dark:text-gray-300 space-y-4 leading-relaxed text-justify">
+                            <p data-i18n="about_p1">Dubae Clothing is a fashion store dedicated to offering clothing and footwear that combine quality, trend, and affordability. We focus on people who enjoy dressing with style and originality, keeping up with trends without needing a high budget.</p>
+                            <p data-i18n="about_p2">We take care of every detail to provide a close, trustworthy, and comfortable shopping experience. We guide our customers throughout the selection process, especially when choosing the right size for shipped orders, ensuring every purchase feels right and satisfying.</p>
+                            <p data-i18n="about_p3">At Dubae Clothing, we believe looking good should be accessible. More than selling products, our goal is for every customer to feel confident in their style, well guided, and excited to come back.</p>
+                        </div>
+                    </div>
+
+                    <!-- Location Map -->
+                    <div class="w-full h-full min-h-[400px] flex flex-col space-y-6">
+                         <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 block mb-2" data-i18n="loc_tag">Visit Us</span>
+                                <h3 class="text-xl font-serif text-black dark:text-white">Santo Domingo Norte</h3>
+                                <p class="text-sm text-gray-500">Av. Hermanas Mirabal 461</p>
+                            </div>
+                         </div>
+                         
+                         <!-- Google Map Embed -->
+                         <div class="map-container w-full h-80 bg-gray-200 dark:bg-[#1a1a1a] rounded-sm overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800 relative group">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.356269661448!2d-69.9328224!3d18.5580091!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf8b630f9a5679%3A0x7d6b8b8b8b8b8b8b!2sAv.%20Hermanas%20Mirabal%20461%2C%20Santo%20Domingo!5e0!3m2!1sen!2sdo!4v1700000000000!5m2!1sen!2sdo" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                         </div>
+                         
+                         <!-- Open Map Button -->
+                         <a href="https://www.google.com/maps/search/?api=1&query=Av.+Hermanas+Mirabal+461,+Santo+Domingo" target="_blank" class="inline-flex items-center justify-center gap-3 w-full md:w-auto px-8 py-4 bg-white dark:bg-[#1a1a1a] border border-gray-200 dark:border-gray-700 text-black dark:text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shadow-sm">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span data-i18n="loc_btn">Open in Google Maps</span>
+                         </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Detail Full View Overlay -->
+        <div id="detail-view" class="hidden fixed inset-0 z-[55] bg-white dark:bg-[#0a0a0a] overflow-y-auto animate-slide-up"></div>
+        
+        <!-- Quick View Overlay (NEW) -->
+        <div id="quick-view-overlay" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in" onclick="closeQuickView()">
+            <!-- Content injected via JS -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#0a0a0a] border-t border-gray-900 text-white py-16 mt-auto">
+        <div class="max-w-[1600px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+            <div>
+                <span class="font-serif text-2xl tracking-tighter uppercase mb-4 block">Dubae</span>
+                <p class="text-gray-500 text-xs leading-relaxed max-w-xs mx-auto md:mx-0">Av. Hermanas Mirabal 461, Santo Domingo Norte.<br data-i18n="footer_auth">Authentic goods only.</p>
+            </div>
+            <div class="flex flex-col justify-center items-center md:items-start gap-4">
+                <a href="#" class="text-xs font-bold uppercase tracking-[0.2em] hover:text-dubae-gold transition-colors">Instagram</a>
+                <a href="#" class="text-xs font-bold uppercase tracking-[0.2em] hover:text-dubae-gold transition-colors">WhatsApp</a>
+            </div>
+            <div class="flex items-end justify-center md:justify-end"><p class="text-[10px] text-gray-700 uppercase tracking-widest">&copy; <span id="year"></span> Dubae Clothing</p></div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/40 dark:bg-black/60 z-[60] backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleCart()"></div>
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-[#0a0a0a] shadow-2xl z-[70] transform translate-x-full transition-transform duration-300 flex flex-col border-l border-gray-100 dark:border-gray-900">
+        <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+            <h2 class="font-serif italic text-xl text-black dark:text-white" data-i18n="cart_title">Shopping Bag</h2>
+            <button onclick="toggleCart()" class="p-2 text-black dark:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-6">
+            <div id="cart-items" class="space-y-6"></div>
+            <div id="cart-customer-form" class="mt-8 pt-8 border-t border-gray-100 dark:border-gray-800 hidden">
+                <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] mb-6 text-gray-400" data-i18n="cart_details">Checkout Details</h3>
+                <div class="space-y-5">
+                    <input type="text" id="cust-name" class="w-full bg-transparent border-b border-gray-200 dark:border-gray-700 py-2 text-sm outline-none focus:border-black dark:focus:border-white transition-colors placeholder-gray-400 text-black dark:text-white" data-i18n-placeholder="ph_name" placeholder="Full Name *">
+                    <input type="tel" id="cust-phone" class="w-full bg-transparent border-b border-gray-200 dark:border-gray-700 py-2 text-sm outline-none focus:border-black dark:focus:border-white transition-colors placeholder-gray-400 text-black dark:text-white" data-i18n-placeholder="ph_phone" placeholder="Phone Number *">
+                    <textarea id="cust-address" rows="2" class="w-full bg-transparent border-b border-gray-200 dark:border-gray-700 py-2 text-sm outline-none focus:border-black dark:focus:border-white transition-colors resize-none placeholder-gray-400 text-black dark:text-white" data-i18n-placeholder="ph_address" placeholder="Delivery Address *"></textarea>
+                    <select id="cust-sector" onchange="updateShippingUI(); updateCartUI();" class="w-full rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-[#111] px-4 py-3 text-sm outline-none focus:border-black dark:focus:border-white transition-colors text-black dark:text-white">
+                        <option value="">Select delivery sector *</option>
+                        <option value="Distrito Nacional">Distrito Nacional</option>
+                        <option value="Santo Domingo Este">Santo Domingo Este</option>
+                        <option value="Santo Domingo Oeste">Santo Domingo Oeste</option>
+                        <option value="Santo Domingo Norte">Santo Domingo Norte</option>
+                        <option value="Interior">Interior</option>
+                    </select>
+                    <input type="text" id="cust-parada" oninput="updateCartUI();" class="hidden w-full bg-transparent border-b border-gray-200 dark:border-gray-700 py-2 text-sm outline-none focus:border-black dark:focus:border-white transition-colors placeholder-gray-400 text-black dark:text-white" placeholder="Parada *">
+                </div>
+            </div>
+        </div>
+        <div class="p-6 border-t border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#111]">
+            <div id="cart-shipping" class="mb-3 text-xs text-gray-500 dark:text-gray-400"></div>
+            <div class="flex justify-between items-end mb-4 text-black dark:text-white"><span class="text-xs font-bold uppercase tracking-widest text-gray-500" data-i18n="cart_total">Total</span><span id="cart-total" class="text-2xl font-serif font-medium">$0.00</span></div>
+            <button onclick="checkoutCart()" class="w-full bg-black dark:bg-white text-white dark:text-black py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-dubae-gold dark:hover:bg-dubae-gold transition-colors" data-i18n="cart_checkout">Pay with PayPal</button>
+        </div>
+    </div>
+
+    <div id="payment-overlay" class="fixed inset-0 z-[95] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="payment-modal" class="fixed inset-x-0 top-1/2 z-[100] mx-auto w-[calc(100%-2rem)] max-w-2xl -translate-y-1/2 scale-95 rounded-[2rem] border border-gray-200 bg-white p-6 opacity-0 shadow-2xl transition-all duration-300 pointer-events-none dark:border-gray-800 dark:bg-[#111]">
+        <div class="flex items-start justify-between gap-4 border-b border-gray-100 pb-4 dark:border-gray-800">
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-dubae-gold">PayPal Checkout</p>
+                <h3 id="payment-title" class="mt-2 font-serif text-2xl italic text-black dark:text-white">Complete payment</h3>
+            </div>
+            <button onclick="closePaymentModal()" class="rounded-full border border-gray-200 px-4 py-2 text-xs font-bold uppercase tracking-widest text-gray-600 transition hover:border-red-400 hover:text-red-500 dark:border-gray-700 dark:text-gray-300">Close</button>
+        </div>
+        <div class="mt-5 space-y-5">
+            <div id="payment-summary" class="rounded-2xl bg-gray-50 p-4 text-sm text-gray-700 dark:bg-[#0a0a0a] dark:text-gray-200"></div>
+            <div class="rounded-2xl border border-dashed border-gray-300 p-4 text-xs uppercase tracking-[0.2em] text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                <span id="payment-whatsapp-label">Send payment receipt to this number</span>
+                <a id="payment-whatsapp-link" href="#" target="_blank" rel="noreferrer" class="ml-2 text-dubae-gold underline">+1 (829) 720-7993</a>
+            </div>
+            <div id="payment-success-card" class="hidden rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-emerald-100">
+                <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-300">Payment successful</p>
+                <h4 id="payment-success-title" class="mt-2 text-xl font-semibold text-white">Your payment was completed</h4>
+                <p id="payment-success-message" class="mt-2 text-sm text-emerald-100/90">Thank you. Your order has been registered successfully.</p>
+                <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+                    <a id="payment-success-whatsapp" href="#" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-full bg-emerald-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-300">
+                        Send receipt by WhatsApp
+                    </a>
+                    <button type="button" onclick="closePaymentModal()" class="rounded-full border border-emerald-400/40 px-5 py-3 text-sm font-medium text-emerald-100 transition hover:bg-emerald-400/10">
+                        Close
+                    </button>
+                </div>
+            </div>
+            <div id="paypal-button-container" class="min-h-[48px]"></div>
+            <div id="payment-status" class="hidden rounded-2xl border px-4 py-3 text-sm"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Filter Drawer -->
+    <div id="mobile-filter-overlay" class="fixed inset-0 bg-black/40 z-[60] backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" onclick="toggleMobileFilters()"></div>
+    <div id="mobile-filter-sidebar" class="fixed inset-y-0 left-0 w-4/5 max-w-xs bg-white dark:bg-[#111] shadow-2xl z-[70] transform -translate-x-full transition-transform duration-300 flex flex-col lg:hidden border-r border-gray-100 dark:border-gray-800">
+         <div class="p-6 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between">
+            <h2 class="font-serif italic text-xl text-black dark:text-white" data-i18n="filter_title">Filters</h2>
+            <button onclick="toggleMobileFilters()" class="p-2 text-black dark:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-6 space-y-8">
+            <div class="space-y-3" id="mobile-brand-filters"></div>
+            <div class="grid grid-cols-4 gap-2" id="mobile-size-filters"></div>
+            <div class="p-6 border-t border-gray-100 dark:border-gray-800"><button onclick="resetFilters(); toggleMobileFilters()" class="w-full border border-black dark:border-white text-black dark:text-white py-3 text-xs font-bold uppercase tracking-widest" data-i18n="filter_reset">Reset All</button></div>
+        </div>
+    </div>
+
+    <!-- Toasts -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[90] flex flex-col gap-3 pointer-events-none">
+         <div id="toast" class="bg-black dark:bg-white text-white dark:text-black px-6 py-4 shadow-2xl transform translate-x-[150%] opacity-0 transition-all duration-500 border-l-4 border-dubae-gold flex items-center gap-4 pointer-events-auto">
+            <span id="toast-message" class="text-xs font-bold uppercase tracking-widest">Message</span>
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db, provider, signInWithPopup, signOut, onAuthStateChanged, collection, addDoc, getDocs, query, where, updateDoc, deleteDoc, doc, orderBy, serverTimestamp, onSnapshot, ADMIN_EMAILS } from './firebase-config.js';
+
+        // Globals attached to window for HTML access
+        window.currentUser = null;
+        window.isAdmin = false;
+        
+        // --- AUTH LOGIC ---
+        window.handleAuthClick = async () => {
+            if (window.currentUser) {
+                try {
+                    await signOut(auth);
+                    showToast(window.i18n.toast_logout[currentLang]);
+                } catch (error) {
+                    showToast("Error logging out");
+                }
+            } else {
+                try {
+                    await signInWithPopup(auth, provider);
+                } catch (error) {
+                    console.error(error);
+                    showToast("Login cancelled");
+                }
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            window.currentUser = user;
+            const btn = document.getElementById('user-btn');
+            const icon = document.getElementById('user-icon-default');
+            const avatar = document.getElementById('user-avatar');
+            const adminTrigger = document.getElementById('admin-trigger');
+
+            if (user) {
+                icon.classList.add('hidden');
+                avatar.src = user.photoURL || 'https://via.placeholder.com/40';
+                avatar.classList.remove('hidden');
+                
+                // Check Admin
+                window.isAdmin = ADMIN_EMAILS.includes(user.email);
+                if(window.isAdmin) {
+                    adminTrigger.classList.remove('hidden');
+                    adminTrigger.classList.add('flex');
+                } else {
+                    adminTrigger.classList.add('hidden');
+                }
+                showToast(`${window.i18n.toast_welcome[currentLang]} ${user.displayName ? user.displayName.split(' ')[0] : 'User'}`);
+            } else {
+                icon.classList.remove('hidden');
+                avatar.classList.add('hidden');
+                avatar.src = '';
+                adminTrigger.classList.add('hidden');
+                window.isAdmin = false;
+            }
+
+            renderHomeReviewsSection(latestApprovedReviews);
+            
+            // Re-render detail view if open to update review form state
+            const detailView = document.getElementById('detail-view');
+            if(!detailView.classList.contains('hidden')){
+                const pid = detailView.getAttribute('data-pid');
+                if(pid) window.openDetail(parseInt(pid));
+            }
+        });
+
+        // --- SUPABASE REVIEW SERVICE ---
+        function normalizeReviewRecord(review) {
+            const reviewStatus = String(review?.status ?? '').trim().toLowerCase();
+            return {
+                id: String(review.id),
+                productId: review?.product_id == null ? null : String(review.product_id),
+                product_id: review?.product_id == null ? null : String(review.product_id),
+                fullName: review.full_name,
+                full_name: review.full_name,
+                email: review.email,
+                rating: Number(review.rating) || 0,
+                comment: review.review,
+                review: review.review,
+                status: reviewStatus || 'pending',
+                approved: reviewStatus === 'approved' || reviewStatus === 'published',
+                createdAt: review.created_at,
+                created_at: review.created_at,
+            };
+        }
+
+        function getSharedSupabaseClient() {
+            return window.dubaeSupabase ?? null;
+        }
+
+        async function fetchReviewsFromSupabase(queryBuilder) {
+            const supabase = getSharedSupabaseClient();
+            if (!supabase) {
+                console.error('Public reviews error:', 'Shared Supabase client not ready');
+                return [];
+            }
+
+            const { data, error } = await queryBuilder(supabase);
+            if (error) {
+                console.error('Public reviews error:', error);
+                return [];
+            }
+
+            return Array.isArray(data) ? data.map(normalizeReviewRecord) : [];
+        }
+
+        window.ReviewService = {
+            addReview: async function(reviewData) {
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_ANON_KEY,
+                            'Prefer': 'return=minimal',
+                        },
+                        body: JSON.stringify({
+                            product_id: reviewData.product_id || null,
+                            full_name: reviewData.full_name,
+                            email: reviewData.email,
+                            rating: reviewData.rating,
+                            review: reviewData.review,
+                            status: 'pending',
+                        }),
+                    });
+                    if (!response.ok) throw new Error(await response.text());
+                    return { success: true };
+                } catch (e) {
+                    console.error(e);
+                    return { success: false, message: e.message };
+                }
+            },
+            subscribeToApprovedReviews: function(productId, callback) {
+                fetchReviewsFromSupabase((supabase) =>
+                    supabase
+                        .from('reviews')
+                        .select('id, product_id, full_name, email, rating, review, status, created_at')
+                        .eq('product_id', String(productId))
+                        .in('status', ['approved', 'published'])
+                        .order('created_at', { ascending: false })
+                )
+                    .then(callback)
+                    .catch((error) => {
+                        console.error(error);
+                        callback([]);
+                    });
+                return () => {};
+            },
+            subscribeToRecentApprovedReviews: function(callback) {
+                fetchReviewsFromSupabase((supabase) =>
+                    supabase
+                        .from('reviews')
+                        .select('id, product_id, full_name, email, rating, review, status, created_at')
+                        .in('status', ['approved', 'published'])
+                        .order('created_at', { ascending: false })
+                )
+                    .then(callback)
+                    .catch((error) => {
+                        console.error(error);
+                        callback([]);
+                    });
+                return () => {};
+            },
+            getPendingReviews: async function() {
+                try {
+                    return await fetchReviewsFromSupabase((supabase) =>
+                        supabase
+                            .from('reviews')
+                            .select('id, product_id, full_name, email, rating, review, status, created_at')
+                            .eq('status', 'pending')
+                            .order('created_at', { ascending: false })
+                    );
+                } catch (e) {
+                    console.error(e);
+                    return [];
+                }
+            },
+            approveReview: async function(reviewId) {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews?id=eq.${encodeURIComponent(String(reviewId))}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Prefer': 'return=representation',
+                    },
+                    body: JSON.stringify({ status: 'approved' }),
+                });
+                if (!response.ok) throw new Error(await response.text());
+                return response.json();
+            },
+            declineReview: async function(reviewId) {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews?id=eq.${encodeURIComponent(String(reviewId))}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Prefer': 'return=representation',
+                    },
+                    body: JSON.stringify({ status: 'declined' }),
+                });
+                if (!response.ok) throw new Error(await response.text());
+                return response.json();
+            },
+            deleteReview: async function(reviewId) {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews?id=eq.${encodeURIComponent(String(reviewId))}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                    },
+                });
+                if (!response.ok) throw new Error(await response.text());
+                return true;
+            },
+        };
+
+        function getProductById(productId) {
+            const normalized = String(productId);
+            return PRODUCTS.find(product => String(product.dbId ?? product.id) === normalized || String(product.id) === normalized) || null;
+        }
+        function isValidUuid(value) {
+            return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(value || '').trim());
+        }
+        function getProductReviewId(product) {
+            const candidate = String(product?.dbId ?? product?.id ?? '').trim();
+            return isValidUuid(candidate) ? candidate : '';
+        }
+
+        function renderHomeReviewsSection(reviews) {
+            latestApprovedReviews = Array.isArray(reviews) ? reviews : [];
+
+            const summary = document.getElementById('reviews-summary');
+            const form = document.getElementById('home-review-form');
+            const grid = document.getElementById('recent-reviews-grid');
+            if (!summary || !form || !grid) return;
+            const publishedCount = latestApprovedReviews.length;
+            summary.textContent = publishedCount
+                ? `${publishedCount} ${window.i18n.reviews_summary_count[currentLang]}`
+                : window.i18n.reviews_summary_zero[currentLang];
+
+            form.innerHTML = `
+                <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-dubae-gold">${window.i18n.reviews_form_title[currentLang]}</p>
+                <h3 class="mt-3 font-serif text-2xl italic text-black dark:text-white">${window.i18n.reviews_form_copy[currentLang]}</h3>
+                <div class="mt-6 space-y-4">
+                    <select id="home-review-product" class="w-full border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white">
+                        <option value="">${window.i18n.reviews_select_product_optional ? window.i18n.reviews_select_product_optional[currentLang] : window.i18n.reviews_select_product[currentLang]}</option>
+                        ${PRODUCTS.filter(product => getProductReviewId(product)).map(product => `<option value="${getProductReviewId(product)}">${product.name}</option>`).join('')}
+                    </select>
+                    <input id="home-review-name" type="text" placeholder="Full name" class="w-full border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white">
+                    <input id="home-review-email" type="email" placeholder="Email" class="w-full border border-gray-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-dubae-gold dark:border-gray-700 dark:bg-black dark:text-white">
+                    <div class="flex gap-2 text-2xl">
+                        ${[1,2,3,4,5].map(i => `<button type="button" id="home-star-${i}" class="star-input ${i <= 5 ? 'active text-dubae-gold' : ''}" onclick="window.setHomeReviewRating(${i})">★</button>`).join('')}
+                    </div>
+                    <textarea id="home-review-comment" rows="4" placeholder="${window.i18n.review_placeholder[currentLang]}" class="w-full border border-gray-200 bg-white p-4 text-sm outline-none transition focus:border-dubae-gold resize-none dark:border-gray-700 dark:bg-black dark:text-white"></textarea>
+                    <button onclick="window.submitHomeReview()" class="w-full bg-black py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition hover:bg-dubae-gold dark:bg-white dark:text-black dark:hover:bg-dubae-gold">
+                        ${window.i18n.review_submit[currentLang]}
+                    </button>
+                </div>
+            `;
+
+            if (latestApprovedReviews.length === 0) {
+                grid.innerHTML = `
+                    <div class="md:col-span-2 xl:col-span-3 rounded-sm border border-dashed border-gray-200 px-6 py-12 text-center text-sm text-gray-400 dark:border-gray-800">
+                        ${window.i18n.reviews_empty[currentLang]}
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = latestApprovedReviews.slice(0, 6).map(review => {
+                    const product = getProductById(review.product_id ?? review.productId);
+                    const productLabel = product ? product.name : 'Review general';
+                    const createdLabel = review.created_at
+                        ? new Date(review.created_at).toLocaleDateString()
+                        : window.i18n.lbl_just_now[currentLang];
+
+                    return `
+                        <article class="h-full rounded-sm border border-gray-200 bg-white p-5 transition hover:border-dubae-gold dark:border-gray-800 dark:bg-[#111]">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">${product ? (product.brand || product.category || 'Dubae') : 'Review general'}</p>
+                                    <h4 class="mt-2 text-sm font-semibold text-black dark:text-white">${productLabel}</h4>
+                                </div>
+                                <span class="text-[10px] text-gray-400">${createdLabel}</span>
+                            </div>
+                            <div class="mt-4 flex text-dubae-gold text-sm">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                            <p class="mt-4 text-sm leading-relaxed text-gray-600 dark:text-gray-300">"${review.review}"</p>
+                            <div class="mt-5 flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-[10px] font-bold uppercase text-black dark:border-gray-700 dark:text-white">${(review.full_name || '?').slice(0, 1)}</div>
+                                    <span class="text-xs font-bold text-black dark:text-white">${review.full_name}</span>
+                                </div>
+                                ${product ? `<button onclick="window.openDetail(${product.id})" class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 transition hover:text-dubae-gold dark:text-gray-300">${window.i18n.reviews_view_product[currentLang]}</button>` : ''}
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+            }
+
+            window.setHomeReviewRating(window.currentHomeReviewRating || 5);
+        }
+
+        function subscribeToHomepageReviews() {
+            window.ReviewService.subscribeToRecentApprovedReviews((reviews) => {
+                renderHomeReviewsSection(reviews);
+            });
+        }
+
+        // --- ADMIN PANEL LOGIC ---
+        window.toggleAdminPanel = async () => {
+            const panel = document.getElementById('admin-panel');
+            const list = document.getElementById('admin-reviews-list');
+            
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                // Load reviews
+                list.innerHTML = '<p class="text-center text-gray-400 text-sm py-10 animate-pulse">Fetching pending reviews...</p>';
+                const pending = await window.ReviewService.getPendingReviews();
+                
+                if(pending.length === 0) {
+                    list.innerHTML = '<p class="text-center text-gray-500 py-10">No pending reviews.</p>';
+                } else {
+                    list.innerHTML = pending.map(r => `
+                        <div class="bg-gray-50 dark:bg-[#111] p-4 rounded-sm border border-gray-100 dark:border-gray-800 flex flex-col gap-2">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="font-bold text-xs uppercase text-black dark:text-white">${r.fullName}</p>
+                                    <p class="text-[10px] text-gray-500">ID: ${r.productId}</p>
+                                    <p class="text-[10px] text-gray-500">${r.email}</p>
+                                </div>
+                                <div class="text-dubae-gold text-xs">${'★'.repeat(r.rating)}</div>
+                            </div>
+                            <p class="text-xs italic text-gray-600 dark:text-gray-300">"${r.comment}"</p>
+                            <div class="flex gap-2 mt-2">
+                                <button onclick="handleReviewAction('${r.id}', 'approve')" class="flex-1 bg-dubae-success text-white py-2 rounded-sm text-[10px] uppercase font-bold tracking-widest hover:opacity-90">Approve</button>
+                                <button onclick="handleReviewAction('${r.id}', 'reject')" class="flex-1 bg-dubae-danger text-white py-2 rounded-sm text-[10px] uppercase font-bold tracking-widest hover:opacity-90">Reject</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } else {
+                panel.classList.add('hidden');
+            }
+        };
+
+        window.handleReviewAction = async (id, action) => {
+            try {
+                if(action === 'approve') {
+                    await window.ReviewService.approveReview(id);
+                    showToast("Review Approved");
+                } else {
+                    await window.ReviewService.declineReview(id);
+                    showToast("Review Rejected");
+                }
+                // Refresh list
+                window.toggleAdminPanel(); // toggle off
+                setTimeout(window.toggleAdminPanel, 100); // toggle on to refresh
+            } catch(e) {
+                showToast("Error: " + e.message);
+            }
+        };
+
+        // Make functions available globally for HTML onclicks
+        window.submitReview = async (productId) => {
+             const selectedProductId = String(productId || '').trim();
+             const fullName = document.getElementById('review-full-name')?.value || '';
+             const email = document.getElementById('review-email')?.value || '';
+             const comment = document.getElementById('review-comment').value;
+             const rating = window.currentReviewRating || 0;
+
+             if(!isValidUuid(selectedProductId)) { showToast("Invalid product selected for review"); return; }
+             if(!fullName.trim()) { showToast("Please enter your full name"); return; }
+             if(!email.trim()) { showToast("Please enter your email"); return; }
+             if(!comment.trim()) { showToast("Please write a comment"); return; }
+             if(rating === 0) { showToast("Please select a star rating"); return; }
+             
+             const submitBtn = document.querySelector('#review-form button');
+             const originalText = submitBtn.innerText;
+             submitBtn.innerText = "Sending...";
+             submitBtn.disabled = true;
+
+             const result = await window.ReviewService.addReview({
+                 product_id: selectedProductId,
+                 full_name: fullName.trim(),
+                 email: email.trim(),
+                 rating: rating,
+                 review: comment.trim()
+             });
+             
+             if(result.success) {
+                 // UX: Visual Feedback - Replace form with success message
+                 const formContainer = document.getElementById('review-form');
+                 formContainer.innerHTML = `
+                    <div class="text-center py-6 animate-fade-in">
+                        <svg class="w-12 h-12 text-dubae-gold mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <p class="text-sm font-bold text-black dark:text-white uppercase tracking-widest">Review Submitted</p>
+                        <p class="text-xs text-gray-500 mt-2">Pending moderation approval.</p>
+                    </div>
+                 `;
+                 showToast(window.i18n.toast_review_sent[currentLang]);
+             } else {
+                 showToast("Error: " + result.message);
+                 submitBtn.innerText = originalText;
+                 submitBtn.disabled = false;
+             }
+        };
+        
+        window.currentReviewRating = 5;
+        window.setReviewRating = (val) => {
+            window.currentReviewRating = val;
+            for(let i=1; i<=5; i++) {
+                const el = document.getElementById(`star-${i}`);
+                if (el) {
+                    if(i <= val) el.classList.add('active', 'text-dubae-gold');
+                    else el.classList.remove('active', 'text-dubae-gold');
+                }
+            }
+        };
+
+        window.currentHomeReviewRating = 5;
+        window.setHomeReviewRating = (val) => {
+            window.currentHomeReviewRating = val;
+            for (let i = 1; i <= 5; i++) {
+                const el = document.getElementById(`home-star-${i}`);
+                if (el) {
+                    if (i <= val) el.classList.add('active', 'text-dubae-gold');
+                    else el.classList.remove('active', 'text-dubae-gold');
+                }
+            }
+        };
+
+        window.submitHomeReview = async () => {
+            const productId = document.getElementById('home-review-product')?.value;
+            const selectedProductId = String(productId || '').trim();
+            const fullName = document.getElementById('home-review-name')?.value || '';
+            const email = document.getElementById('home-review-email')?.value || '';
+            const comment = document.getElementById('home-review-comment')?.value || '';
+            const rating = window.currentHomeReviewRating || 0;
+
+            if (selectedProductId && !isValidUuid(selectedProductId)) {
+                showToast("Invalid product selected for review");
+                return;
+            }
+
+            if (!fullName.trim()) {
+                showToast("Please enter your full name");
+                return;
+            }
+
+            if (!email.trim()) {
+                showToast("Please enter your email");
+                return;
+            }
+
+            if (!comment.trim()) {
+                showToast("Please write a comment");
+                return;
+            }
+
+            if (rating === 0) {
+                showToast("Please select a star rating");
+                return;
+            }
+
+            const submitBtn = document.querySelector('#home-review-form button');
+            const originalText = submitBtn ? submitBtn.innerText : '';
+            if (submitBtn) {
+                submitBtn.innerText = "Sending...";
+                submitBtn.disabled = true;
+            }
+
+            const result = await window.ReviewService.addReview({
+                product_id: selectedProductId,
+                full_name: fullName.trim(),
+                email: email.trim(),
+                rating: rating,
+                review: comment.trim()
+            });
+
+            if (result.success) {
+                renderHomeReviewsSection(latestApprovedReviews);
+                showToast(window.i18n.toast_review_sent[currentLang]);
+            } else {
+                showToast("Error: " + result.message);
+                if (submitBtn) {
+                    submitBtn.innerText = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+        };
+        
+        // --- QUICK VIEW FUNCTIONS ---
+        window.openQuickView = (e, id) => {
+            e.stopPropagation();
+            const p = PRODUCTS.find(x => x.id === id);
+            if(!p) return;
+            
+            const overlay = document.getElementById('quick-view-overlay');
+            const rating = (4.9).toFixed(1); 
+            
+            const sizesHtml = getProductSizeInventory(p).map((sizeOption) =>
+                `<button onclick="selectSize(${p.id}, '${escapeSizeForInlineSelection(sizeOption.size)}', this)" class="size-btn size-btn-${p.id} rounded-sm ${Number(sizeOption.stock) > 0 ? '' : 'disabled'}" ${Number(sizeOption.stock) > 0 ? '' : 'disabled'}>${sizeOption.size}</button>`
+            ).join('');
+
+            overlay.innerHTML = `
+                <div class="bg-white dark:bg-[#111] w-[95%] md:w-full max-w-5xl max-h-[90vh] md:max-h-none grid grid-cols-1 md:grid-cols-2 gap-0 relative rounded-sm shadow-2xl animate-zoom-in border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:grid" onclick="event.stopPropagation()">
+                    
+                    <!-- Close Button -->
+                    <button onclick="closeQuickView()" class="absolute top-4 right-4 z-30 p-2 bg-white/80 dark:bg-black/80 rounded-full backdrop-blur-sm text-gray-500 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                    
+                    <!-- Image Section (Protagonist) -->
+                    <div class="relative bg-[#F9FAFB] dark:bg-[#1a1a1a] flex items-center justify-center p-8 h-[35vh] md:h-[600px]">
+                        ${renderProductSlider(p, `quick-slider-${p.id}`, 'max-h-full max-w-full object-contain product-img')}
+                    </div>
+                    
+                    <!-- Details Section -->
+                    <div class="flex flex-col p-6 md:p-12 overflow-y-auto h-auto md:h-full custom-scrollbar bg-white dark:bg-[#111] justify-center">
+                         <!-- Header -->
+                         <div class="mb-6">
+                            <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 block mb-3">${p.brand}</span>
+                            <h2 class="text-2xl md:text-4xl font-serif italic leading-tight text-black dark:text-white mb-4">${p.name}</h2>
+                            
+                             <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-6">
+                                 <p class="text-2xl font-light text-gray-800 dark:text-gray-200">${formatUSD(p.price)}</p>
+                                 <div class="flex items-center gap-1">
+                                    <span class="text-dubae-gold text-xs">★★★★★</span>
+                                    <span class="text-[10px] font-bold text-gray-500">${rating}</span>
+                                 </div>
+                             </div>
+                         </div>
+                         
+                         <!-- Sizes -->
+                         <div class="mb-8 flex-grow">
+                             <label class="text-[10px] font-bold uppercase tracking-widest mb-4 block text-gray-500 dark:text-gray-400" data-i18n="lbl_size">${window.i18n.lbl_size[currentLang]}</label>
+                             <div class="grid grid-cols-5 gap-2">
+                                 ${sizesHtml}
+                             </div>
+                         </div>
+
+                         <!-- Actions -->
+                         <div class="flex flex-col gap-3 mt-auto">
+                             <button onclick="addToCart(${p.id})" class="w-full py-4 bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-[0.2em] hover:bg-dubae-gold dark:hover:bg-gray-200 transition-colors shadow-lg active:scale-[0.98]">
+                                ${window.i18n.btn_add[currentLang]}
+                             </button>
+                             <button onclick="goToFullDetails(${p.id})" class="w-full py-3 text-center text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white underline transition-colors">
+                                ${window.i18n.btn_full_view[currentLang]}
+                             </button>
+                         </div>
+                    </div>
+                </div>
+            `;
+            
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeQuickView = () => {
+            const overlay = document.getElementById('quick-view-overlay');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+        
+        window.goToFullDetails = (id) => {
+            window.closeQuickView();
+            setTimeout(() => window.openDetail(id), 50);
+        }
+    </script>
+    
+    <!-- Original Logic Script (Modified to use Firebase) -->
+    <script>
+        const WHATSAPP_NUMBER = "18297207993";
+        const PAYPAL_CLIENT_ID = "%VITE_PAYPAL_CLIENT_ID%";
+        const SUPABASE_URL = "%VITE_SUPABASE_URL%";
+        const SUPABASE_ANON_KEY = "%VITE_SUPABASE_ANON_KEY%";
+        const ORDERS_TABLE = "orders";
+        // Language State
+        let currentLang = localStorage.getItem('dubae_lang') || 'en'; // Default English
+        let reviewsUnsubscribe = null; // Global unsubscribe handler
+        let activePaymentContext = null;
+        let latestApprovedReviews = [];
+
+        // --- TRANSLATION DICTIONARY ---
+        window.i18n = {
+            search_placeholder: { en: "Search products...", es: "Buscar productos..." },
+            trust_rating: { en: "4.9/5 from 300+ Verified Orders", es: "4.9/5 de +300 Órdenes Verificadas" },
+            hero_subtitle: { en: "New Season 2025", es: "Nueva Temporada 2025" },
+            hero_title: { en: "Redefining Urban Luxury", es: "Redefiniendo el Lujo Urbano" },
+            filter_sort: { en: "Sort Collection", es: "Ordenar Colección" },
+            sort_new: { en: "New Arrivals", es: "Nuevos Lanzamientos" },
+            sort_low_high: { en: "Price: Low to High", es: "Precio: Menor a Mayor" },
+            sort_high_low: { en: "Price: High to Low", es: "Precio: Mayor a Menor" },
+            filter_brands: { en: "Brands", es: "Marcas" },
+            filter_sizes: { en: "Sizes (EU)", es: "Tallas (EU)" },
+            filter_btn: { en: "Filters", es: "Filtros" },
+            filter_title: { en: "Filters", es: "Filtros" },
+            filter_reset: { en: "Reset All", es: "Limpiar Todo" },
+            no_results: { en: "No reviews yet. Be the first!", es: "Aún no hay reseñas. ¡Sé el primero!" },
+            clear_filters: { en: "Clear Filters", es: "Limpiar Filtros" },
+            about_tag: { en: "Our Story", es: "Nuestra Historia" },
+            about_title: { en: "About Dubae Clothing", es: "Sobre Dubae Clothing" },
+            // COPY OFICIAL
+            about_p1: { 
+                en: "Dubae Clothing is a fashion store dedicated to offering clothing and footwear that combine quality, trend, and affordability. We focus on people who enjoy dressing with style and originality, keeping up with trends without needing a high budget.", 
+                es: "Dubae Clothing es una tienda de moda dedicada a ofrecer ropa y calzado que combinan calidad, tendencia y buen precio. Nos enfocamos en personas que disfrutan vestir con estilo y originalidad, siguiendo las tendencias sin necesidad de un presupuesto elevado." 
+            },
+            about_p2: { 
+                en: "We take care of every detail to provide a close, trustworthy, and comfortable shopping experience. We guide our customers throughout the selection process, especially when choosing the right size for shipped orders, ensuring every purchase feels right and satisfying.", 
+                es: "Cuidamos cada detalle para brindar una experiencia de compra cercana, confiable y cómoda. Acompañamos a nuestros clientes durante el proceso de selección, especialmente al elegir su talla en pedidos por envío, para que cada compra sea acertada y satisfactoria." 
+            },
+            about_p3: { 
+                en: "At Dubae Clothing, we believe looking good should be accessible. More than selling products, our goal is for every customer to feel confident in their style, well guided, and excited to come back.", 
+                es: "En Dubae Clothing creemos que verse bien debe ser accesible. Más que vender productos, buscamos que cada cliente se sienta seguro con su estilo, bien orientado y con ganas de volver." 
+            },
+            loc_tag: { en: "Visit Us", es: "Visítanos" },
+            loc_btn: { en: "Open in Google Maps", es: "Abrir en Google Maps" },
+            footer_auth: { en: "Authentic goods only.", es: "Solo artículos auténticos." },
+            cart_title: { en: "Shopping Bag", es: "Bolsa de Compras" },
+            cart_details: { en: "Checkout Details", es: "Datos de Envío" },
+            ph_name: { en: "Full Name *", es: "Nombre Completo *" },
+            ph_phone: { en: "Phone Number *", es: "Teléfono *" },
+            ph_address: { en: "Delivery Address *", es: "Dirección de Entrega *" },
+            cart_total: { en: "Total", es: "Total" },
+            cart_checkout: { en: "Pay with PayPal", es: "Pagar con PayPal" },
+            cart_empty: { en: "Empty bag.", es: "Carrito vacío." },
+            payment_receipt: { en: "Send payment receipt to this number", es: "Enviar comprobante a este numero" },
+            payment_success: { en: "Payment completed successfully.", es: "Pago completado correctamente." },
+            payment_error: { en: "Unable to process payment.", es: "No se pudo procesar el pago." },
+            payment_customer: { en: "Customer", es: "Cliente" },
+            payment_total: { en: "Total", es: "Total" },
+            payment_items: { en: "Items", es: "Articulos" },
+            reviews_tag: { en: "Community", es: "Comunidad" },
+            reviews_section_title: { en: "Customer Reviews", es: "Reseñas de Clientes" },
+            reviews_section_copy: { en: "Share your experience with a product and read what other customers are saying before ordering.", es: "Comparte tu experiencia con un producto y mira lo que otros clientes opinan antes de ordenar." },
+            reviews_summary_zero: { en: "No reviews yet", es: "Aún no hay reseñas" },
+            reviews_summary_count: { en: "reviews published", es: "reseñas publicadas" },
+            reviews_form_title: { en: "Leave a review", es: "Deja una reseña" },
+            reviews_form_copy: { en: "Pick the product you bought and send your opinion for approval.", es: "Elige el producto que compraste y envía tu opinión para aprobación." },
+            reviews_select_product: { en: "Select a product", es: "Selecciona un producto" },
+            reviews_view_product: { en: "View product", es: "Ver producto" },
+            reviews_empty: { en: "There are no published reviews yet.", es: "Todavía no hay reseñas publicadas." },
+            reviews_pick_product: { en: "Choose a product first", es: "Elige un producto primero" },
+            reviews_signin_cta: { en: "Sign in with Google to publish your review.", es: "Inicia sesión con Google para publicar tu reseña." },
+            admin_title: { en: "Review Moderation", es: "Moderación de Reseñas" },
+            admin_loading: { en: "Loading pending reviews...", es: "Cargando reseñas pendientes..." },
+            // Dynamic JS Strings
+            size_select: { en: "Select Size First", es: "Selecciona una Talla" },
+            added_bag: { en: "Added to Bag", es: "Añadido al Carrito" },
+            missing_info: { en: "Missing Info", es: "Faltan Datos" },
+            wa_greeting: { en: "Hello Dubae, order:", es: "Hola Dubae, deseo ordenar:" },
+            wa_greeting_single: { en: "Hello Dubae, order single:", es: "Hola Dubae, deseo ordenar:" },
+            price_consult: { en: "Inquire Price", es: "Consultar Precio" },
+            toast_logout: { en: "Logged out successfully", es: "Cierre de sesión exitoso" },
+            toast_welcome: { en: "Welcome,", es: "Bienvenido," },
+            toast_login_req: { en: "Please login first", es: "Por favor inicia sesión" },
+            toast_review_sent: { en: "Review sent for approval!", es: "¡Reseña enviada para aprobación!" },
+            review_login_msg: { en: "Please log in with Google to write a review.", es: "Inicia sesión con Google para escribir una reseña." },
+            review_sign_in: { en: "Sign in with Google", es: "Acceder con Google" },
+            review_write: { en: "Write a Review", es: "Escribe una Reseña" },
+            review_posting_as: { en: "Posting as", es: "Publicando como" },
+            review_placeholder: { en: "Your experience...", es: "Tu experiencia..." },
+            review_submit: { en: "Submit Review", es: "Enviar Reseña" },
+            review_reviews: { en: "reviews", es: "reseñas" },
+            review_title: { en: "Customer Reviews", es: "Opiniones de Clientes" },
+            btn_add: { en: "Add to Bag", es: "Añadir" },
+            btn_buy: { en: "Buy Now", es: "Comprar Ahora" },
+            lbl_size: { en: "Select Size (EU)", es: "Selecciona Talla (EU)" },
+            lbl_verified: { en: "Verified", es: "Verificado" },
+            lbl_just_now: { en: "Just now", es: "Ahora mismo" },
+            lbl_new: { en: "NEW", es: "NUEVO" },
+            btn_quick_view: { en: "Quick View", es: "Vista Rápida" },
+            btn_full_view: { en: "View Full Details", es: "Ver Detalles Completos" },
+            lbl_quick_desc: { en: "Product Preview", es: "Vista Previa" }
+        };
+        
+        // --- DATA (READ-ONLY) ---
+        const DEFAULT_PRODUCTS = [
+            { id: 1, name: "Adidas Samba OG – White/Black/Gum", brand: "Adidas", price: 135, image: "https://i.postimg.cc/KjsRSsTM/Adidas-Samba-OG-White-Black-Gum.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45] },
+            { id: 2, name: "Adidas Wmns Samba OG Cracked Metallic Pack – Silver", brand: "Adidas", price: 150, image: "https://i.postimg.cc/TwdVTFy8/adidas-Wmns-Samba-OG-Cracked-Metallic-Pack-Silver.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43] },
+            { id: 3, name: "Adidas Wmns Samba OG Cream White Sand Strata (2024 Release)", brand: "Adidas", price: 135, image: "https://i.postimg.cc/T3rSf7QR/adidas-Wmns-Samba-OG-Cream-White-Sand-Strata-(2024-Release).jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43], isNew: true },
+            { id: 4, name: "Adidas Samba OG Wonder White Shadow Red Gum (2025 Release)", brand: "Adidas", price: 165, image: "https://i.postimg.cc/yxpJJyPB/adidas-Samba-OG-Wonder-White-Shadow-Red-Gum-(2025-Release).jpg", sizes: [36, 37, 38, 39, 40], isNew: true },
+            { id: 5, name: "Adidas Samba OG J White Black Gum (2023 Release)", brand: "Adidas", price: 135, image: "https://i.postimg.cc/7Yghr4Fp/adidas-Samba-OG-J-White-Black-Gum-(2023-Release).jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 6, name: "Adidas Samba OG White Red Gum", brand: "Adidas", price: 135, image: "https://i.postimg.cc/5Nrnybgf/adidas-Samba-OG-White-Red-Gum.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 7, name: "Adidas Samba OG White Green Gum", brand: "Adidas", price: 135, image: "https://i.postimg.cc/v84yDLwx/adidas-Samba-OG-White-Green-Gum.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 8, name: "New Balance 530 White/Navy", brand: "New Balance", price: 150, image: "https://i.postimg.cc/sD2T3KkH/New-Balance-530-White-Navy.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45] },
+            { id: 9, name: "New Balance 530 White/Pink/Silver ABZORB", brand: "New Balance", price: 150, image: "https://i.postimg.cc/YqcyzQZV/New-Balance-530-White-Pink-Silver-ABZORB.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 10, name: "New Balance 740 Silver/Grey", brand: "New Balance", price: 150, image: "https://i.postimg.cc/W3Yc4t4r/New-Balance-740-Silver-Grey.jpg", sizes: [40, 41, 42, 43, 44, 45, 46, 47] },
+            { id: 11, name: "New Balance 1906 Silver/Metallic Black", brand: "New Balance", price: 150, image: "https://i.postimg.cc/t4vcP8jf/New-Balance-1906-Silver-Metallic-Black.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 12, name: "Adidas Originals Campus 00s Core Black/Off White/Footwear White", brand: "Adidas", price: 120, image: "https://i.postimg.cc/d3SCnRVQ/adidas-Originals-Campus-00s-Core-Black-Off-White-Footwear-White.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47] },
+            { id: 13, name: "New Balance 1906 Black/Silver", brand: "New Balance", price: 150, image: "https://i.postimg.cc/vZ1mWFnm/New-Balance-1906-Black-Silver.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 14, name: "New Balance 1906R Eclipse/Pink Taffy", brand: "New Balance", price: 150, image: "https://i.postimg.cc/4xR01p7z/New-Balance-1906R-Eclipse-Pink-Taffy.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 15, name: "Adidas Originals Campus 00s Black/Cream", brand: "Adidas", price: 110, image: "https://i.postimg.cc/8khXzjn7/adidas-Originals-Campus-00s-Black-Cream.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 16, name: "Adidas Originals Campus 00s Grey/White", brand: "Adidas", price: 120, image: "https://i.postimg.cc/Kj6mf4By/adidas-Originals-Campus-00s-Grey-White.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 17, name: "ASICS GEL-1130 White/Silver/Black", brand: "ASICS", price: 135, image: "https://i.postimg.cc/s2L7YdKk/ASICS-GEL-1130-White-Silver-Black.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 18, name: "Nike V5 RNR White/Reflective/Brown", brand: "Nike", price: 165, image: "https://i.postimg.cc/GtgC2KbN/Nike-V5-RNR-White-Reflective-Brown.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45], isNew: true },
+            { id: 19, name: "Nike V5 RNR (Women's) Maroon/Grey/White", brand: "Nike", price: 150, image: "https://i.postimg.cc/QMYqxYPq/Nike-V5-RNR-Maroon-Grey-White.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45] },
+            { id: 20, name: "Nike V5 RNR (Men's) Black/Silver/White", brand: "Nike", price: 150, image: "https://i.postimg.cc/cLwq3wZt/Nike-V5-RNR-(Men-s)-Black-Silver-White.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45] },
+            { id: 21, name: "Nike V5 RNR Triple Black (Men's)", brand: "Nike", price: 150, image: "https://i.postimg.cc/SRQ4mszw/Nike-V5-RNR-Triple-Black-Mens.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45] },
+            { id: 22, name: "Nike Shox R4 Midnight Navy/Gym Red/Metallic Silver", brand: "Nike", price: 150, image: "https://i.postimg.cc/dQZpTGJr/Nike-Shox-R4-Midnight-Navy-Gym-Red-Metallic-Silver.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45] },
+            { id: 23, name: "Nike Shox R4 Metallic Silver/Black", brand: "Nike", price: 150, image: "https://i.postimg.cc/TwgsBX74/Nike-Shox-R4-Metallic-Silver-Black.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45] },
+            { id: 24, name: "Adidas Handball Spezial Brown/White", brand: "Adidas", price: 135, image: "https://i.postimg.cc/6Q9T89R7/adidas-Handball-Spezial-Brown-White.jpg", sizes: [36, 37, 38, 39, 40] },
+            { id: 25, name: "Adidas Gazelle Indoor Red/White/Gum", brand: "Adidas", price: 150, image: "https://i.postimg.cc/CLgYNwMc/new-arrival-3.jpg", sizes: [36, 37, 38, 39, 40], isNew: true },
+            { id: 26, name: "Adidas Samba OG Maroon/White/Dark Brown", brand: "Adidas", price: 165, image: "https://i.postimg.cc/XYYRHJRm/Newarrival4.jpg", sizes: [36, 37, 38, 39, 40, 41], isNew: true },
+            { id: 27, name: "ASICS GEL-1130 White/Silver/Brown", brand: "ASICS", price: 0, image: "https://i.postimg.cc/6QYV3b7K/ASICS-GEL-1130-White-Silver-Brown.jpg", sizes: [40, 41, 42, 43, 44, 45, 46] },
+            { id: 28, name: "ASICS GEL-1130 White/Teal/Silver", brand: "ASICS", price: 0, image: "https://i.postimg.cc/v89z7zkz/ASICS-GEL-1130-White-Teal-Silver.jpg", sizes: [40, 41, 42, 43, 44, 45, 46] },
+            { id: 29, name: "ASICS GT-2160 Black/Silver", brand: "ASICS", price: 0, image: "https://i.postimg.cc/mkw1XtQT/ASICS-GT-2160-Black-Silver.jpg", sizes: [40, 41, 42, 43, 44, 45, 46] },
+            { id: 30, name: "Nike Running V5 RNR Light Grey/White/Silver/Black Swoosh", brand: "Nike", price: 150, image: "https://i.postimg.cc/J4SKjF4B/Nike-Running-V5-RNR-ight-Gre-White-Silver-Black-Swoosh.jpg", sizes: [36, 37, 38, 39, 40, 41, 42, 43, 44, 45], isNew: true },
+            { id: 31, name: "Nike Wmns V2K Run Platinum Violet", brand: "Nike", price: 135, image: "https://i.postimg.cc/FFCwBmxD/oferta.jpg", sizes: [40, 41, 42, 43, 44, 45, 46], isSale: true },
+            { id: 32, name: "Nike Blazer Mid 'White/Black' (High-Top)", brand: "Nike", price: 110, image: "https://i.postimg.cc/pV5344cG/oferta2.jpg", sizes: [36, 37, 38, 39, 40], isSale: true },
+            { id: 33, name: "New Balance 710 Silver/White/Black", brand: "New Balance", price: 150, image: "https://i.postimg.cc/nL8JwZn8/Whats-App-Image-2026-01-03-at-7-42-56-PM.jpg", sizes: [40, 41, 42, 43, 44, 45, 46], isSale: true }
+        ];
+        const ADMIN_PRODUCTS_STORAGE_KEY = 'dubae_admin_products_v1';
+        const LEGACY_ADMIN_PRODUCTS_STORAGE_KEY = 'dabe_admin_products_v1';
+        function clearStorefrontProductCaches() {
+            try {
+                localStorage.removeItem(ADMIN_PRODUCTS_STORAGE_KEY);
+                localStorage.removeItem(LEGACY_ADMIN_PRODUCTS_STORAGE_KEY);
+                sessionStorage.removeItem(ADMIN_PRODUCTS_STORAGE_KEY);
+                sessionStorage.removeItem(LEGACY_ADMIN_PRODUCTS_STORAGE_KEY);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        function normalizeSizeValue(value) {
+            return String(value ?? '').trim();
+        }
+        function escapeSizeForInlineSelection(value) {
+            return normalizeSizeValue(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+        function buildSizeInventory(rawSizes, fallbackSizes = []) {
+            if (Array.isArray(rawSizes) && rawSizes.length) {
+                const objectSizes = rawSizes
+                    .filter((item) => item && typeof item === 'object' && item.size != null)
+                    .map((item) => ({
+                        size: normalizeSizeValue(item.size),
+                        stock: Math.max(0, Number(item.stock) || 0),
+                    }))
+                    .filter((item) => item.size);
+                if (objectSizes.length) return { inventory: objectSizes, managed: true };
+
+                const primitiveSizes = rawSizes
+                    .map((item) => normalizeSizeValue(item))
+                    .filter(Boolean)
+                    .map((size) => ({ size, stock: 9999 }));
+                if (primitiveSizes.length) return { inventory: primitiveSizes, managed: false };
+            }
+
+            return {
+                inventory: fallbackSizes.map((size) => ({ size: normalizeSizeValue(size), stock: 9999 })),
+                managed: false,
+            };
+        }
+        function getProductSizeInventory(product) {
+            if (Array.isArray(product?.sizes) && product.sizes.length && product.sizes.every((size) => size && typeof size === 'object' && size.size != null)) {
+                return product.sizes
+                    .map((size) => ({
+                        size: normalizeSizeValue(size.size),
+                        stock: Math.max(0, Number(size.stock) || 0),
+                    }))
+                    .filter((size) => size.size);
+            }
+            if (Array.isArray(product?.sizeInventory) && product.sizeInventory.length) return product.sizeInventory;
+            if (Array.isArray(product?.sizes) && product.sizes.length) {
+                return product.sizes.map((size) => ({ size: normalizeSizeValue(size), stock: 9999 }));
+            }
+            return [];
+        }
+        function getProductSizeOption(product, sizeValue) {
+            const normalized = normalizeSizeValue(sizeValue);
+            return getProductSizeInventory(product).find((item) => normalizeSizeValue(item.size) === normalized) ?? null;
+        }
+        function getAvailableStockForSize(product, sizeValue) {
+            const option = getProductSizeOption(product, sizeValue);
+            if (!option) return 0;
+            return Math.max(0, Number(option.stock) || 0);
+        }
+        function isSizeAvailable(product, sizeValue) {
+            if (!product?.hasManagedSizes) return true;
+            return getAvailableStockForSize(product, sizeValue) > 0;
+        }
+        function getRenderedSizeValues(product) {
+            return getProductSizeInventory(product).map((item) => item.size);
+        }
+        function buildStorefrontProductsFromAdmin(adminProducts) {
+            const defaultSizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
+            return adminProducts.map((product, index) => {
+                const sizeSource = buildSizeInventory(product.sizes, defaultSizes.slice(0, Math.max(1, Number(product.stock) || 1)));
+                return ({
+                    id: Number(product.id) || index + 1,
+                    dbId: product.id ?? null,
+                    name: product.name,
+                    brand: product.category || 'Dubae',
+                    price: Number(product.price) || 0,
+                    image: product.image_url || '',
+                    images: Array.isArray(product.image_gallery) && product.image_gallery.length
+                        ? product.image_gallery.filter((item) => item.published !== false && item.url).map((item) => item.url)
+                        : Array.isArray(product.image_urls) && product.image_urls.length
+                            ? product.image_urls.filter(Boolean)
+                            : product.image_url
+                                ? [product.image_url]
+                                : [],
+                    sizes: sizeSource.inventory.map((item) => item.size),
+                    sizeInventory: sizeSource.inventory,
+                    hasManagedSizes: sizeSource.managed,
+                });
+            });
+        }
+        let PRODUCTS = [];
+
+        async function refreshStorefrontProductsFromSupabase() {
+            if (!SUPABASE_URL || SUPABASE_URL.includes('%VITE_') || !SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.includes('%VITE_')) {
+                console.error('Storefront Supabase credentials are missing or were not injected.');
+                PRODUCTS = [];
+                console.log("Supabase products raw:", []);
+                console.log("Final PRODUCTS used for render:", PRODUCTS);
+                initFiltersUI();
+                applyFilters();
+                return;
+            }
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/products?select=id,name,description,price,stock,image_url,category,image_gallery,sizes,created_at&order=created_at.desc`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Unable to load storefront products (${response.status})`);
+                }
+
+                const data = await response.json();
+                console.log("Supabase products raw:", data);
+                console.log("Supabase products:", data);
+                if (!Array.isArray(data)) {
+                    throw new Error('Invalid storefront products response');
+                }
+
+                PRODUCTS = buildStorefrontProductsFromAdmin(data);
+                console.log("Storefront products from Supabase:", PRODUCTS);
+                console.log("Final PRODUCTS used for render:", PRODUCTS);
+                console.log("Rendered products:", PRODUCTS);
+                console.log("Review products loaded:", PRODUCTS.filter(product => getProductReviewId(product)).map(product => ({ id: getProductReviewId(product), name: product.name })));
+                initFiltersUI();
+                applyFilters();
+                renderHomeReviewsSection(latestApprovedReviews);
+            } catch (error) {
+                console.error(error);
+                PRODUCTS = DEFAULT_PRODUCTS;
+                console.log("Supabase products raw:", []);
+                console.log("Final PRODUCTS used for render:", PRODUCTS);
+                initFiltersUI();
+                applyFilters();
+            }
+        }
+
+        let cart = [];
+        let selectedSizes = {};
+        let activeFilters = { brands: [], price: 'all', size: null, sort: 'newest', search: '' };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            clearStorefrontProductCaches();
+            document.getElementById('year').textContent = new Date().getFullYear();
+            loadCart();
+            updateShippingUI();
+            void refreshStorefrontProductsFromSupabase();
+            renderHomeReviewsSection([]);
+            subscribeToHomepageReviews();
+            updateContent(); // Apply languages
+            if (localStorage.getItem('dubae_theme') === 'dark' || (!('dubae_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        });
+
+        // --- LANGUAGE SYSTEM ---
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            localStorage.setItem('dubae_lang', currentLang);
+            updateContent();
+            
+            // Re-render components that use JS strings
+            updateCartUI();
+            // Refresh detail view if open
+            const detailView = document.getElementById('detail-view');
+            if (!detailView.classList.contains('hidden')) {
+                const pid = detailView.getAttribute('data-pid');
+                if(pid) window.openDetail(parseInt(pid));
+            }
+            // Re-apply filters to refresh grid buttons text
+            applyFilters();
+            renderHomeReviewsSection(latestApprovedReviews);
+        }
+
+        function updateContent() {
+            document.getElementById('lang-btn').textContent = currentLang.toUpperCase();
+            
+            // Update Text Content
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (window.i18n[key]) {
+                    el.textContent = window.i18n[key][currentLang];
+                }
+            });
+            
+            // Update Placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (window.i18n[key]) {
+                    el.placeholder = window.i18n[key][currentLang];
+                }
+            });
+        }
+
+        // --- CORE FUNCTIONS (Cart, Filters, etc. kept exactly as is but using translations) ---
+        const DOP_TO_USD_EXCHANGE_RATE = 62;
+        const SHIPPING_OPTIONS = {
+            'Distrito Nacional': 350,
+            'Santo Domingo Este': 450,
+            'Santo Domingo Oeste': 450,
+            'Santo Domingo Norte': 300,
+            Interior: 350,
+        };
+        function formatUSD(amount) { return amount ? `$${amount}` : window.i18n.price_consult[currentLang]; }
+        function formatDOP(amount) { return `RD$${Number(amount || 0).toFixed(0)}`; }
+        function formatCheckoutUSD(amount) { return `$${Number(amount || 0).toFixed(2)}`; }
+        function showToast(m) { const t=document.getElementById('toast'); document.getElementById('toast-message').textContent=m; t.classList.remove('translate-x-[150%]', 'opacity-0'); setTimeout(()=>t.classList.add('translate-x-[150%]', 'opacity-0'), 3000); }
+        function saveCart() { localStorage.setItem('dubae_cart_v3', JSON.stringify(cart)); updateCartUI(); }
+        function loadCart() { const s=localStorage.getItem('dubae_cart_v3'); if(s) cart=JSON.parse(s); updateCartUI(); }
+        function getCartSubtotal() { return cart.reduce((sum, item) => sum + ((item.price || 0) * item.qty), 0); }
+        function getShippingDetails() {
+            const sector = document.getElementById('cust-sector')?.value?.trim() || '';
+            const parada = document.getElementById('cust-parada')?.value?.trim() || '';
+            const shippingCostDop = SHIPPING_OPTIONS[sector] ?? 0;
+            const shippingCostUsd = shippingCostDop ? shippingCostDop / DOP_TO_USD_EXCHANGE_RATE : 0;
+            return {
+                shippingSector: sector,
+                shippingCostDop,
+                shippingCostUsd,
+                exchangeRate: DOP_TO_USD_EXCHANGE_RATE,
+                parada: sector === 'Interior' ? parada : '',
+            };
+        }
+        function updateShippingUI() {
+            const shipping = getShippingDetails();
+            const paradaInput = document.getElementById('cust-parada');
+            if (paradaInput) paradaInput.classList.toggle('hidden', shipping.shippingSector !== 'Interior');
+        }
+        function updateCartUI() {
+            const c=document.getElementById('cart-count'); c.textContent=cart.reduce((a,x)=>a+x.qty,0); c.classList.toggle('opacity-0',cart.length===0);
+            const container=document.getElementById('cart-items'); const shippingEl=document.getElementById('cart-shipping'); let t=0;
+            if(cart.length===0) { container.innerHTML=`<p class="text-center text-gray-400 py-10 italic text-sm">${window.i18n.cart_empty[currentLang]}</p>`; document.getElementById('cart-customer-form').classList.add('hidden'); if(shippingEl) shippingEl.innerHTML=''; }
+            else {
+                document.getElementById('cart-customer-form').classList.remove('hidden');
+                container.innerHTML=cart.map((i,idx)=>{ t+=(i.price||0)*i.qty; return `
+                    <div class="flex gap-4 animate-fade-in group relative">
+                        <div class="w-16 h-16 bg-gray-50 rounded-sm overflow-hidden"><img src="${i.image}" class="w-full h-full object-contain mix-blend-multiply"></div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-xs uppercase line-clamp-1 dark:text-white">${i.name}</h4>
+                            <p class="text-xs text-gray-500">Size: ${i.size}</p>
+                            <div class="flex justify-between mt-2">
+                                <div class="flex border border-gray-200 dark:border-gray-700 rounded-sm"><button onclick="updateQty(${idx},-1)" class="px-2 text-xs dark:text-white">-</button><span class="px-2 text-xs font-medium dark:text-white">${i.qty}</span><button onclick="updateQty(${idx},1)" class="px-2 text-xs dark:text-white">+</button></div>
+                                <span class="text-xs font-serif dark:text-white">${formatUSD(i.price*i.qty)}</span>
+                            </div>
+                        </div>
+                        <button onclick="cart.splice(${idx},1);saveCart()" class="absolute -top-1 -right-1 text-gray-300 hover:text-red-500">×</button>
+                    </div>`; }).join('');
+                const shipping = getShippingDetails();
+                if (shippingEl) {
+                    shippingEl.innerHTML = shipping.shippingSector
+                        ? `<div class="flex justify-between gap-3"><span>Shipping (${shipping.shippingSector})</span><span>${formatDOP(shipping.shippingCostDop)} / ${formatCheckoutUSD(shipping.shippingCostUsd)}</span></div>${shipping.shippingSector === 'Interior' && shipping.parada ? `<div class="mt-1">Parada: ${shipping.parada}</div>` : ''}`
+                        : '<div>Select delivery sector to calculate shipping.</div>';
+                }
+                t += shipping.shippingCostUsd;
+            }
+            document.getElementById('cart-total').textContent=formatCheckoutUSD(t);
+        }
+        function getStockErrorMessage() {
+            return currentLang === 'es' ? 'Stock insuficiente para la talla seleccionada.' : 'Insufficient stock for the selected size.';
+        }
+        function canUseSizeQuantity(product, sizeValue, quantity) {
+            if (!product?.hasManagedSizes) return quantity > 0;
+            return getAvailableStockForSize(product, sizeValue) >= quantity;
+        }
+        function updateQty(i,d){
+            const nextQty = (cart[i]?.qty || 0) + d;
+            if(nextQty <= 0) { cart.splice(i,1); saveCart(); return; }
+            const product = PRODUCTS.find((item) => item.id === cart[i].id);
+            if(product && !canUseSizeQuantity(product, cart[i].size, nextQty)) { showToast(getStockErrorMessage()); return; }
+            cart[i].qty = nextQty;
+            saveCart();
+        }
+        function toggleCart(){ const s=document.getElementById('cart-sidebar'); const o=document.getElementById('cart-overlay'); if(s.classList.contains('translate-x-0')){ s.classList.remove('translate-x-0'); s.classList.add('translate-x-full'); o.classList.add('pointer-events-none','opacity-0'); } else { s.classList.remove('translate-x-full'); s.classList.add('translate-x-0'); o.classList.remove('pointer-events-none','opacity-0'); } }
+        function getCustomerDetails() { return { name: document.getElementById('cust-name').value.trim(), phone: document.getElementById('cust-phone').value.trim(), address: document.getElementById('cust-address').value.trim() }; }
+        function setPaymentStatus(message, tone='neutral') {
+            const el = document.getElementById('payment-status');
+            el.textContent = message;
+            el.className = `rounded-2xl border px-4 py-3 text-sm ${tone === 'error' ? 'border-red-500/30 bg-red-500/10 text-red-300' : tone === 'success' ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300' : 'border-gray-300 bg-gray-50 text-gray-600 dark:border-gray-700 dark:bg-[#0a0a0a] dark:text-gray-300'}`;
+            el.classList.remove('hidden');
+        }
+        function clearPaymentStatus() { const el=document.getElementById('payment-status'); el.classList.add('hidden'); el.textContent=''; }
+        function buildWhatsappMessage(order) {
+            let msg = `${window.i18n.payment_success[currentLang]}\n\n`;
+            order.items.forEach((item) => {
+                msg += `Product: ${item.name}\n`;
+                if(item.size) msg += `Size: ${item.size}\n`;
+                msg += `Qty: ${item.qty}\n`;
+                msg += `Price: ${formatUSD(item.price)}\n\n`;
+            });
+            if (order.shippingSector) {
+                msg += `Shipping sector: ${order.shippingSector}\n`;
+                msg += `Shipping: ${formatDOP(order.shippingCostDop)} / ${formatUSD(order.shippingCostUsd)}\n`;
+                if (order.parada) msg += `Parada: ${order.parada}\n`;
+                msg += `Exchange rate: ${order.exchangeRate}\n\n`;
+            }
+            msg += `Total: ${formatUSD(order.total)}\n`;
+            msg += `Order ID: ${order.paypal_order_id || ''}\n`;
+            msg += `Customer: ${order.customer_name}\n`;
+            msg += `Phone: ${order.customer_phone}\n`;
+            return msg;
+        }
+        function getWhatsappLink(order) { return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsappMessage(order))}`; }
+        async function saveOrderToSupabase(order) {
+            if (!SUPABASE_URL || SUPABASE_URL.includes('%VITE_') || !SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.includes('%VITE_')) return { ok: false };
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/${ORDERS_TABLE}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=representation' },
+                body: JSON.stringify(order),
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                if (/shippingSector|shippingCostDop|shippingCostUsd|exchangeRate|parada/i.test(errorText)) {
+                    const fallbackOrder = {
+                        customer_name: order.customer_name,
+                        customer_phone: order.customer_phone,
+                        customer_address: order.customer_address,
+                        items: order.items,
+                        total: order.total,
+                        currency: order.currency,
+                        status: order.status,
+                        payment_source: order.payment_source,
+                        payment_mode: order.payment_mode,
+                        paypal_order_id: order.paypal_order_id,
+                        paypal_capture_id: order.paypal_capture_id,
+                        created_at: order.created_at,
+                    };
+                    const fallbackResponse = await fetch(`${SUPABASE_URL}/rest/v1/${ORDERS_TABLE}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=representation' },
+                        body: JSON.stringify(fallbackOrder),
+                    });
+                    if (!fallbackResponse.ok) throw new Error(await fallbackResponse.text());
+                    return { ok: true, data: await fallbackResponse.json() };
+                }
+                throw new Error(errorText);
+            }
+            return { ok: true, data: await response.json() };
+        }
+        async function reduceSizeStockInSupabase(items) {
+            if (!SUPABASE_URL || SUPABASE_URL.includes('%VITE_') || !SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.includes('%VITE_')) return;
+            for (const item of items) {
+                const productDbId = item?.dbId || item?.id;
+                if (!productDbId || !item?.size) continue;
+
+                const selectResponse = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(productDbId)}&select=id,sizes`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    },
+                });
+                if (!selectResponse.ok) throw new Error(await selectResponse.text());
+
+                const rows = await selectResponse.json();
+                const row = Array.isArray(rows) ? rows[0] : null;
+                if (!row || !Array.isArray(row.sizes)) continue;
+
+                const updatedSizes = row.sizes.map((sizeItem) => {
+                    if (!sizeItem || normalizeSizeValue(sizeItem.size) !== normalizeSizeValue(item.size)) return sizeItem;
+                    return {
+                        ...sizeItem,
+                        size: normalizeSizeValue(sizeItem.size),
+                        stock: Math.max(0, (Number(sizeItem.stock) || 0) - (Number(item.qty) || 0)),
+                    };
+                });
+
+                const updateResponse = await fetch(`${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(productDbId)}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'return=representation',
+                    },
+                    body: JSON.stringify({ sizes: updatedSizes }),
+                });
+                if (!updateResponse.ok) throw new Error(await updateResponse.text());
+
+                const localProduct = PRODUCTS.find((product) => product.id === item.id);
+                if (localProduct) {
+                    localProduct.sizeInventory = updatedSizes
+                        .filter((sizeItem) => sizeItem && sizeItem.size != null)
+                        .map((sizeItem) => ({
+                            size: normalizeSizeValue(sizeItem.size),
+                            stock: Math.max(0, Number(sizeItem.stock) || 0),
+                        }));
+                    localProduct.sizes = localProduct.sizeInventory.map((sizeItem) => sizeItem.size);
+                    localProduct.hasManagedSizes = true;
+                }
+            }
+        }
+        function validateItemsStock(items) {
+            return items.every((item) => {
+                if (!item?.id || !item?.size) return true;
+                const product = PRODUCTS.find((entry) => entry.id === item.id);
+                if (!product) return true;
+                return canUseSizeQuantity(product, item.size, Number(item.qty) || 0);
+            });
+        }
+        function closePaymentModal() {
+            document.getElementById('payment-overlay').classList.add('opacity-0','pointer-events-none');
+            document.getElementById('payment-modal').classList.add('opacity-0','scale-95','pointer-events-none');
+            document.getElementById('paypal-button-container').innerHTML = '';
+            document.getElementById('payment-success-card').classList.add('hidden');
+            activePaymentContext = null;
+            clearPaymentStatus();
+        }
+        function getProductImages(product) {
+            if (Array.isArray(product.images) && product.images.length) return product.images;
+            if (product.image) return [product.image];
+            return [];
+        }
+        function renderProductSlider(product, sliderId, imageClass, stopPropagation = false, showThumbnails = false) {
+            const images = getProductImages(product);
+            const safeImages = (images.length ? images : ['']).slice(0, 5);
+            const clickPrefix = stopPropagation ? 'event.stopPropagation(); ' : '';
+            return `
+                <div class="relative h-full w-full ${showThumbnails ? 'flex gap-4 lg:gap-6' : ''}" data-slider-id="${sliderId}">
+                    ${showThumbnails && safeImages.length > 1 ? `
+                        <div class="flex w-20 shrink-0 flex-col gap-3 overflow-y-auto">
+                            ${safeImages.map((image, index) => `
+                                <button
+                                    type="button"
+                                    onclick="${clickPrefix}window.goToProductSlide('${sliderId}', ${index})"
+                                    id="${sliderId}-thumb-${index}"
+                                    class="overflow-hidden rounded-2xl border ${index === 0 ? 'border-black dark:border-white' : 'border-gray-200 dark:border-gray-700'} bg-white dark:bg-[#0a0a0a]"
+                                >
+                                    <img src="${image}" class="h-16 w-full object-cover">
+                                </button>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="relative h-full w-full">
+                        <img id="${sliderId}-image" src="${safeImages[0]}" class="${imageClass}">
+                        ${safeImages.length > 1 ? `
+                            <button type="button" aria-label="Previous image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', -1)" class="absolute left-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-lg font-bold text-black shadow-lg backdrop-blur-sm transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/85 dark:text-white">
+                                <span aria-hidden="true">‹</span>
+                            </button>
+                            <button type="button" aria-label="Next image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', 1)" class="absolute right-2 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-white/90 text-lg font-bold text-black shadow-lg backdrop-blur-sm transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/85 dark:text-white">
+                                <span aria-hidden="true">›</span>
+                            </button>
+                            <div class="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
+                                ${safeImages.map((_, index) => `<button type="button" onclick="${clickPrefix}window.goToProductSlide('${sliderId}', ${index})" id="${sliderId}-dot-${index}" class="h-2.5 w-2.5 rounded-full ${index === 0 ? 'bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}"></button>`).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+        window.changeProductSlide = (sliderId, direction) => {
+            const root = document.querySelector(`[data-slider-id="${sliderId}"]`);
+            if (!root) return;
+            const productId = Number(String(sliderId).split('-').pop());
+            const product = PRODUCTS.find((item) => item.id === productId);
+            if (!product) return;
+            const images = getProductImages(product);
+            const imageEl = document.getElementById(`${sliderId}-image`);
+            if (!imageEl || images.length < 2) return;
+            const currentIndex = Number(root.getAttribute('data-current-index') || '0');
+            const nextIndex = (currentIndex + direction + images.length) % images.length;
+            root.setAttribute('data-current-index', String(nextIndex));
+            imageEl.src = images[nextIndex];
+            images.forEach((_, index) => {
+                const dot = document.getElementById(`${sliderId}-dot-${index}`);
+                if (dot) dot.className = `h-2.5 w-2.5 rounded-full ${index === nextIndex ? 'bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}`;
+                const thumb = document.getElementById(`${sliderId}-thumb-${index}`);
+                if (thumb) thumb.className = `overflow-hidden rounded-2xl border ${index === nextIndex ? 'border-black dark:border-white' : 'border-gray-200 dark:border-gray-700'} bg-white dark:bg-[#0a0a0a]`;
+            });
+        };
+        window.goToProductSlide = (sliderId, index) => {
+            const root = document.querySelector(`[data-slider-id="${sliderId}"]`);
+            if (!root) return;
+            const productId = Number(String(sliderId).split('-').pop());
+            const product = PRODUCTS.find((item) => item.id === productId);
+            if (!product) return;
+            const images = getProductImages(product);
+            const imageEl = document.getElementById(`${sliderId}-image`);
+            if (!imageEl || !images[index]) return;
+            root.setAttribute('data-current-index', String(index));
+            imageEl.src = images[index];
+            images.forEach((_, dotIndex) => {
+                const dot = document.getElementById(`${sliderId}-dot-${dotIndex}`);
+                if (dot) dot.className = `h-2.5 w-2.5 rounded-full ${dotIndex === index ? 'bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}`;
+                const thumb = document.getElementById(`${sliderId}-thumb-${dotIndex}`);
+                if (thumb) thumb.className = `overflow-hidden rounded-2xl border ${dotIndex === index ? 'border-black dark:border-white' : 'border-gray-200 dark:border-gray-700'} bg-white dark:bg-[#0a0a0a]`;
+            });
+        };
+        async function finalizeSuccessfulPayment(paypalData, paypalOrderDetails) {
+            if(!activePaymentContext) return;
+            const itemsTotal = activePaymentContext.items.reduce((sum, item) => sum + ((item.price || 0) * item.qty), 0);
+            const shipping = activePaymentContext.shipping ?? getShippingDetails();
+            const total = itemsTotal + (shipping.shippingCostUsd || 0);
+            const orderPayload = { customer_name: activePaymentContext.customer.name, customer_phone: activePaymentContext.customer.phone, customer_address: activePaymentContext.customer.address, items: activePaymentContext.items, total, currency: 'USD', status: 'paid', payment_source: 'paypal', payment_mode: activePaymentContext.mode, paypal_order_id: paypalData.orderID ?? null, paypal_capture_id: paypalOrderDetails?.purchase_units?.[0]?.payments?.captures?.[0]?.id ?? null, shippingSector: shipping.shippingSector, shippingCostDop: shipping.shippingCostDop, shippingCostUsd: shipping.shippingCostUsd, exchangeRate: shipping.exchangeRate, ...(shipping.parada ? { parada: shipping.parada } : {}), created_at: new Date().toISOString() };
+            try { await saveOrderToSupabase(orderPayload); } catch (error) { console.error(error); }
+            try { await reduceSizeStockInSupabase(activePaymentContext.items); } catch (error) { console.error(error); }
+            setPaymentStatus(window.i18n.payment_success[currentLang], 'success');
+            const whatsappLink = getWhatsappLink(orderPayload);
+            document.getElementById('payment-whatsapp-link').href = whatsappLink;
+            document.getElementById('payment-success-whatsapp').href = whatsappLink;
+            document.getElementById('payment-success-title').textContent = window.i18n.payment_success[currentLang];
+            document.getElementById('payment-success-message').textContent = `Order ${paypalData.orderID ?? ''} paid successfully. You can now send your receipt to WhatsApp.`;
+            document.getElementById('payment-success-card').classList.remove('hidden');
+            if(activePaymentContext.mode === 'cart') { cart = []; saveCart(); toggleCart(); }
+            document.getElementById('paypal-button-container').innerHTML = '';
+        }
+        function renderPayPalButtons(context, total) {
+            document.getElementById('paypal-button-container').innerHTML = '';
+            if(!window.paypal || !PAYPAL_CLIENT_ID || PAYPAL_CLIENT_ID.includes('%VITE_')) { setPaymentStatus('PayPal is not configured.', 'error'); return; }
+            window.paypal.Buttons({
+                style: { layout: 'vertical', color: 'gold', shape: 'pill', label: 'paypal' },
+                createOrder: (_data, actions) => actions.order.create({ purchase_units: [{ description: context.mode === 'single' ? context.items[0].name : `Dubae cart (${context.items.length} items)`, amount: { currency_code: 'USD', value: total.toFixed(2) } }] }),
+                onApprove: async (data, actions) => { try { const details = await actions.order.capture(); await finalizeSuccessfulPayment(data, details); } catch (error) { console.error(error); setPaymentStatus(window.i18n.payment_error[currentLang], 'error'); } },
+                onError: (error) => { console.error(error); setPaymentStatus(window.i18n.payment_error[currentLang], 'error'); },
+                onCancel: () => { setPaymentStatus('Payment cancelled.', 'neutral'); },
+            }).render('#paypal-button-container');
+        }
+        function openPaymentModal(context) {
+            activePaymentContext = context;
+            clearPaymentStatus();
+            const itemsTotal = context.items.reduce((sum, item) => sum + ((item.price || 0) * item.qty), 0);
+            const shipping = context.shipping ?? getShippingDetails();
+            const total = itemsTotal + (shipping.shippingCostUsd || 0);
+            document.getElementById('payment-title').textContent = context.mode === 'single' ? 'Pay product with PayPal' : 'Pay cart with PayPal';
+            document.getElementById('payment-whatsapp-label').textContent = window.i18n.payment_receipt[currentLang];
+            document.getElementById('payment-whatsapp-link').href = `https://wa.me/${WHATSAPP_NUMBER}`;
+            document.getElementById('payment-summary').innerHTML = `<div class="space-y-2"><div><span class="font-bold">${window.i18n.payment_customer[currentLang]}:</span> ${context.customer.name}</div><div><span class="font-bold">${window.i18n.payment_items[currentLang]}:</span></div><div class="space-y-1">${context.items.map((item) => `<div class="flex justify-between gap-3"><span>${item.name}${item.size ? ` / ${item.size}` : ''} x${item.qty}</span><span>${formatUSD((item.price||0) * item.qty)}</span></div>`).join('')}</div>${shipping.shippingSector ? `<div class="flex justify-between gap-3"><span>Shipping (${shipping.shippingSector})</span><span>${formatDOP(shipping.shippingCostDop)} / ${formatCheckoutUSD(shipping.shippingCostUsd)}</span></div>${shipping.parada ? `<div><span class="font-bold">Parada:</span> ${shipping.parada}</div>` : ''}` : ''}<div class="flex justify-between border-t border-gray-200 pt-2 font-bold dark:border-gray-700"><span>${window.i18n.payment_total[currentLang]}</span><span>${formatCheckoutUSD(total)}</span></div></div>`;
+            document.getElementById('payment-overlay').classList.remove('opacity-0','pointer-events-none');
+            document.getElementById('payment-modal').classList.remove('opacity-0','scale-95','pointer-events-none');
+            renderPayPalButtons(context, total);
+        }
+        
+        function checkoutCart(){ 
+            if(cart.length===0) return; 
+            const customer = getCustomerDetails();
+            if(!customer.name||!customer.phone||!customer.address){ showToast(window.i18n.missing_info[currentLang]); return; }
+            const shipping = getShippingDetails();
+            if(!shipping.shippingSector) { showToast('Select a delivery sector.'); return; }
+            if(shipping.shippingSector === 'Interior' && !shipping.parada) { showToast('Enter the parada for Interior.'); return; }
+            const items = cart.map((item) => ({ id: item.id, dbId: item.dbId, name: item.name, size: item.size, qty: item.qty, price: item.price || 0 }));
+            if(!validateItemsStock(items)) { showToast(getStockErrorMessage()); return; }
+            openPaymentModal({ mode: 'cart', customer, items, shipping });
+            return;
+            const n=document.getElementById('cust-name').value;
+            const p=document.getElementById('cust-phone').value;
+            const a=document.getElementById('cust-address').value; 
+            
+            if(!n||!p||!a){ showToast(window.i18n.missing_info[currentLang]); return; } 
+            
+            let msg=`${window.i18n.wa_greeting[currentLang]}\n\n`; 
+            let t=0; 
+            
+            cart.forEach(x=>{
+                t+=(x.price||0)*x.qty; 
+                msg+=`👟 ${x.name}\n`;
+                msg+=`📏 Talla: ${x.size}\n`;
+                msg+=`📦 Cantidad: ${x.qty}\n`;
+                msg+=`💰 Precio: ${formatUSD(x.price)}\n\n`;
+            }); 
+            
+            msg+=`🧾 TOTAL: ${formatUSD(t)}\n`;
+            msg+=`-----------------------------\n`;
+            msg+=`👤 Nombre: ${n}\n`;
+            msg+=`📍 Dirección: ${a}\n`;
+            msg+=`📱 Teléfono: ${p}`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank'); 
+        }
+
+        // --- FILTERS & GRID ---
+        function initFiltersUI() {
+            const b=[...new Set(PRODUCTS.map(p=>p.brand))].sort(), s=[...new Set(PRODUCTS.flatMap(p=>getRenderedSizeValues(p)))].sort((a,b)=>Number(a)-Number(b));
+            const rB=(id,mob)=> document.getElementById(id).innerHTML=b.map(x=>`<label class="flex items-center gap-3 cursor-pointer group rounded-full border border-transparent px-3 py-2 hover:border-gray-200 hover:bg-white/80 dark:hover:border-gray-800 dark:hover:bg-white/[0.03] transition-colors"><input type="checkbox" value="${x}" onchange="toggleBrand('${x}'); ${mob?'toggleMobileFilters()':''}" class="custom-checkbox"><span class="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-black dark:group-hover:text-white transition-colors">${x}</span></label>`).join('');
+            const rS=(id,mob)=> document.getElementById(id).innerHTML=s.map(x=>`<button onclick="applySizeFilter(${JSON.stringify(String(x))}); ${mob?'toggleMobileFilters()':''}" class="size-filter-btn size-filter-btn-${String(x).replace(/[^a-zA-Z0-9_-]/g, '-')} text-xs border border-gray-200 dark:border-gray-700 py-2.5 hover:border-black dark:hover:border-white transition-colors rounded-full text-black dark:text-white font-semibold bg-white dark:bg-black">${x}</button>`).join('');
+            rB('desktop-brand-filters',false); rB('mobile-brand-filters',true); rS('desktop-size-filters',false); rS('mobile-size-filters',true);
+        }
+        function toggleBrand(b){ if(activeFilters.brands.includes(b)) activeFilters.brands=activeFilters.brands.filter(x=>x!==b); else activeFilters.brands.push(b); applyFilters(); }
+        function applyPriceFilter(v){ activeFilters.price=v; applyFilters(); }
+        function applySizeFilter(s){ const normalized = String(s); const key = normalized.replace(/[^a-zA-Z0-9_-]/g, '-'); const bs=document.querySelectorAll(`.size-filter-btn`); bs.forEach(b=>b.classList.remove('bg-black','text-white','dark:bg-white','dark:text-black')); if(activeFilters.size===normalized) activeFilters.size=null; else { activeFilters.size=normalized; document.querySelectorAll(`.size-filter-btn-${key}`).forEach(b=>b.classList.add('bg-black','text-white','dark:bg-white','dark:text-black')); } applyFilters(); }
+        function applySort(v){ activeFilters.sort=v; applyFilters(); }
+        function handleSearch(v){ activeFilters.search=v.toLowerCase(); applyFilters(); }
+        function resetFilters(){ activeFilters={brands:[],price:'all',size:null,sort:'newest',search:''}; document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false); document.getElementById('desktop-search').value=''; applyFilters(); }
+        function toggleMobileFilters(){ const s=document.getElementById('mobile-filter-sidebar'); const o=document.getElementById('mobile-filter-overlay'); if(s.classList.contains('translate-x-0')){ s.classList.remove('translate-x-0'); s.classList.add('-translate-x-full'); o.classList.add('opacity-0','pointer-events-none'); }else{ s.classList.remove('-translate-x-full'); s.classList.add('translate-x-0'); o.classList.remove('opacity-0','pointer-events-none'); } }
+
+        function applyFilters() {
+            console.log("Final PRODUCTS used for render:", PRODUCTS);
+            console.log("Rendered products:", PRODUCTS);
+            let res = PRODUCTS.filter(p => {
+                if(activeFilters.brands.length && !activeFilters.brands.includes(p.brand)) return false;
+                if(activeFilters.price==='under-150' && (p.price>=150 || p.price===0)) return false;
+                if(activeFilters.price==='150-plus' && p.price<150) return false;
+                if(activeFilters.size && !getRenderedSizeValues(p).map((size) => String(size)).includes(String(activeFilters.size))) return false;
+                if(activeFilters.search && !p.name.toLowerCase().includes(activeFilters.search) && !p.brand.toLowerCase().includes(activeFilters.search)) return false;
+                return true;
+            });
+            if(activeFilters.sort==='price-asc') res.sort((a,b)=>(a.price||9999)-(b.price||9999));
+            else if(activeFilters.sort==='price-desc') res.sort((a,b)=>(b.price||0)-(a.price||0));
+            else res.sort((a,b)=>(b.isNew?1:0)-(a.isNew?1:0)||b.id-a.id);
+            
+            const g=document.getElementById('product-grid'); const nr=document.getElementById('no-results');
+            if(res.length===0){ g.innerHTML=''; nr.classList.remove('hidden'); }
+            else { nr.classList.add('hidden'); g.innerHTML=res.map(p=> {
+                 // Fallback rating for grid view if we don't want to fetch all reviews at once
+                 const seed = p.id * 1664525 + 1013904223;
+                 const rating = (4.5 + (seed % 50) / 100).toFixed(1); 
+                 return `
+                <div class="product-card group cursor-pointer animate-fade-in relative" onclick="openDetail(${p.id})">
+                    <div class="product-media relative aspect-[0.85] w-full overflow-hidden mb-4 rounded-[1.75rem] transition-colors duration-300">
+                        ${p.isNew ? `<span class="absolute top-4 left-4 z-20 rounded-full border border-black/10 bg-white/90 dark:border-white/10 dark:bg-black/85 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] backdrop-blur-sm">${window.i18n.lbl_new[currentLang]}</span>` : ''}
+                        
+                        ${renderProductSlider(p, `grid-slider-${p.id}`, 'product-img w-full h-full object-contain p-7 md:p-8', true)}
+                        
+                        <!-- QUICK VIEW BUTTON -->
+                        <button onclick="openQuickView(event, ${p.id})" class="quickview-btn absolute bottom-4 inset-x-4 rounded-full bg-black/88 text-white text-[10px] font-bold uppercase tracking-[0.24em] py-3 hover:bg-dubae-gold transition-colors z-20">
+                            ${window.i18n.btn_quick_view[currentLang]}
+                        </button>
+                    </div>
+                    <div class="space-y-2 px-1">
+                        <div class="flex justify-between items-start gap-3">
+                            <span class="product-meta text-[10px] uppercase text-gray-400 font-bold">${p.brand}</span>
+                            <div class="flex items-center gap-1 rounded-full border border-gray-200 dark:border-gray-800 px-2.5 py-1 opacity-90"><span class="text-[10px] text-dubae-gold">★</span><span class="text-[10px] text-gray-500">${rating}</span></div>
+                        </div>
+                        <h3 class="text-[15px] font-semibold leading-snug min-h-[2.8rem] line-clamp-2 dark:text-white">${p.name}</h3>
+                        <p class="font-serif italic text-[1.35rem] tracking-tight dark:text-white">${formatUSD(p.price)}</p>
+                    </div>
+                </div>`;
+            }).join(''); }
+        }
+
+        // --- DETAIL MODAL (FULL VIEW) ---
+        async function openDetail(id) {
+            const p = PRODUCTS.find(x => x.id === id);
+            if(!p) return;
+            const detailView = document.getElementById('detail-view');
+            detailView.setAttribute('data-pid', id);
+            
+            // Clean up previous real-time listener if exists
+            if (reviewsUnsubscribe) {
+                reviewsUnsubscribe();
+                reviewsUnsubscribe = null;
+            }
+
+            // Function to render the dynamic parts (Reviews & Rating)
+            const renderContent = (reviews) => {
+                let avgRating = 5.0; 
+                let reviewCount = reviews.length;
+                
+                if(reviewCount > 0) {
+                     const sum = reviews.reduce((a, b) => a + b.rating, 0);
+                     avgRating = (sum / reviewCount).toFixed(1);
+                } else {
+                     // Fallback for visual continuity if 0 reviews (optional)
+                     const seed = p.id * 1664525 + 1013904223;
+                     avgRating = (4.5 + (seed % 50) / 100).toFixed(1);
+                }
+
+                // Auth State logic for form
+                let formHTML = '';
+                if(window.currentUser) {
+                     formHTML = `
+                        <div id="review-form" class="bg-gray-50 dark:bg-[#111] p-5 rounded-sm mb-8 transition-all">
+                            <h4 class="text-xs font-bold uppercase tracking-widest mb-4 text-black dark:text-white">${window.i18n.review_write[currentLang]}</h4>
+                            <div class="space-y-3">
+                                <div class="flex gap-2 text-lg mb-2">
+                                    ${[1,2,3,4,5].map(i => `<span id="star-${i}" class="star-input ${i<=5 ? 'active text-dubae-gold' : ''} text-gray-300 transition-colors" onclick="window.setReviewRating(${i})">★</span>`).join('')}
+                                </div>
+                                <p class="text-xs text-gray-500">${window.i18n.review_posting_as[currentLang]} <span class="font-bold text-black dark:text-white">${window.currentUser.displayName}</span></p>
+                                <textarea id="review-comment" rows="2" placeholder="${window.i18n.review_placeholder[currentLang]}" class="w-full bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-2 text-sm outline-none focus:border-dubae-gold resize-none dark:text-white"></textarea>
+                                <button onclick="window.submitReview(${p.id})" class="w-full bg-black dark:bg-white text-white dark:text-black py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-dubae-gold transition-colors">${window.i18n.review_submit[currentLang]}</button>
+                            </div>
+                        </div>`;
+                } else {
+                     formHTML = `
+                        <div class="bg-gray-50 dark:bg-[#111] p-8 rounded-sm mb-8 text-center">
+                            <p class="text-xs text-gray-500 mb-4">${window.i18n.review_login_msg[currentLang]}</p>
+                            <button onclick="handleAuthClick()" class="inline-flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-full text-xs font-bold hover:bg-gray-50 transition-colors">
+                                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4"> ${window.i18n.review_sign_in[currentLang]}
+                            </button>
+                        </div>`;
+                }
+
+                formHTML = `
+                    <div id="review-form" class="bg-gray-50 dark:bg-[#111] p-5 rounded-sm mb-8 transition-all">
+                        <h4 class="text-xs font-bold uppercase tracking-widest mb-4 text-black dark:text-white">${window.i18n.review_write[currentLang]}</h4>
+                        <div class="space-y-3">
+                            <input id="review-full-name" type="text" placeholder="Full name" class="w-full bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-2 text-sm outline-none focus:border-dubae-gold dark:text-white">
+                            <input id="review-email" type="email" placeholder="Email" class="w-full bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-2 text-sm outline-none focus:border-dubae-gold dark:text-white">
+                            <div class="flex gap-2 text-lg mb-2">
+                                ${[1,2,3,4,5].map(i => `<span id="star-${i}" class="star-input ${i<=5 ? 'active text-dubae-gold' : ''} text-gray-300 transition-colors" onclick="window.setReviewRating(${i})">★</span>`).join('')}
+                            </div>
+                            <textarea id="review-comment" rows="2" placeholder="${window.i18n.review_placeholder[currentLang]}" class="w-full bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-2 text-sm outline-none focus:border-dubae-gold resize-none dark:text-white"></textarea>
+                            <button onclick="window.submitReview('${getProductReviewId(p)}')" class="w-full bg-black dark:bg-white text-white dark:text-black py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-dubae-gold transition-colors">${window.i18n.review_submit[currentLang]}</button>
+                        </div>
+                    </div>`;
+
+                let reviewsHTML = '';
+                if(reviews.length > 0) {
+                    reviewsHTML = reviews.map(r => `
+                        <div class="border-b border-gray-100 dark:border-gray-800 pb-4 mb-4 last:border-0 animate-fade-in">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <img src="${r.userPhoto || 'https://via.placeholder.com/24'}" class="w-6 h-6 rounded-full">
+                                    <span class="text-xs font-bold text-black dark:text-white">${r.userName}</span>
+                                    <span class="text-[9px] text-green-600 bg-green-50 px-1 rounded font-bold uppercase tracking-wider">${window.i18n.lbl_verified[currentLang]}</span>
+                                </div>
+                                <span class="text-[10px] text-gray-400">${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : window.i18n.lbl_just_now[currentLang]}</span>
+                            </div>
+                            <div class="flex text-dubae-gold text-[10px] mb-2">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">"${r.comment}"</p>
+                        </div>
+                    `).join('');
+                } else {
+                    reviewsHTML = `<p class="text-xs text-gray-400 italic text-center py-4">${window.i18n.no_results[currentLang]}</p>`;
+                }
+
+                if(reviews.length > 0) {
+                    reviewsHTML = reviews.map(r => `
+                        <div class="border-b border-gray-100 dark:border-gray-800 pb-4 mb-4 last:border-0 animate-fade-in">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex h-6 w-6 items-center justify-center rounded-full border border-gray-200 text-[9px] font-bold uppercase text-black dark:border-gray-700 dark:text-white">${(r.fullName || '?').slice(0, 1)}</div>
+                                    <span class="text-xs font-bold text-black dark:text-white">${r.fullName}</span>
+                                </div>
+                                <span class="text-[10px] text-gray-400">${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : window.i18n.lbl_just_now[currentLang]}</span>
+                            </div>
+                            <div class="flex text-dubae-gold text-[10px] mb-2">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">"${r.comment}"</p>
+                        </div>
+                    `).join('');
+                }
+
+                // Render the Full HTML
+                detailView.innerHTML = `
+                    <div class="min-h-screen flex flex-col lg:flex-row bg-white dark:bg-[#0a0a0a]">
+                        <button onclick="document.getElementById('detail-view').classList.add('hidden'); document.body.style.overflow=''; if(window.reviewsUnsubscribe) window.reviewsUnsubscribe();" class="fixed top-6 right-6 z-[60] p-3 bg-white dark:bg-[#222] text-black dark:text-white rounded-full shadow-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                        <div class="w-full lg:w-3/5 h-[40vh] lg:h-screen bg-[#F9FAFB] dark:bg-[#111] flex items-center justify-center p-8 lg:p-12">${renderProductSlider(p, `detail-slider-${p.id}`, 'max-h-full max-w-full object-contain product-img', false, true)}</div>
+                        <div class="w-full lg:w-2/5 min-h-[60vh] lg:h-screen bg-white dark:bg-[#0a0a0a] p-8 lg:p-20 flex flex-col overflow-y-auto relative custom-scrollbar">
+                            <span class="text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">${p.brand}</span>
+                            <h2 class="text-3xl md:text-4xl font-serif italic mb-4 leading-tight text-black dark:text-white">${p.name}</h2>
+                            <div class="flex items-center gap-2 mb-6"><div class="flex text-dubae-gold text-sm">${'★'.repeat(Math.round(avgRating))}${'☆'.repeat(5 - Math.round(avgRating))}</div><span class="text-xs font-bold text-gray-800 dark:text-gray-200">${avgRating}</span><span class="text-xs text-gray-400">(${reviewCount} ${window.i18n.review_reviews[currentLang]})</span></div>
+                            <p class="text-2xl font-light mb-8 text-gray-800 dark:text-gray-200">${formatUSD(p.price)}</p>
+                            <div class="mb-8"><label class="text-xs font-bold uppercase tracking-widest mb-4 block text-black dark:text-white">${window.i18n.lbl_size[currentLang]}</label><div class="grid grid-cols-5 gap-2">${getProductSizeInventory(p).map((sizeOption) => `<button onclick="selectSize(${p.id}, '${escapeSizeForInlineSelection(sizeOption.size)}', this)" class="size-btn size-btn-${p.id} rounded-sm ${Number(sizeOption.stock) > 0 ? '' : 'disabled'}" ${Number(sizeOption.stock) > 0 ? '' : 'disabled'}>${sizeOption.size}</button>`).join('')}</div></div>
+                            <div class="space-y-3 mb-8"><button onclick="addToCart(${p.id})" class="w-full py-4 border border-black dark:border-white text-black dark:text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">${window.i18n.btn_add[currentLang]}</button><button onclick="orderSingle(${p.id})" class="w-full py-4 bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-[0.2em] hover:bg-dubae-gold dark:hover:bg-gray-200 transition-colors shadow-lg">${window.i18n.btn_buy[currentLang]}</button></div>
+                            <div class="border-t border-gray-100 dark:border-gray-800 pt-8 pb-20">
+                                <h3 class="font-serif italic text-xl mb-6 text-black dark:text-white">${window.i18n.review_title[currentLang]}</h3>
+                                ${formHTML}
+                                <div class="space-y-4">${reviewsHTML}</div>
+                            </div>
+                        </div>
+                    </div>`;
+            };
+
+            // INITIAL RENDER (Loading State or Empty)
+            renderContent([]); 
+
+            // REAL-TIME LISTENER
+            reviewsUnsubscribe = window.ReviewService.subscribeToApprovedReviews(getProductReviewId(p), (reviews) => {
+                // Re-render only the reviews part would be more efficient, but for simplicity/robustness we re-render the modal content 
+                // keeping the scroll position would be ideal, but standard replacement is acceptable for this MVP level
+                // To avoid flickering, we could verify if modal is still open for this product
+                if(document.getElementById('detail-view').getAttribute('data-pid') == id) {
+                    renderContent(reviews);
+                    // Re-initialize stars state if user is logged in
+                    window.setReviewRating(5);
+                }
+            });
+
+            detailView.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            window.setReviewRating(5); // init default stars
+        }
+
+        // --- AUTH & HELPERS ---
+        function selectSize(pid, size, btn) {
+            const normalizedSize = normalizeSizeValue(size);
+            const product = PRODUCTS.find((item) => item.id === pid);
+            if(product && !isSizeAvailable(product, normalizedSize)) return;
+            selectedSizes[pid] = normalizedSize;
+            document.querySelectorAll(`.size-btn-${pid}`).forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+        function addToCart(pid) {
+            const p = PRODUCTS.find(x => x.id === pid);
+            if(!p) return;
+            const availableSizes = getProductSizeInventory(p);
+            const requiresSizeSelection = availableSizes.length > 0;
+            const size = normalizeSizeValue(selectedSizes[pid]);
+            console.log("Product sizes:", Array.isArray(p?.sizes) ? p.sizes : []);
+            console.log("Selected size:", size);
+            if(requiresSizeSelection && !size) { showToast(window.i18n.size_select[currentLang]); return; }
+            if(requiresSizeSelection && !isSizeAvailable(p, size)) { showToast(getStockErrorMessage()); return; }
+            const exists = cart.find(i => i.id === pid && normalizeSizeValue(i.size) === size);
+            const nextQty = (exists?.qty || 0) + 1;
+            if(requiresSizeSelection && !canUseSizeQuantity(p, size, nextQty)) { showToast(getStockErrorMessage()); return; }
+            if(exists) exists.qty = nextQty; else cart.push({ ...p, ...(size ? { size, selectedSize: size } : {}), qty:1 });
+            saveCart();
+            showToast(window.i18n.added_bag[currentLang]);
+            toggleCart();
+        }
+        
+        function orderSingle(id) { 
+            const p = PRODUCTS.find(x => x.id === id); 
+            if(!p) return;
+            const availableSizes = getProductSizeInventory(p);
+            const requiresSizeSelection = availableSizes.length > 0;
+            const s = normalizeSizeValue(selectedSizes[id]); 
+            if(requiresSizeSelection && !s) { showToast(window.i18n.size_select[currentLang]); return; } 
+            if(requiresSizeSelection && !isSizeAvailable(p, s)) { showToast(getStockErrorMessage()); return; }
+            const customer = getCustomerDetails();
+            if(!customer.name||!customer.phone||!customer.address){ showToast(window.i18n.missing_info[currentLang]); toggleCart(); return; }
+            const shipping = getShippingDetails();
+            if(!shipping.shippingSector) { showToast('Select a delivery sector.'); return; }
+            if(shipping.shippingSector === 'Interior' && !shipping.parada) { showToast('Enter the parada for Interior.'); return; }
+            const items = [{ id: p.id, dbId: p.dbId, name: p.name, ...(s ? { size: s } : {}), qty: 1, price: p.price || 0 }];
+            if(requiresSizeSelection && !validateItemsStock(items)) { showToast(getStockErrorMessage()); return; }
+            openPaymentModal({ mode: 'single', customer, items, shipping });
+            return;
+            
+            let msg = `${window.i18n.wa_greeting_single[currentLang]}\n\n`;
+            msg+=`👟 ${p.name}\n`;
+            msg+=`📏 Talla: ${s}\n`;
+            msg+=`📦 Cantidad: 1\n`;
+            msg+=`💰 Precio: ${formatUSD(p.price)}\n\n`;
+            msg+=`🧾 TOTAL: ${formatUSD(p.price)}`;
+
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); 
+        }
+
+        function toggleDarkMode() { if (document.documentElement.classList.contains('dark')) { document.documentElement.classList.remove('dark'); localStorage.setItem('dubae_theme', 'light'); } else { document.documentElement.classList.add('dark'); localStorage.setItem('dubae_theme', 'dark'); } }
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
+
