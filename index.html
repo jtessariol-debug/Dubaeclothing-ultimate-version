@@ -344,7 +344,7 @@
                             <span data-i18n="filter_btn">Filters</span>
                         </button>
                     </div>
-                    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
+                    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
                     <div id="no-results" class="hidden py-32 text-center">
                         <p class="text-gray-400 text-xl font-serif italic mb-4" data-i18n="no_results">No pieces found.</p>
                         <button onclick="resetFilters()" class="text-xs font-bold uppercase tracking-widest underline text-black dark:text-white hover:text-dubae-gold" data-i18n="clear_filters">Clear Filters</button>
@@ -357,7 +357,7 @@
                                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 md:text-base">Piezas frescas para completar tu flow.</p>
                             </div>
                         </div>
-                        <div id="tshirts-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
+                        <div id="tshirts-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
                         <div id="tshirts-empty" class="hidden py-12 text-center">
                             <p class="text-gray-400 text-lg font-serif italic">Próximamente nuevas piezas.</p>
                         </div>
@@ -370,7 +370,7 @@
                                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 md:text-base">El fit que completa la vuelta.</p>
                             </div>
                         </div>
-                        <div id="pants-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
+                        <div id="pants-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
                         <div id="pants-empty" class="hidden py-12 text-center">
                             <p class="text-gray-400 text-lg font-serif italic">Próximamente nuevas piezas.</p>
                         </div>
@@ -1417,9 +1417,9 @@
                     <div class="product-media relative aspect-[0.85] w-full overflow-hidden mb-4 rounded-[1.75rem] transition-colors duration-300">
                         ${p.isNew ? `<span class="absolute top-4 left-4 z-20 rounded-full border border-black/10 bg-white/90 dark:border-white/10 dark:bg-black/85 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] backdrop-blur-sm">${window.i18n.lbl_new[currentLang]}</span>` : ''}
                         
-                        ${renderProductSlider(p, `grid-slider-${p.id}`, 'product-img w-full h-full object-contain p-7 md:p-8', true)}
+                        ${renderProductSlider(p, `grid-slider-${p.id}`, 'product-img w-full h-full object-contain object-center p-5 sm:p-6 md:p-8', true)}
                         
-                        <button onclick="openQuickView(event, ${p.id})" class="quickview-btn absolute bottom-4 inset-x-5 rounded-full bg-black/78 text-white text-[9px] font-bold uppercase tracking-[0.24em] py-2.5 hover:bg-dubae-gold transition-colors z-20">
+                        <button onclick="openQuickView(event, ${p.id})" class="quickview-btn hidden sm:block absolute bottom-4 inset-x-5 rounded-full bg-black/78 text-white text-[9px] font-bold uppercase tracking-[0.24em] py-2.5 hover:bg-dubae-gold transition-colors z-20">
                             ${window.i18n.btn_quick_view[currentLang]}
                         </button>
                     </div>
@@ -1880,13 +1880,13 @@
                     <div class="relative h-full w-full">
                         <img id="${sliderId}-image" src="${safeImages[0] || PRODUCT_IMAGE_FALLBACK}" class="${imageClass}" loading="eager" decoding="async" fetchpriority="high" draggable="false" onerror="this.src='${PRODUCT_IMAGE_FALLBACK}'">
                         ${safeImages.length > 1 ? `
-                            <button type="button" aria-label="Previous image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', -1)" class="product-slider-arrow absolute left-3 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/88 text-base font-bold text-black transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/72 dark:text-white">
+                            <button type="button" aria-label="Previous image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', -1)" class="product-slider-arrow absolute left-2 sm:left-3 top-1/2 z-20 flex h-7 w-7 sm:h-9 sm:w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/88 text-sm sm:text-base font-bold text-black transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/72 dark:text-white">
                                 <span aria-hidden="true">‹</span>
                             </button>
-                            <button type="button" aria-label="Next image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', 1)" class="product-slider-arrow absolute right-3 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/88 text-base font-bold text-black transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/72 dark:text-white">
+                            <button type="button" aria-label="Next image" onclick="${clickPrefix}window.changeProductSlide('${sliderId}', 1)" class="product-slider-arrow absolute right-2 sm:right-3 top-1/2 z-20 flex h-7 w-7 sm:h-9 sm:w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/80 bg-white/88 text-sm sm:text-base font-bold text-black transition hover:scale-105 hover:bg-white dark:border-white/20 dark:bg-black/72 dark:text-white">
                                 <span aria-hidden="true">›</span>
                             </button>
-                            <div class="absolute bottom-16 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-white/72 px-3 py-2 backdrop-blur-sm dark:bg-black/42">
+                            <div class="absolute bottom-3 sm:bottom-16 left-1/2 z-20 flex -translate-x-1/2 gap-1.5 sm:gap-2 rounded-full bg-white/72 px-2.5 sm:px-3 py-1.5 sm:py-2 backdrop-blur-sm dark:bg-black/42">
                                 ${safeImages.map((_, index) => `<button type="button" onclick="${clickPrefix}window.goToProductSlide('${sliderId}', ${index})" id="${sliderId}-dot-${index}" class="product-slider-dot h-2 w-2 rounded-full ${index === 0 ? 'product-slider-dot-active bg-black dark:bg-white' : 'bg-black/20 dark:bg-white/30'}"></button>`).join('')}
                             </div>
                         ` : ''}
@@ -2042,10 +2042,10 @@
                     <div class="product-media relative aspect-[0.85] w-full overflow-hidden mb-4 rounded-[1.75rem] transition-colors duration-300">
                         ${p.isNew ? `<span class="absolute top-4 left-4 z-20 rounded-full border border-black/10 bg-white/90 dark:border-white/10 dark:bg-black/85 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] backdrop-blur-sm">${window.i18n.lbl_new[currentLang]}</span>` : ''}
                         
-                        ${renderProductSlider(p, `grid-slider-${p.id}`, 'product-img w-full h-full object-contain p-7 md:p-8', true)}
+                        ${renderProductSlider(p, `grid-slider-${p.id}`, 'product-img w-full h-full object-contain object-center p-5 sm:p-6 md:p-8', true)}
                         
                         <!-- QUICK VIEW BUTTON -->
-                        <button onclick="openQuickView(event, ${p.id})" class="quickview-btn absolute bottom-4 inset-x-5 rounded-full bg-black/78 text-white text-[9px] font-bold uppercase tracking-[0.24em] py-2.5 hover:bg-dubae-gold transition-colors z-20">
+                        <button onclick="openQuickView(event, ${p.id})" class="quickview-btn hidden sm:block absolute bottom-4 inset-x-5 rounded-full bg-black/78 text-white text-[9px] font-bold uppercase tracking-[0.24em] py-2.5 hover:bg-dubae-gold transition-colors z-20">
                             ${window.i18n.btn_quick_view[currentLang]}
                         </button>
                     </div>
