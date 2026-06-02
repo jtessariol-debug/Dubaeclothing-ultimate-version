@@ -9,17 +9,6 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module">
-        const paypalClientId = import.meta.env.VITE_PAYPAL_CLIENT_ID;
-        window.__PAYPAL_CLIENT_ID__ = paypalClientId || '';
-
-        if (paypalClientId) {
-            const paypalScript = document.createElement('script');
-            paypalScript.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(paypalClientId)}&currency=USD&intent=capture&components=buttons`;
-            paypalScript.async = true;
-            document.head.appendChild(paypalScript);
-        }
-    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1139,7 +1128,6 @@
     <!-- Original Logic Script (Modified to use Firebase) -->
     <script>
         const WHATSAPP_NUMBER = "18297207993";
-        const PAYPAL_CLIENT_ID = window.__PAYPAL_CLIENT_ID__ || '';
         const SUPABASE_URL = "%VITE_SUPABASE_URL%";
         const SUPABASE_ANON_KEY = "%VITE_SUPABASE_ANON_KEY%";
         const STOREFRONT_BUILD_VERSION = new Date().toISOString();
@@ -1934,9 +1922,20 @@
             if(activePaymentContext.mode === 'cart') { cart = []; saveCart(); toggleCart(); }
             document.getElementById('paypal-button-container').innerHTML = '';
         }
-        function renderPayPalButtons(context, total) {
+        async function renderPayPalButtons(context, total) {
             document.getElementById('paypal-button-container').innerHTML = '';
-            if(!window.paypal || !PAYPAL_CLIENT_ID) { setPaymentStatus('PayPal checkout is not available right now.', 'error'); return; }
+            const paypalClientId = window.__PAYPAL_CLIENT_ID__ || '';
+            if(!paypalClientId) { setPaymentStatus('PayPal checkout is not available right now.', 'error'); return; }
+            if(!window.paypal && window.__PAYPAL_SDK_PROMISE__) {
+                try {
+                    await window.__PAYPAL_SDK_PROMISE__;
+                } catch (error) {
+                    console.error('PayPal SDK load error:', error);
+                    setPaymentStatus('PayPal checkout is not available right now.', 'error');
+                    return;
+                }
+            }
+            if(!window.paypal) { setPaymentStatus('PayPal checkout is not available right now.', 'error'); return; }
             window.paypal.Buttons({
                 style: { layout: 'vertical', color: 'gold', shape: 'pill', label: 'paypal' },
                 createOrder: (_data, actions) => actions.order.create({ purchase_units: [{ description: context.mode === 'single' ? context.items[0].name : `Dubae cart (${context.items.length} items)`, amount: { currency_code: 'USD', value: total.toFixed(2) } }] }),
@@ -1957,7 +1956,7 @@
             document.getElementById('payment-summary').innerHTML = `<div class="space-y-2"><div><span class="font-bold">${window.i18n.payment_customer[currentLang]}:</span> ${context.customer.name}</div><div><span class="font-bold">${window.i18n.payment_items[currentLang]}:</span></div><div class="space-y-1">${context.items.map((item) => `<div class="flex justify-between gap-3"><span>${item.name}${item.size ? ` / ${item.size}` : ''} x${item.qty}</span><span>${formatUSD((item.price||0) * item.qty)}</span></div>`).join('')}</div>${shipping.shippingSector ? `<div class="flex justify-between gap-3"><span>Shipping (${shipping.shippingSector})</span><span>${formatDOP(shipping.shippingCostDop)} / ${formatCheckoutUSD(shipping.shippingCostUsd)}</span></div>${shipping.parada ? `<div><span class="font-bold">Parada:</span> ${shipping.parada}</div>` : ''}` : ''}<div class="flex justify-between border-t border-gray-200 pt-2 font-bold dark:border-gray-700"><span>${window.i18n.payment_total[currentLang]}</span><span>${formatCheckoutUSD(total)}</span></div></div>`;
             document.getElementById('payment-overlay').classList.remove('opacity-0','pointer-events-none');
             document.getElementById('payment-modal').classList.remove('opacity-0','scale-95','pointer-events-none');
-            renderPayPalButtons(context, total);
+            void renderPayPalButtons(context, total);
         }
         
         function checkoutCart(){ 
@@ -2266,6 +2265,7 @@
         function toggleDarkMode() { if (document.documentElement.classList.contains('dark')) { document.documentElement.classList.remove('dark'); localStorage.setItem('dubae_theme', 'light'); } else { document.documentElement.classList.add('dark'); localStorage.setItem('dubae_theme', 'dark'); } }
     </script>
 <script type="module" src="/src/publicReviews.ts"></script>
+<script type="module" src="/src/paypalCheckout.ts"></script>
 <script type="module" src="/index.tsx"></script>
 </body>
 </html>
