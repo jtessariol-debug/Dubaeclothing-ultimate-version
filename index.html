@@ -161,14 +161,6 @@
                     <!-- Language Toggle -->
                     <button onclick="toggleLanguage()" class="hidden sm:inline-flex rounded-full border border-black/10 dark:border-white/10 px-3 py-2 text-[11px] font-bold uppercase tracking-[0.25em] hover:text-dubae-gold text-black dark:text-white transition-colors" id="lang-btn">EN</button>
 
-                    <!-- Admin Access -->
-                    <a
-                        href="/admin/"
-                        class="hidden sm:inline-flex items-center rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-black dark:text-white hover:border-dubae-gold hover:text-dubae-gold transition-colors"
-                    >
-                        Admin Panel
-                    </a>
-
                     <!-- User Auth -->
                     <div id="auth-container" class="relative group">
                         <button onclick="handleAuthClick()" id="user-btn" class="flex items-center gap-2 rounded-full border border-transparent p-1.5 sm:p-2 hover:border-black/10 hover:bg-gray-50 dark:hover:border-white/10 dark:hover:bg-white/10 transition-colors">
@@ -192,24 +184,6 @@
             </div>
         </div>
     </nav>
-
-    <!-- Admin Floating Button -->
-    <button id="admin-trigger" onclick="toggleAdminPanel()" class="hidden fixed bottom-6 left-6 z-[80] w-12 h-12 bg-dubae-gold text-white rounded-full shadow-xl items-center justify-center admin-btn hover:scale-110 transition-transform">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-    </button>
-
-    <!-- Admin Panel Modal -->
-    <div id="admin-panel" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-[#111] w-full max-w-2xl rounded-sm shadow-2xl overflow-hidden max-h-[80vh] flex flex-col">
-            <div class="p-4 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-[#1a1a1a]">
-                <h3 class="font-bold text-sm uppercase tracking-widest text-black dark:text-white" data-i18n="admin_title">Review Moderation</h3>
-                <button onclick="toggleAdminPanel()" class="text-gray-400 hover:text-red-500"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            </div>
-            <div id="admin-reviews-list" class="flex-1 overflow-y-auto p-4 space-y-4">
-                <p class="text-center text-gray-400 text-sm py-10" data-i18n="admin_loading">Loading pending reviews...</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Main Layout -->
     <main class="flex-grow pt-20 bg-white dark:bg-dubae-dark transition-colors duration-300">
@@ -491,7 +465,6 @@
         <div class="flex-1 overflow-y-auto p-6 space-y-8">
             <div class="space-y-3 sm:hidden">
                 <button onclick="toggleLanguage()" class="inline-flex w-full items-center justify-center rounded-full border border-black/10 dark:border-white/10 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.25em] text-black dark:text-white transition-colors hover:text-dubae-gold" id="mobile-lang-btn">EN</button>
-                <a href="/admin/" class="inline-flex w-full items-center justify-center rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-black dark:text-white transition-colors hover:border-dubae-gold hover:text-dubae-gold">Admin Panel</a>
             </div>
             <div class="space-y-3" id="mobile-brand-filters"></div>
             <div class="grid grid-cols-4 gap-2" id="mobile-size-filters"></div>
