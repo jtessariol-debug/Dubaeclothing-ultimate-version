@@ -489,7 +489,10 @@
             <button onclick="toggleMobileFilters()" class="p-2 text-black dark:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         <div class="flex-1 overflow-y-auto p-6 space-y-8">
-            <button onclick="toggleLanguage()" class="inline-flex items-center justify-center rounded-full border border-black/10 dark:border-white/10 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.25em] text-black dark:text-white transition-colors hover:text-dubae-gold sm:hidden" id="mobile-lang-btn">EN</button>
+            <div class="space-y-3 sm:hidden">
+                <button onclick="toggleLanguage()" class="inline-flex w-full items-center justify-center rounded-full border border-black/10 dark:border-white/10 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.25em] text-black dark:text-white transition-colors hover:text-dubae-gold" id="mobile-lang-btn">EN</button>
+                <a href="/admin/" class="inline-flex w-full items-center justify-center rounded-full border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-black dark:text-white transition-colors hover:border-dubae-gold hover:text-dubae-gold">Admin Panel</a>
+            </div>
             <div class="space-y-3" id="mobile-brand-filters"></div>
             <div class="grid grid-cols-4 gap-2" id="mobile-size-filters"></div>
             <div class="p-6 border-t border-gray-100 dark:border-gray-800"><button onclick="resetFilters(); toggleMobileFilters()" class="w-full border border-black dark:border-white text-black dark:text-white py-3 text-xs font-bold uppercase tracking-widest" data-i18n="filter_reset">Reset All</button></div>
@@ -1061,27 +1064,27 @@
             ).join('');
 
             overlay.innerHTML = `
-                <div class="bg-white dark:bg-[#111] w-[95%] md:w-full max-w-5xl max-h-[90vh] md:max-h-none grid grid-cols-1 md:grid-cols-2 gap-0 relative rounded-sm shadow-2xl animate-zoom-in border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:grid" onclick="event.stopPropagation()">
+                <div class="bg-white dark:bg-[#111] w-[95%] md:w-full max-w-5xl max-h-[95dvh] md:max-h-none grid grid-cols-1 md:grid-cols-2 gap-0 relative rounded-sm shadow-2xl animate-zoom-in border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col md:grid" onclick="event.stopPropagation()">
                     
                     <!-- Close Button -->
-                    <button onclick="closeQuickView()" class="absolute top-4 right-4 z-30 p-2 bg-white/80 dark:bg-black/80 rounded-full backdrop-blur-sm text-gray-500 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors shadow-sm">
+                    <button onclick="closeQuickView()" class="absolute top-3 right-3 md:top-4 md:right-4 z-30 p-2 bg-white/80 dark:bg-black/80 rounded-full backdrop-blur-sm text-gray-500 hover:text-black dark:text-gray-300 dark:hover:text-white transition-colors shadow-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                     
                     <!-- Image Section (Protagonist) -->
-                    <div class="relative bg-[#F9FAFB] dark:bg-[#1a1a1a] flex items-center justify-center p-8 h-[35vh] md:h-[600px]">
+                    <div class="relative bg-[#F9FAFB] dark:bg-[#1a1a1a] flex items-center justify-center p-5 md:p-8 h-[30vh] sm:h-[35vh] md:h-[600px] shrink-0">
                         ${renderProductSlider(p, `quick-slider-${p.id}`, 'max-h-full max-w-full object-contain product-img')}
                     </div>
                     
                     <!-- Details Section -->
-                    <div class="flex flex-col p-6 md:p-12 overflow-y-auto h-auto md:h-full custom-scrollbar bg-white dark:bg-[#111] justify-center">
+                    <div class="flex flex-col p-4 sm:p-5 md:p-12 overflow-y-auto h-auto md:h-full custom-scrollbar bg-white dark:bg-[#111] min-h-0">
                          <!-- Header -->
-                         <div class="mb-6">
+                         <div class="mb-4 sm:mb-6">
                             <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 block mb-3">${p.brand}</span>
-                            <h2 class="text-2xl md:text-4xl font-serif italic leading-tight text-black dark:text-white mb-4">${p.name}</h2>
+                            <h2 class="text-xl sm:text-2xl md:text-4xl font-serif italic leading-tight text-black dark:text-white mb-4">${p.name}</h2>
                             
-                             <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-6">
-                                 <p class="text-2xl font-light text-gray-800 dark:text-gray-200">${formatUSD(p.price)}</p>
+                             <div class="flex items-center justify-between border-b border-gray-100 dark:border-gray-800 pb-4 sm:pb-6">
+                                 <p class="text-xl sm:text-2xl font-light text-gray-800 dark:text-gray-200">${formatUSD(p.price)}</p>
                                  <div class="flex items-center gap-1">
                                     <span class="text-dubae-gold text-xs">★★★★★</span>
                                     <span class="text-[10px] font-bold text-gray-500">${rating}</span>
@@ -1090,7 +1093,7 @@
                          </div>
                          
                          <!-- Sizes -->
-                         <div class="mb-8 flex-grow">
+                         <div class="mb-5 sm:mb-8 flex-grow">
                              <label class="text-[10px] font-bold uppercase tracking-widest mb-4 block text-gray-500 dark:text-gray-400" data-i18n="lbl_size">${window.i18n.lbl_size[currentLang]}</label>
                              <div class="grid grid-cols-5 gap-2">
                                  ${sizesHtml}
@@ -1098,7 +1101,7 @@
                          </div>
 
                          <!-- Actions -->
-                         <div class="flex flex-col gap-3 mt-auto">
+                         <div class="flex flex-col gap-3 mt-auto sticky bottom-0 bg-white/95 dark:bg-[#111]/95 backdrop-blur-sm border-t border-gray-100 dark:border-gray-800 -mx-4 sm:-mx-5 md:-mx-12 px-4 sm:px-5 md:px-12 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
                              <button onclick="addToCart(${p.id})" class="w-full py-4 bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-[0.2em] hover:bg-dubae-gold dark:hover:bg-gray-200 transition-colors shadow-lg active:scale-[0.98]">
                                 ${window.i18n.btn_add[currentLang]}
                              </button>
