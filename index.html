@@ -102,12 +102,17 @@
         body.search-active #desktop-filters { display: none; }
         body.search-active #mobile-results-toolbar { display: none; }
         body.search-active #product-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(1, minmax(0, 1fr));
         }
         body.search-active #search-results-shell {
             display: block;
         }
-        @media (min-width: 768px) {
+        @media (min-width: 640px) {
+            body.search-active #product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1024px) {
             body.search-active #product-grid {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
@@ -145,6 +150,11 @@
         }
         .search-product-item:hover {
             transform: translateY(-1px);
+        }
+        @media (max-width: 1023px) {
+            #desktop-search-panel {
+                display: none !important;
+            }
         }
         #catalog-view > section:first-of-type { background: radial-gradient(circle at center top, rgba(198, 168, 124, 0.18), transparent 38%), #111; }
         #catalog-view > section:first-of-type > div:nth-child(3) { background: linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.52) 45%, rgba(0, 0, 0, 0.82) 100%); }
@@ -2208,10 +2218,11 @@
         }
         function openMobileSearchView() {
             document.body.classList.add('mobile-search-open');
-            openSearchPanel();
+            closeSearchPanel();
             const overlayInput = document.getElementById('mobile-search-overlay-input');
             const mobileSearch = document.getElementById('mobile-search');
             const desktopSearch = document.getElementById('desktop-search');
+            renderSearchPanel(activeFilters.search || mobileSearch?.value || desktopSearch?.value || '');
             if (overlayInput) {
                 overlayInput.value = mobileSearch?.value || desktopSearch?.value || '';
                 setTimeout(() => overlayInput.focus(), 40);
