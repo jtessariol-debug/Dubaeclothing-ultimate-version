@@ -68,8 +68,6 @@ declare global {
     getStorefrontProductById?: (productId: string | number | null | undefined) => { id?: string | number; name?: string; brand?: string } | null;
     showToast?: (message: string) => void;
     openDetail?: (productId: string | number) => void;
-    __DUBAE_REVIEWS_REALTIME_INITIALIZED__?: boolean;
-    __DUBAE_REVIEWS_CHANNEL__?: ReturnType<typeof supabase.channel> | null;
   }
 }
 
@@ -497,7 +495,9 @@ function subscribeToApprovedReviews(productId: string | null, callback: (reviews
       console.log('Realtime reviews change received');
       void loadProductReviews();
     })
-    .subscribe();
+    .subscribe((status) => {
+      console.log('Reviews realtime status:', status);
+    });
 
   return () => {
     void supabase.removeChannel(channel);
@@ -511,45 +511,7 @@ function subscribeToRecentApprovedReviews(callback: (reviews: ReviewRecord[]) =>
   };
 
   void syncApprovedReviews();
-
-  const channel = supabase
-    .channel('public-reviews-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'reviews' }, () => {
-      console.log('Realtime reviews change received');
-      void syncApprovedReviews();
-    })
-    .subscribe();
-
-  return () => {
-    void supabase.removeChannel(channel);
-  };
-}
-
-function initReviewsRealtime() {
-  if (window.__DUBAE_REVIEWS_REALTIME_INITIALIZED__) return;
-  window.__DUBAE_REVIEWS_REALTIME_INITIALIZED__ = true;
-
-  const channel = supabase
-    .channel('public-homepage-reviews-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'reviews' }, () => {
-      console.log('Realtime reviews change received');
-      void loadPublicApprovedReviews();
-    })
-    .subscribe();
-
-  window.__DUBAE_REVIEWS_CHANNEL__ = channel;
-
-  window.addEventListener(
-    'beforeunload',
-    () => {
-      if (window.__DUBAE_REVIEWS_CHANNEL__) {
-        void supabase.removeChannel(window.__DUBAE_REVIEWS_CHANNEL__);
-        window.__DUBAE_REVIEWS_CHANNEL__ = null;
-      }
-      window.__DUBAE_REVIEWS_REALTIME_INITIALIZED__ = false;
-    },
-    { once: true },
-  );
+  return () => {};
 }
 
 async function initPublicReviews(): Promise<void> {
@@ -584,9 +546,10 @@ async function initPublicReviews(): Promise<void> {
 
   await refreshReviewProductsForDropdown();
   await loadPublicApprovedReviews();
-  initReviewsRealtime();
 }
 
+window.refreshReviewProductsForDropdown = refreshReviewProductsForDropdown;
+window.loadPublicApprovedReviews = loadPublicApprovedReviews;
 window.initPublicReviews = initPublicReviews;
 
 if (document.readyState === 'loading') {

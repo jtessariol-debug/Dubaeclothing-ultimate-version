@@ -34,7 +34,8 @@ export function ProductsManager() {
       await removeProduct(product.id);
       setFeedback(`Deleted ${product.name}.`);
     } catch (err) {
-      setFeedback(err instanceof Error ? err.message : 'Unable to delete product.');
+      console.error('Delete product failed:', err);
+      setFeedback(err instanceof Error ? err.message : 'No se pudo borrar el producto. Revisa permisos o relaciones.');
     }
   }
 

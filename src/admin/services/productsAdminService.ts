@@ -422,9 +422,49 @@ export async function updateProduct(productId: string, values: ProductFormValues
 }
 
 export async function deleteProduct(productId: string) {
-  const { error } = await supabase.from('products').delete().eq('id', productId);
+  console.log('Deleting product id:', productId);
+
+  const { data: sessionData } = await supabase.auth.getSession();
+  console.log('Supabase session before product delete:', sessionData.session);
+
+  const { data: userData } = await supabase.auth.getUser();
+  console.log('Supabase user before product delete:', userData.user);
+
+  if (!sessionData.session) {
+    throw new Error('No hay sesión real de Supabase Auth. El panel no puede borrar productos con RLS activado.');
+  }
+
+  const { data: deletedRows, error } = await supabase
+    .from('products')
+    .delete()
+    .eq('id', productId)
+    .select('id, name');
+
+  console.log('Deleted product rows:', deletedRows);
+
   if (error) {
-    throw new Error(error.message);
+    console.error('Delete product error:', error);
+    throw error;
+  }
+
+  if (!deletedRows || deletedRows.length === 0) {
+    throw new Error('Supabase deleted 0 rows. This usually means RLS blocked the delete, wrong id, or no real Supabase Auth session.');
+  }
+
+  const { data: checkData, error: checkError } = await supabase
+    .from('products')
+    .select('id, name')
+    .eq('id', productId);
+
+  console.log('Product after delete check:', checkData);
+  console.error('Product after delete check error:', checkError);
+
+  if (checkError) {
+    throw checkError;
+  }
+
+  if (checkData && checkData.length > 0) {
+    throw new Error('Product was not deleted from Supabase');
   }
 
   writeTinyCache([productId]);

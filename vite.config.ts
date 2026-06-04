@@ -17,7 +17,34 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-      plugins: [react()],
+      plugins: [
+        react(),
+        {
+          name: 'admin-trailing-slash-redirect',
+          configureServer(server) {
+            server.middlewares.use((req, res, next) => {
+              if (req.url === '/admin') {
+                res.statusCode = 302;
+                res.setHeader('Location', '/admin/');
+                res.end();
+                return;
+              }
+              next();
+            });
+          },
+          configurePreviewServer(server) {
+            server.middlewares.use((req, res, next) => {
+              if (req.url === '/admin') {
+                res.statusCode = 302;
+                res.setHeader('Location', '/admin/');
+                res.end();
+                return;
+              }
+              next();
+            });
+          },
+        },
+      ],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
