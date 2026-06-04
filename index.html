@@ -126,6 +126,7 @@
             overflow: hidden;
         }
         #mobile-search-screen {
+            padding-top: env(safe-area-inset-top, 0px);
             transform: translateY(100%);
             opacity: 0;
             pointer-events: none;
@@ -269,7 +270,7 @@
         </div>
     </div>
 
-    <div id="mobile-search-screen" class="fixed inset-0 z-[90] bg-white dark:bg-black lg:hidden">
+    <div id="mobile-search-screen" class="fixed inset-0 z-[120] bg-white dark:bg-black lg:hidden">
         <div class="flex h-full flex-col">
             <div class="border-b border-gray-100 px-4 py-4 dark:border-gray-800">
                 <div class="flex items-center gap-3">
@@ -278,7 +279,10 @@
                     </button>
                     <div class="flex flex-1 items-center gap-3 rounded-full border border-black/10 bg-gray-50 px-4 py-3 dark:border-white/10 dark:bg-white/5">
                         <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <input type="text" id="mobile-search-overlay-input" data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="w-full bg-transparent text-sm outline-none placeholder-gray-400 text-black dark:text-white" onfocus="openSearchPanel()" oninput="handleSearch(this.value)" onkeydown="handleSearchKeydown(event, this.value)">
+                        <input type="text" id="mobile-search-overlay-input" data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="w-full bg-transparent text-sm outline-none placeholder-gray-400 text-black dark:text-white" oninput="handleMobileSearchInput(this.value)" onkeydown="handleSearchKeydown(event, this.value)">
+                        <button type="button" onclick="submitSearch()" class="inline-flex h-8 w-8 items-center justify-center rounded-full border border-transparent text-gray-500 transition-colors hover:text-black dark:hover:text-white" aria-label="Search">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -2194,6 +2198,7 @@
             if (mobileProducts) mobileProducts.innerHTML = productsMarkup;
         }
         function openSearchPanel() {
+            if (window.innerWidth < 1024) return;
             renderSearchPanel(activeFilters.search || document.getElementById('desktop-search')?.value || document.getElementById('mobile-search-overlay-input')?.value || '');
             const panel = document.getElementById('desktop-search-panel');
             if (panel) {
@@ -2210,6 +2215,14 @@
             closeSearchPanel();
             closeMobileSearchView();
             window.openProductQuickView(productId);
+        }
+        function handleMobileSearchInput(value) {
+            const nextValue = String(value || '');
+            const desktopSearch = document.getElementById('desktop-search');
+            const mobileSearch = document.getElementById('mobile-search');
+            if (desktopSearch && desktopSearch.value !== nextValue) desktopSearch.value = nextValue;
+            if (mobileSearch && mobileSearch.value !== nextValue) mobileSearch.value = nextValue;
+            renderSearchPanel(nextValue);
         }
         function scrollToCatalogResults() {
             const anchor = document.getElementById('sneakers');
@@ -2289,7 +2302,7 @@
                 count.textContent = '';
             }
         }
-        function handleSearch(v){ const nextValue = String(v || ''); activeFilters.search=nextValue.toLowerCase(); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); const mobileOverlaySearch = document.getElementById('mobile-search-overlay-input'); if (desktopSearch && desktopSearch.value !== nextValue) desktopSearch.value = nextValue; if (mobileSearch && mobileSearch.value !== nextValue) mobileSearch.value = nextValue; if (mobileOverlaySearch && mobileOverlaySearch.value !== nextValue) mobileOverlaySearch.value = nextValue; renderSearchPanel(nextValue); if (nextValue.trim()) openSearchPanel(); applyFilters(); if (nextValue.trim()) scrollToCatalogResults(); }
+        function handleSearch(v){ const nextValue = String(v || ''); activeFilters.search=nextValue.toLowerCase(); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); const mobileOverlaySearch = document.getElementById('mobile-search-overlay-input'); if (desktopSearch && desktopSearch.value !== nextValue) desktopSearch.value = nextValue; if (mobileSearch && mobileSearch.value !== nextValue) mobileSearch.value = nextValue; if (mobileOverlaySearch && mobileOverlaySearch.value !== nextValue) mobileOverlaySearch.value = nextValue; renderSearchPanel(nextValue); if (nextValue.trim() && window.innerWidth >= 1024) openSearchPanel(); applyFilters(); }
         function clearSearch(){ handleSearch(''); closeSearchPanel(); closeMobileSearchView(); }
         function resetFilters(){ activeFilters={brands:[],price:'all',size:null,sort:'newest',search:''}; document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); const mobileOverlaySearch = document.getElementById('mobile-search-overlay-input'); if (desktopSearch) desktopSearch.value=''; if (mobileSearch) mobileSearch.value=''; if (mobileOverlaySearch) mobileOverlaySearch.value=''; renderSearchPanel(''); applyFilters(); document.body.classList.remove('search-active'); closeSearchPanel(); closeMobileSearchView(); }
         function resetView(){ resetFilters(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
