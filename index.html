@@ -93,6 +93,7 @@
         .filter-group { background: rgba(255,255,255,0.74); border: 1px solid rgba(15, 23, 42, 0.07); border-radius: 1.5rem; padding: 1.25rem 1.2rem; box-shadow: 0 24px 45px rgba(15, 23, 42, 0.04); backdrop-filter: blur(14px); }
         html.dark .filter-group { background: rgba(17,17,17,0.92); border-color: rgba(255,255,255,0.06); box-shadow: 0 20px 45px rgba(0,0,0,0.28); }
         .hero-panel { box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28); }
+        body.search-active #catalog-view > section:first-of-type { opacity: 0.55; }
         #catalog-view > section:first-of-type { background: radial-gradient(circle at center top, rgba(198, 168, 124, 0.18), transparent 38%), #111; }
         #catalog-view > section:first-of-type > div:nth-child(3) { background: linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.52) 45%, rgba(0, 0, 0, 0.82) 100%); }
         #catalog-view > section:first-of-type > div:nth-child(5) { max-width: 72rem; padding-top: 1rem; padding-bottom: 1rem; }
@@ -300,6 +301,17 @@
                         <div>
                             <h2 class="font-serif text-3xl italic text-black dark:text-white md:text-4xl">Sneakers</h2>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 md:text-base">Pares premium para elevar tu flow.</p>
+                        </div>
+                    </div>
+                    <div id="search-results-header" class="hidden mb-6 rounded-[1.5rem] border border-gray-200 bg-white/90 px-5 py-4 shadow-sm dark:border-gray-800 dark:bg-[#111]/90">
+                        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <p id="search-results-title" class="text-sm font-semibold text-black dark:text-white"></p>
+                                <p id="search-results-count" class="mt-1 text-xs uppercase tracking-[0.22em] text-gray-400"></p>
+                            </div>
+                            <button onclick="clearSearch()" class="inline-flex items-center justify-center rounded-full border border-black/10 dark:border-white/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-black transition-colors hover:text-dubae-gold dark:text-white">
+                                <span id="search-results-clear-label">Clear search</span>
+                            </button>
                         </div>
                     </div>
                      <div class="lg:hidden flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-800 sticky top-20 bg-white/95 dark:bg-black/95 backdrop-blur z-30 pt-4">
@@ -1183,6 +1195,11 @@
             reviews_home_email_placeholder: { en: "Your email", es: "Tu correo" },
             reviews_home_comment_placeholder: { en: "Tell us how it fit, what you bought, and how the quality felt...", es: "Cuéntanos cómo te quedó, qué compraste y qué tal la calidad…" },
             reviews_home_submit: { en: "Drop Review", es: "SOLTAR REVIEW" },
+            search_results_for: { en: "Results for:", es: "Resultados para:" },
+            search_results_count_one: { en: "product found", es: "producto encontrado" },
+            search_results_count_many: { en: "products found", es: "productos encontrados" },
+            search_results_empty: { en: "No products found for:", es: "No encontramos productos para:" },
+            search_clear: { en: "Clear search", es: "Limpiar búsqueda" },
             reviews_general_label: { en: "Dubae Clothing", es: "Dubae Clothing" },
             reviews_pick_product: { en: "Choose a product first", es: "Elige un producto primero" },
             reviews_signin_cta: { en: "Sign in with Google to publish your review.", es: "Inicia sesión con Google para publicar tu reseña." },
@@ -1992,7 +2009,39 @@
         function applyPriceFilter(v){ activeFilters.price=v; applyFilters(); }
         function applySizeFilter(s){ const normalized = String(s); const key = normalized.replace(/[^a-zA-Z0-9_-]/g, '-'); const bs=document.querySelectorAll(`.size-filter-btn`); bs.forEach(b=>b.classList.remove('bg-black','text-white','dark:bg-white','dark:text-black')); if(activeFilters.size===normalized) activeFilters.size=null; else { activeFilters.size=normalized; document.querySelectorAll(`.size-filter-btn-${key}`).forEach(b=>b.classList.add('bg-black','text-white','dark:bg-white','dark:text-black')); } applyFilters(); }
         function applySort(v){ activeFilters.sort=v; applyFilters(); }
-        function handleSearch(v){ activeFilters.search=v.toLowerCase(); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); if (desktopSearch && desktopSearch.value !== v) desktopSearch.value = v; if (mobileSearch && mobileSearch.value !== v) mobileSearch.value = v; applyFilters(); }
+        function scrollToCatalogResults() {
+            const anchor = document.getElementById('sneakers');
+            if (!anchor) return;
+            anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        function updateSearchResultsHeader(query, resultsCount) {
+            const header = document.getElementById('search-results-header');
+            const title = document.getElementById('search-results-title');
+            const count = document.getElementById('search-results-count');
+            const clearLabel = document.getElementById('search-results-clear-label');
+            if (!header || !title || !count || !clearLabel) return;
+
+            const normalizedQuery = String(query || '').trim();
+            clearLabel.textContent = window.i18n.search_clear[currentLang];
+
+            if (!normalizedQuery) {
+                header.classList.add('hidden');
+                document.body.classList.remove('search-active');
+                return;
+            }
+
+            document.body.classList.add('search-active');
+            header.classList.remove('hidden');
+            if (resultsCount > 0) {
+                title.textContent = `${window.i18n.search_results_for[currentLang]} ${normalizedQuery}`;
+                count.textContent = `${resultsCount} ${resultsCount === 1 ? window.i18n.search_results_count_one[currentLang] : window.i18n.search_results_count_many[currentLang]}`;
+            } else {
+                title.textContent = `${window.i18n.search_results_empty[currentLang]} ${normalizedQuery}`;
+                count.textContent = '';
+            }
+        }
+        function handleSearch(v){ const nextValue = String(v || ''); activeFilters.search=nextValue.toLowerCase(); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); if (desktopSearch && desktopSearch.value !== nextValue) desktopSearch.value = nextValue; if (mobileSearch && mobileSearch.value !== nextValue) mobileSearch.value = nextValue; applyFilters(); if (nextValue.trim()) scrollToCatalogResults(); }
+        function clearSearch(){ handleSearch(''); }
         function resetFilters(){ activeFilters={brands:[],price:'all',size:null,sort:'newest',search:''}; document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); if (desktopSearch) desktopSearch.value=''; if (mobileSearch) mobileSearch.value=''; applyFilters(); }
         function toggleMobileFilters(){ const s=document.getElementById('mobile-filter-sidebar'); const o=document.getElementById('mobile-filter-overlay'); if(s.classList.contains('translate-x-0')){ s.classList.remove('translate-x-0'); s.classList.add('-translate-x-full'); o.classList.add('opacity-0','pointer-events-none'); }else{ s.classList.remove('-translate-x-full'); s.classList.add('translate-x-0'); o.classList.remove('opacity-0','pointer-events-none'); } }
 
@@ -2003,7 +2052,9 @@
             console.log("VISIBLE STOREFRONT PRODUCTS:", PRODUCTS);
             console.log("Final PRODUCTS used for render:", PRODUCTS);
             console.log("Rendered products:", PRODUCTS);
-            let res = PRODUCTS.filter(p => {
+            const isSearchActive = Boolean(activeFilters.search.trim());
+            const sourceProducts = isSearchActive ? ALL_STOREFRONT_PRODUCTS : PRODUCTS;
+            let res = sourceProducts.filter(p => {
                 if(activeFilters.brands.length && !activeFilters.brands.includes(p.brand)) return false;
                 if(activeFilters.price==='under-150' && (p.price>=150 || p.price===0)) return false;
                 if(activeFilters.price==='150-plus' && p.price<150) return false;
@@ -2016,6 +2067,17 @@
             else res.sort((a,b)=>(b.isNew?1:0)-(a.isNew?1:0)||b.id-a.id);
             
             const g=document.getElementById('product-grid'); const nr=document.getElementById('no-results');
+            const noResultsText = nr?.querySelector('[data-i18n="no_results"]');
+            const tshirtsSection = document.getElementById('tshirts');
+            const pantsSection = document.getElementById('pants');
+            updateSearchResultsHeader(activeFilters.search, res.length);
+            if (tshirtsSection) tshirtsSection.classList.toggle('hidden', isSearchActive);
+            if (pantsSection) pantsSection.classList.toggle('hidden', isSearchActive);
+            if (noResultsText) {
+                noResultsText.textContent = isSearchActive
+                    ? `${window.i18n.search_results_empty[currentLang]} ${activeFilters.search}`
+                    : window.i18n.no_results[currentLang];
+            }
             if(res.length===0){ g.innerHTML=''; nr.classList.remove('hidden'); }
             else { nr.classList.add('hidden'); g.innerHTML=res.map(p=> {
                  // Fallback rating for grid view if we don't want to fetch all reviews at once
