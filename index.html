@@ -93,7 +93,59 @@
         .filter-group { background: rgba(255,255,255,0.74); border: 1px solid rgba(15, 23, 42, 0.07); border-radius: 1.5rem; padding: 1.25rem 1.2rem; box-shadow: 0 24px 45px rgba(15, 23, 42, 0.04); backdrop-filter: blur(14px); }
         html.dark .filter-group { background: rgba(17,17,17,0.92); border-color: rgba(255,255,255,0.06); box-shadow: 0 20px 45px rgba(0,0,0,0.28); }
         .hero-panel { box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28); }
-        body.search-active #catalog-view > section:first-of-type { opacity: 0.55; }
+        body.search-active #hero-section,
+        body.search-active #about-location,
+        body.search-active #trust-bar { display: none; }
+        body.search-active #catalog-view { padding-top: 0; }
+        body.search-active #sneakers { padding-top: 2rem; }
+        body.search-active #search-results-header { display: block; }
+        body.search-active #desktop-filters { display: none; }
+        body.search-active #mobile-results-toolbar { display: none; }
+        body.search-active #product-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        body.search-active #search-results-shell {
+            display: block;
+        }
+        @media (min-width: 768px) {
+            body.search-active #product-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1280px) {
+            body.search-active #product-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        body.mobile-search-open {
+            overflow: hidden;
+        }
+        #mobile-search-screen {
+            transform: translateY(100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.28s ease, opacity 0.28s ease;
+        }
+        body.mobile-search-open #mobile-search-screen {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .search-surface {
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+        }
+        .search-suggestion-chip {
+            transition: border-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+        }
+        .search-suggestion-chip:hover {
+            transform: translateY(-1px);
+        }
+        .search-product-item {
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .search-product-item:hover {
+            transform: translateY(-1px);
+        }
         #catalog-view > section:first-of-type { background: radial-gradient(circle at center top, rgba(198, 168, 124, 0.18), transparent 38%), #111; }
         #catalog-view > section:first-of-type > div:nth-child(3) { background: linear-gradient(180deg, rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.52) 45%, rgba(0, 0, 0, 0.82) 100%); }
         #catalog-view > section:first-of-type > div:nth-child(5) { max-width: 72rem; padding-top: 1rem; padding-bottom: 1rem; }
@@ -146,9 +198,26 @@
                 <!-- Left -->
                 <div class="flex items-center gap-2 sm:gap-4 w-1/3">
                     <button onclick="toggleMobileFilters()" class="lg:hidden p-1.5 sm:p-2 -ml-1 sm:-ml-2 text-black dark:text-white"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
-                    <div class="hidden lg:flex items-center gap-3 rounded-full border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 px-4 py-3 transition-all hover:border-gray-300 dark:hover:border-gray-600 w-72">
+                    <div id="desktop-search-shell" class="relative hidden lg:block w-72">
+                    <div class="flex items-center gap-3 rounded-full border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 px-4 py-3 transition-all hover:border-gray-300 dark:hover:border-gray-600 w-72">
                         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        <input type="text" id="desktop-search" data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="bg-transparent text-sm outline-none w-full placeholder-gray-400 text-black dark:text-white" oninput="handleSearch(this.value)">
+                        <input type="text" id="desktop-search" data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="bg-transparent text-sm outline-none w-full placeholder-gray-400 text-black dark:text-white" onfocus="openSearchPanel()" oninput="handleSearch(this.value)" onkeydown="handleSearchKeydown(event, this.value)">
+                        <button type="button" onclick="submitSearch()" class="inline-flex items-center justify-center rounded-full border border-transparent p-1 text-gray-500 transition-colors hover:text-black dark:hover:text-white" aria-label="Search">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                    </div>
+                    <div id="desktop-search-panel" class="search-surface pointer-events-none absolute left-0 top-[calc(100%+0.8rem)] hidden w-[46rem] max-w-[calc(100vw-3rem)] rounded-[1.75rem] border border-black/8 bg-white p-5 opacity-0 dark:border-white/10 dark:bg-[#0b0b0b]">
+                        <div class="grid grid-cols-[0.95fr_1.35fr] gap-6">
+                            <div>
+                                <p id="desktop-search-suggestions-title" class="mb-4 text-[11px] font-bold uppercase tracking-[0.28em] text-gray-400">Suggested Searches</p>
+                                <div id="desktop-search-suggestions" class="flex flex-col gap-2"></div>
+                            </div>
+                            <div>
+                                <p id="desktop-search-products-title" class="mb-4 text-[11px] font-bold uppercase tracking-[0.28em] text-gray-400">Suggested Products</p>
+                                <div id="desktop-search-products" class="space-y-2"></div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
 
@@ -180,9 +249,40 @@
 
     <div class="lg:hidden sticky top-20 z-40 border-b border-gray-100 bg-white/95 px-4 py-3 backdrop-blur dark:border-gray-800 dark:bg-black/95">
         <div class="mx-auto max-w-[1600px]">
-            <div class="flex items-center gap-3 rounded-full border border-black/10 bg-white/80 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-white/5">
+            <div class="flex items-center gap-3 rounded-full border border-black/10 bg-white/80 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-white/5" onclick="openMobileSearchView()">
                 <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" id="mobile-search" data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="w-full bg-transparent text-sm outline-none placeholder-gray-400 text-black dark:text-white" oninput="handleSearch(this.value)">
+                <input type="text" id="mobile-search" readonly data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="w-full bg-transparent text-sm outline-none placeholder-gray-400 text-black dark:text-white cursor-text" onclick="openMobileSearchView()">
+                <button type="button" onclick="openMobileSearchView()" class="inline-flex items-center justify-center rounded-full border border-transparent p-1 text-gray-500 transition-colors hover:text-black dark:hover:text-white" aria-label="Search">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-search-screen" class="fixed inset-0 z-[90] bg-white dark:bg-black lg:hidden">
+        <div class="flex h-full flex-col">
+            <div class="border-b border-gray-100 px-4 py-4 dark:border-gray-800">
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="closeMobileSearchView()" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-black dark:border-white/10 dark:text-white" aria-label="Back">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <div class="flex flex-1 items-center gap-3 rounded-full border border-black/10 bg-gray-50 px-4 py-3 dark:border-white/10 dark:bg-white/5">
+                        <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <input type="text" id="mobile-search-overlay-input" data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="w-full bg-transparent text-sm outline-none placeholder-gray-400 text-black dark:text-white" onfocus="openSearchPanel()" oninput="handleSearch(this.value)" onkeydown="handleSearchKeydown(event, this.value)">
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-y-auto px-4 py-6">
+                <div class="search-surface rounded-[1.75rem] border border-black/8 bg-white p-5 dark:border-white/10 dark:bg-[#0b0b0b]">
+                    <div>
+                        <p id="mobile-search-suggestions-title" class="mb-4 text-[11px] font-bold uppercase tracking-[0.28em] text-gray-400">Suggested Searches</p>
+                        <div id="mobile-search-suggestions" class="flex flex-wrap gap-3"></div>
+                    </div>
+                    <div class="mt-7">
+                        <p id="mobile-search-products-title" class="mb-4 text-[11px] font-bold uppercase tracking-[0.28em] text-gray-400">Suggested Products</p>
+                        <div id="mobile-search-products" class="space-y-2"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -193,7 +293,7 @@
         <!-- Catalog View -->
         <div id="catalog-view" class="animate-fade-in">
             <!-- Hero -->
-            <section class="relative w-full min-h-[68vh] h-auto bg-[#111] overflow-hidden flex items-center justify-center py-24 md:py-28">
+            <section id="hero-section" class="relative w-full min-h-[68vh] h-auto bg-[#111] overflow-hidden flex items-center justify-center py-24 md:py-28">
                 <div class="absolute inset-0 z-0 opacity-80 bg-[url('https://i.postimg.cc/s2XH3TvG/dubae-clothing-portada.jpg')] bg-cover bg-center bg-fixed transition-transform duration-[20s] hover:scale-105"></div>
                 <video
                     class="absolute inset-0 z-[1] h-full w-full object-cover"
@@ -257,7 +357,7 @@
             </section>
 
             <!-- Trust Bar -->
-            <section class="bg-white/80 dark:bg-[#0f0f0f] border-b border-gray-100 dark:border-gray-800 py-6 backdrop-blur-sm">
+            <section id="trust-bar" class="bg-white/80 dark:bg-[#0f0f0f] border-b border-gray-100 dark:border-gray-800 py-6 backdrop-blur-sm">
                 <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center md:justify-between items-center gap-6 text-center md:text-left">
                      <div class="flex items-center gap-3">
                         <div class="flex text-dubae-gold">
@@ -275,7 +375,7 @@
             <!-- Product Area -->
             <div id="sneakers" class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 flex gap-8 xl:gap-12">
                 <!-- Sidebar -->
-                <aside class="hidden lg:block w-72 flex-shrink-0 sticky top-28 h-fit space-y-5">
+                <aside id="desktop-filters" class="hidden lg:block w-72 flex-shrink-0 sticky top-28 h-fit space-y-5">
                      <div class="filter-group">
                         <h3 class="font-serif italic text-lg mb-4 border-b border-gray-200 dark:border-gray-800 pb-2 text-black dark:text-white" data-i18n="filter_sort">Sort Collection</h3>
                         <select onchange="applySort(this.value)" id="sort-select" class="w-full rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-black px-4 py-3 text-sm cursor-pointer font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">
@@ -295,7 +395,7 @@
                 </aside>
 
                 <!-- Grid -->
-                <div class="flex-1 min-h-screen">
+                <div id="search-results-shell" class="flex-1 min-h-screen">
                     <div class="mb-8 flex flex-col gap-3 md:mb-10">
                         <span class="text-[11px] font-bold uppercase tracking-[0.32em] text-gray-400">Sneakers</span>
                         <div>
@@ -314,13 +414,13 @@
                             </button>
                         </div>
                     </div>
-                     <div class="lg:hidden flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-800 sticky top-20 bg-white/95 dark:bg-black/95 backdrop-blur z-30 pt-4">
+                     <div id="mobile-results-toolbar" class="lg:hidden flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-800 sticky top-20 bg-white/95 dark:bg-black/95 backdrop-blur z-30 pt-4">
                         <button onclick="toggleMobileFilters()" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-black dark:text-white">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
                             <span data-i18n="filter_btn">Filters</span>
                         </button>
                     </div>
-                    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
+                    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 xl:gap-x-8 md:gap-y-14"></div>
                     <div id="no-results" class="hidden py-32 text-center">
                         <p class="text-gray-400 text-xl font-serif italic mb-4" data-i18n="no_results">No pieces found.</p>
                         <button onclick="resetFilters()" class="text-xs font-bold uppercase tracking-widest underline text-black dark:text-white hover:text-dubae-gold" data-i18n="clear_filters">Clear Filters</button>
@@ -1200,6 +1300,8 @@
             search_results_count_many: { en: "products found", es: "productos encontrados" },
             search_results_empty: { en: "No products found for:", es: "No encontramos productos para:" },
             search_clear: { en: "Clear search", es: "Limpiar búsqueda" },
+            search_suggested_searches: { en: "Suggested Searches", es: "BÃºsquedas sugeridas" },
+            search_suggested_products: { en: "Suggested Products", es: "Productos sugeridos" },
             reviews_general_label: { en: "Dubae Clothing", es: "Dubae Clothing" },
             reviews_pick_product: { en: "Choose a product first", es: "Elige un producto primero" },
             reviews_signin_cta: { en: "Sign in with Google to publish your review.", es: "Inicia sesión con Google para publicar tu reseña." },
@@ -1505,6 +1607,7 @@
                 });
                 applyFilters();
                 renderSecondaryProductSections();
+                renderSearchPanel(activeFilters.search);
                 if (typeof renderHomeReviewsSection === 'function') {
                     try {
                         window.renderHomeReviewsSection?.(window.latestApprovedReviews || []);
@@ -1526,6 +1629,7 @@
                 initFiltersUI();
                 applyFilters();
                 renderSecondaryProductSections();
+                renderSearchPanel(activeFilters.search);
             }
         }
 
@@ -1541,6 +1645,18 @@
             void refreshStorefrontProductsFromSupabase();
             void window.initPublicReviews?.();
             updateContent(); // Apply languages
+            renderSearchPanel('');
+            document.addEventListener('click', (event) => {
+                const desktopShell = document.getElementById('desktop-search-shell');
+                const mobileScreen = document.getElementById('mobile-search-screen');
+                if (!desktopShell?.contains(event.target)) closeSearchPanel();
+                if (document.body.classList.contains('mobile-search-open') && !mobileScreen?.contains(event.target)) closeMobileSearchView();
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key !== 'Escape') return;
+                closeSearchPanel();
+                closeMobileSearchView();
+            });
             if (localStorage.getItem('dubae_theme') === 'dark' || (!('dubae_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add('dark');
             }
@@ -1562,6 +1678,7 @@
             }
             // Re-apply filters to refresh grid buttons text
             applyFilters();
+            renderSearchPanel(activeFilters.search);
             window.renderHomeReviewsSection?.(window.latestApprovedReviews || []);
         }
 
@@ -2009,10 +2126,131 @@
         function applyPriceFilter(v){ activeFilters.price=v; applyFilters(); }
         function applySizeFilter(s){ const normalized = String(s); const key = normalized.replace(/[^a-zA-Z0-9_-]/g, '-'); const bs=document.querySelectorAll(`.size-filter-btn`); bs.forEach(b=>b.classList.remove('bg-black','text-white','dark:bg-white','dark:text-black')); if(activeFilters.size===normalized) activeFilters.size=null; else { activeFilters.size=normalized; document.querySelectorAll(`.size-filter-btn-${key}`).forEach(b=>b.classList.add('bg-black','text-white','dark:bg-white','dark:text-black')); } applyFilters(); }
         function applySort(v){ activeFilters.sort=v; applyFilters(); }
+        const SEARCH_SUGGESTIONS = ['adidas', 'adidas samba', 'adidas campus', 'adidas handball spezial', 'nike', 'new balance', 'asics', 'jordan', 'samba'];
+        function getSearchSuggestionMatches(query) {
+            const normalized = String(query || '').trim().toLowerCase();
+            if (!normalized) return SEARCH_SUGGESTIONS;
+            const directMatches = SEARCH_SUGGESTIONS.filter((item) => item.includes(normalized));
+            return directMatches.length ? directMatches : SEARCH_SUGGESTIONS;
+        }
+        function getSuggestedProducts(query) {
+            const normalized = String(query || '').trim().toLowerCase();
+            const source = ALL_STOREFRONT_PRODUCTS.length ? ALL_STOREFRONT_PRODUCTS : PRODUCTS;
+            const matching = normalized
+                ? source.filter((product) => `${product.name} ${product.brand}`.toLowerCase().includes(normalized))
+                : source;
+            return matching.slice(0, 4);
+        }
+        function buildSearchSuggestionButton(term, compact = false) {
+            return `<button type="button" onclick="applySearchSuggestion(${JSON.stringify(term)})" class="search-suggestion-chip rounded-full border border-black/10 px-4 py-2 text-left text-sm text-black hover:border-black dark:border-white/10 dark:text-white dark:hover:border-white ${compact ? '' : 'w-full'}">${term}</button>`;
+        }
+        function buildSuggestedProductItem(product) {
+            return `
+                <button type="button" onclick="openSuggestedProduct(${product.id})" class="search-product-item flex w-full items-center gap-3 rounded-[1.25rem] border border-black/6 bg-gray-50 px-3 py-3 text-left hover:bg-white dark:border-white/10 dark:bg-white/[0.03] dark:hover:bg-white/[0.05]">
+                    <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white dark:bg-[#111]">
+                        <img src="${(product.images && product.images[0]) || product.image || ''}" alt="${product.name}" class="h-full w-full object-contain object-center p-2">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-400">${product.brand}</p>
+                        <p class="mt-1 line-clamp-2 text-sm font-semibold text-black dark:text-white">${product.name}</p>
+                        <p class="mt-1 font-serif italic text-base text-black dark:text-white">${formatUSD(product.price)}</p>
+                    </div>
+                </button>
+            `;
+        }
+        function renderSearchPanel(query) {
+            const suggestionsTitle = window.i18n.search_suggested_searches[currentLang];
+            const productsTitle = window.i18n.search_suggested_products[currentLang];
+            const suggestions = getSearchSuggestionMatches(query);
+            const suggestedProducts = getSuggestedProducts(query);
+            const desktopSuggestions = document.getElementById('desktop-search-suggestions');
+            const desktopProducts = document.getElementById('desktop-search-products');
+            const desktopSuggestionsTitle = document.getElementById('desktop-search-suggestions-title');
+            const desktopProductsTitle = document.getElementById('desktop-search-products-title');
+            const mobileSuggestions = document.getElementById('mobile-search-suggestions');
+            const mobileProducts = document.getElementById('mobile-search-products');
+            const mobileSuggestionsTitle = document.getElementById('mobile-search-suggestions-title');
+            const mobileProductsTitle = document.getElementById('mobile-search-products-title');
+            if (desktopSuggestionsTitle) desktopSuggestionsTitle.textContent = suggestionsTitle;
+            if (desktopProductsTitle) desktopProductsTitle.textContent = productsTitle;
+            if (mobileSuggestionsTitle) mobileSuggestionsTitle.textContent = suggestionsTitle;
+            if (mobileProductsTitle) mobileProductsTitle.textContent = productsTitle;
+            if (desktopSuggestions) desktopSuggestions.innerHTML = suggestions.map((term) => buildSearchSuggestionButton(term)).join('');
+            if (mobileSuggestions) mobileSuggestions.innerHTML = suggestions.map((term) => buildSearchSuggestionButton(term, true)).join('');
+            const productsMarkup = suggestedProducts.length
+                ? suggestedProducts.map((product) => buildSuggestedProductItem(product)).join('')
+                : `<p class="text-sm text-gray-400">${window.i18n.search_results_empty[currentLang]} ${String(query || '').trim() || '...'}</p>`;
+            if (desktopProducts) desktopProducts.innerHTML = productsMarkup;
+            if (mobileProducts) mobileProducts.innerHTML = productsMarkup;
+        }
+        function openSearchPanel() {
+            renderSearchPanel(activeFilters.search || document.getElementById('desktop-search')?.value || document.getElementById('mobile-search-overlay-input')?.value || '');
+            const panel = document.getElementById('desktop-search-panel');
+            if (panel) {
+                panel.classList.remove('hidden', 'pointer-events-none', 'opacity-0');
+            }
+        }
+        function closeSearchPanel() {
+            const panel = document.getElementById('desktop-search-panel');
+            if (panel) {
+                panel.classList.add('hidden', 'pointer-events-none', 'opacity-0');
+            }
+        }
+        function openSuggestedProduct(productId) {
+            closeSearchPanel();
+            closeMobileSearchView();
+            window.openProductQuickView(productId);
+        }
         function scrollToCatalogResults() {
             const anchor = document.getElementById('sneakers');
             if (!anchor) return;
             anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        function openMobileSearchView() {
+            document.body.classList.add('mobile-search-open');
+            openSearchPanel();
+            const overlayInput = document.getElementById('mobile-search-overlay-input');
+            const mobileSearch = document.getElementById('mobile-search');
+            const desktopSearch = document.getElementById('desktop-search');
+            if (overlayInput) {
+                overlayInput.value = mobileSearch?.value || desktopSearch?.value || '';
+                setTimeout(() => overlayInput.focus(), 40);
+            }
+        }
+        function closeMobileSearchView() {
+            document.body.classList.remove('mobile-search-open');
+        }
+        function applySearchSuggestion(query) {
+            const normalized = String(query || '');
+            const overlayInput = document.getElementById('mobile-search-overlay-input');
+            if (overlayInput) overlayInput.value = normalized;
+            handleSearch(normalized);
+            closeSearchPanel();
+            closeMobileSearchView();
+            scrollToCatalogResults();
+        }
+        function submitSearch() {
+            const desktopSearch = document.getElementById('desktop-search');
+            const mobileSearch = document.getElementById('mobile-search');
+            const overlayInput = document.getElementById('mobile-search-overlay-input');
+            const currentValue = overlayInput?.value || desktopSearch?.value || mobileSearch?.value || '';
+            handleSearch(currentValue);
+            closeSearchPanel();
+            closeMobileSearchView();
+            if (String(currentValue).trim()) scrollToCatalogResults();
+        }
+        function handleSearchKeydown(event, value) {
+            if (event.key === 'Escape') {
+                closeSearchPanel();
+                closeMobileSearchView();
+                return;
+            }
+            if (event.key !== 'Enter') return;
+            event.preventDefault();
+            handleSearch(value);
+            closeSearchPanel();
+            closeMobileSearchView();
+            if (String(value).trim()) scrollToCatalogResults();
         }
         function updateSearchResultsHeader(query, resultsCount) {
             const header = document.getElementById('search-results-header');
@@ -2040,9 +2278,10 @@
                 count.textContent = '';
             }
         }
-        function handleSearch(v){ const nextValue = String(v || ''); activeFilters.search=nextValue.toLowerCase(); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); if (desktopSearch && desktopSearch.value !== nextValue) desktopSearch.value = nextValue; if (mobileSearch && mobileSearch.value !== nextValue) mobileSearch.value = nextValue; applyFilters(); if (nextValue.trim()) scrollToCatalogResults(); }
-        function clearSearch(){ handleSearch(''); }
-        function resetFilters(){ activeFilters={brands:[],price:'all',size:null,sort:'newest',search:''}; document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); if (desktopSearch) desktopSearch.value=''; if (mobileSearch) mobileSearch.value=''; applyFilters(); }
+        function handleSearch(v){ const nextValue = String(v || ''); activeFilters.search=nextValue.toLowerCase(); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); const mobileOverlaySearch = document.getElementById('mobile-search-overlay-input'); if (desktopSearch && desktopSearch.value !== nextValue) desktopSearch.value = nextValue; if (mobileSearch && mobileSearch.value !== nextValue) mobileSearch.value = nextValue; if (mobileOverlaySearch && mobileOverlaySearch.value !== nextValue) mobileOverlaySearch.value = nextValue; renderSearchPanel(nextValue); if (nextValue.trim()) openSearchPanel(); applyFilters(); if (nextValue.trim()) scrollToCatalogResults(); }
+        function clearSearch(){ handleSearch(''); closeSearchPanel(); closeMobileSearchView(); }
+        function resetFilters(){ activeFilters={brands:[],price:'all',size:null,sort:'newest',search:''}; document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false); const desktopSearch = document.getElementById('desktop-search'); const mobileSearch = document.getElementById('mobile-search'); const mobileOverlaySearch = document.getElementById('mobile-search-overlay-input'); if (desktopSearch) desktopSearch.value=''; if (mobileSearch) mobileSearch.value=''; if (mobileOverlaySearch) mobileOverlaySearch.value=''; renderSearchPanel(''); applyFilters(); document.body.classList.remove('search-active'); closeSearchPanel(); closeMobileSearchView(); }
+        function resetView(){ resetFilters(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
         function toggleMobileFilters(){ const s=document.getElementById('mobile-filter-sidebar'); const o=document.getElementById('mobile-filter-overlay'); if(s.classList.contains('translate-x-0')){ s.classList.remove('translate-x-0'); s.classList.add('-translate-x-full'); o.classList.add('opacity-0','pointer-events-none'); }else{ s.classList.remove('-translate-x-full'); s.classList.add('translate-x-0'); o.classList.remove('opacity-0','pointer-events-none'); } }
 
         function applyFilters() {
