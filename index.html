@@ -260,10 +260,10 @@
 
     <div class="lg:hidden sticky top-20 z-40 border-b border-gray-100 bg-white/95 px-4 py-3 backdrop-blur dark:border-gray-800 dark:bg-black/95">
         <div class="mx-auto max-w-[1600px]">
-            <div class="flex items-center gap-3 rounded-full border border-black/10 bg-white/80 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-white/5" onclick="openMobileSearchView()">
+            <div id="mobile-search-trigger" class="flex items-center gap-3 rounded-full border border-black/10 bg-white/80 px-4 py-3 shadow-sm dark:border-white/10 dark:bg-white/5" onclick="openMobileSearchView(event)">
                 <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" id="mobile-search" readonly data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="w-full bg-transparent text-sm outline-none placeholder-gray-400 text-black dark:text-white cursor-text" onclick="openMobileSearchView()">
-                <button type="button" onclick="openMobileSearchView()" class="inline-flex items-center justify-center rounded-full border border-transparent p-1 text-gray-500 transition-colors hover:text-black dark:hover:text-white" aria-label="Search">
+                <input type="text" id="mobile-search" readonly data-i18n-placeholder="search_placeholder" placeholder="Search products..." class="w-full bg-transparent text-sm outline-none placeholder-gray-400 text-black dark:text-white cursor-text" onclick="openMobileSearchView(event)">
+                <button type="button" onclick="openMobileSearchView(event)" class="inline-flex items-center justify-center rounded-full border border-transparent p-1 text-gray-500 transition-colors hover:text-black dark:hover:text-white" aria-label="Search">
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </button>
             </div>
@@ -1663,7 +1663,9 @@
             document.addEventListener('click', (event) => {
                 const desktopShell = document.getElementById('desktop-search-shell');
                 const mobileScreen = document.getElementById('mobile-search-screen');
+                const mobileTrigger = document.getElementById('mobile-search-trigger');
                 if (!desktopShell?.contains(event.target)) closeSearchPanel();
+                if (mobileTrigger?.contains(event.target)) return;
                 if (document.body.classList.contains('mobile-search-open') && !mobileScreen?.contains(event.target)) closeMobileSearchView();
             });
             document.addEventListener('keydown', (event) => {
@@ -2229,7 +2231,9 @@
             if (!anchor) return;
             anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-        function openMobileSearchView() {
+        function openMobileSearchView(event) {
+            event?.preventDefault?.();
+            event?.stopPropagation?.();
             document.body.classList.add('mobile-search-open');
             closeSearchPanel();
             const overlayInput = document.getElementById('mobile-search-overlay-input');
