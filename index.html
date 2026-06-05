@@ -122,6 +122,57 @@
                 grid-template-columns: repeat(4, minmax(0, 1fr));
             }
         }
+        @media (max-width: 767px) {
+            body.search-active #product-grid {
+                display: flex;
+                overflow-x: auto;
+                overflow-y: hidden;
+                gap: 0.85rem;
+                padding: 0 0 0.85rem;
+                scroll-snap-type: x mandatory;
+                grid-template-columns: none;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            body.search-active #product-grid::-webkit-scrollbar {
+                display: none;
+            }
+            body.search-active #product-grid .product-card {
+                flex: 0 0 47%;
+                min-width: 47%;
+                scroll-snap-align: start;
+            }
+            body.search-active #product-grid .product-card:hover {
+                transform: none;
+            }
+            body.search-active #product-grid .product-media {
+                margin-bottom: 0.75rem;
+                border-radius: 1.25rem;
+            }
+            body.search-active #product-grid .product-img {
+                padding: 0.85rem;
+            }
+            body.search-active #product-grid .quickview-btn {
+                bottom: 0.65rem;
+                inset-inline: 0.75rem;
+                padding-top: 0.45rem;
+                padding-bottom: 0.45rem;
+                font-size: 8px;
+            }
+            body.search-active #product-grid .product-card h3 {
+                min-height: 2.35rem;
+                font-size: 13px;
+            }
+            body.search-active #product-grid .product-card .product-meta {
+                letter-spacing: 0.18em;
+            }
+        }
+        @media (min-width: 480px) and (max-width: 767px) {
+            body.search-active #product-grid .product-card {
+                flex-basis: 41%;
+                min-width: 41%;
+            }
+        }
         body.mobile-search-open {
             overflow: hidden;
         }
