@@ -123,7 +123,9 @@
             }
         }
         @media (max-width: 767px) {
-            body.search-active #product-grid {
+            #product-grid,
+            #tshirts-grid,
+            #pants-grid {
                 display: grid !important;
                 grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
                 gap: 0.5rem !important;
@@ -131,48 +133,69 @@
                 overflow-y: visible !important;
                 padding: 0 0 0.5rem !important;
             }
-            body.search-active #product-grid .product-card {
+            #product-grid .product-card,
+            #tshirts-grid .product-card,
+            #pants-grid .product-card {
                 width: 100% !important;
                 min-width: 0 !important;
+                max-width: none !important;
                 flex: none !important;
                 scroll-snap-align: unset !important;
             }
-            body.search-active #product-grid .product-card:hover {
+            #product-grid .product-card:hover,
+            #tshirts-grid .product-card:hover,
+            #pants-grid .product-card:hover {
                 transform: none;
             }
-            body.search-active #product-grid .product-media {
+            #product-grid .product-media,
+            #tshirts-grid .product-media,
+            #pants-grid .product-media {
                 margin-bottom: 0.45rem;
                 border-radius: 0.95rem;
             }
-            body.search-active #product-grid .product-img {
+            #product-grid .product-img,
+            #tshirts-grid .product-img,
+            #pants-grid .product-img {
                 padding: 0.45rem;
             }
-            body.search-active #product-grid .quickview-btn {
+            #product-grid .quickview-btn,
+            #tshirts-grid .quickview-btn,
+            #pants-grid .quickview-btn {
                 bottom: 0.4rem;
                 inset-inline: 0.4rem;
                 padding-top: 0.32rem;
                 padding-bottom: 0.32rem;
                 font-size: 8px;
             }
-            body.search-active #product-grid .product-card h3 {
+            #product-grid .product-card h3,
+            #tshirts-grid .product-card h3,
+            #pants-grid .product-card h3 {
                 min-height: 1.95rem;
                 font-size: 11px;
                 line-height: 1.2;
             }
-            body.search-active #product-grid .product-card .product-meta {
+            #product-grid .product-card .product-meta,
+            #tshirts-grid .product-card .product-meta,
+            #pants-grid .product-card .product-meta {
                 letter-spacing: 0.12em;
                 font-size: 9px;
             }
-            body.search-active #product-grid .product-card .font-serif.italic.text-\[1\.35rem\] {
+            #product-grid .product-card .font-serif.italic.text-\[1\.35rem\],
+            #tshirts-grid .product-card .font-serif.italic.text-\[1\.35rem\],
+            #pants-grid .product-card .font-serif.italic.text-\[1\.35rem\] {
                 font-size: 13px;
             }
-            body.search-active #product-grid .product-card .flex.items-center.gap-1.rounded-full {
+            #product-grid .product-card .flex.items-center.gap-1.rounded-full,
+            #tshirts-grid .product-card .flex.items-center.gap-1.rounded-full,
+            #pants-grid .product-card .flex.items-center.gap-1.rounded-full {
                 padding-left: 0.35rem;
                 padding-right: 0.35rem;
             }
         }
         @media (max-width: 360px) {
-            body.search-active #product-grid {
+            #product-grid,
+            #tshirts-grid,
+            #pants-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
             }
         }
