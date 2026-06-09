@@ -4,6 +4,12 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    const rewriteSearchRoute = (req: { url?: string }, _res: unknown, next: () => void) => {
+      if (typeof req.url === 'string' && (req.url === '/search' || req.url.startsWith('/search?') || req.url === '/search/')) {
+        req.url = '/index.html';
+      }
+      next();
+    };
     return {
       server: {
         port: 3000,
@@ -31,6 +37,7 @@ export default defineConfig(({ mode }) => {
               }
               next();
             });
+            server.middlewares.use(rewriteSearchRoute);
           },
           configurePreviewServer(server) {
             server.middlewares.use((req, res, next) => {
@@ -42,6 +49,7 @@ export default defineConfig(({ mode }) => {
               }
               next();
             });
+            server.middlewares.use(rewriteSearchRoute);
           },
         },
       ],
